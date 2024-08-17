@@ -1,31 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField]
-    private SpriteRenderer spriteRenderer;
+    public event EventHandler OnHit;
+    public event EventHandler OnDeath;
+    
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private int health, maxHealth;
+    [SerializeField] private float immunityDuration;
 
-    public int health, maxHealth;
-
-    public float immunityDuration = 0f;
-    public bool immune { get; private set; }
-
-    private float colorChangeDuration = 0.25f;
-
-    public UnityEvent<GameObject> OnHitWithReference, OnDeathWithReference;
-
-    [SerializeField]
-    private bool isDead = false;
+    private bool isDead;
+    private bool immune;
+    private const float ColorChangeDuration = 0.25f;
 
     public void InitializeHealth(int healthValue)
     {
         health = healthValue;
         maxHealth = healthValue;
         isDead = false;
+        immunityDuration = 0.0f;
     }
 
     private void Awake()
@@ -43,11 +42,11 @@ public class Health : MonoBehaviour
 
         if (health > 0)
         {
-            OnHitWithReference?.Invoke(sender);
+            OnHit?.Invoke(this, EventArgs.Empty);
         }
         else
         {
-            OnDeathWithReference?.Invoke(sender);
+            OnDeath?.Invoke(this, EventArgs.Empty);
             isDead = true;
             Destroy(gameObject);
         }
@@ -69,7 +68,7 @@ public class Health : MonoBehaviour
     private IEnumerator ColorChange()
     {
         spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(colorChangeDuration);
+        yield return new WaitForSeconds(ColorChangeDuration);
         spriteRenderer.color = Color.white;
     }
 
@@ -80,4 +79,8 @@ public class Health : MonoBehaviour
 
         health += amount;
     }
+
+    public int GetMaxHealth() => maxHealth;
+    
+    public int GetHealth() => health;
 }
