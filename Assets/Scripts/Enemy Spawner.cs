@@ -16,13 +16,14 @@ public class EnemySpawner : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Random_Spawn()
+    private void FixedUpdate()
     {
+        timeSpawn -= Time.deltaTime;
         if (timeSpawn < 0)
         {
             Instantiate(_Enemy_prefab, transform.position, Quaternion.identity);
+            SetTime();
         }
-        SetTime();
     }
 
     //private void InStep_Spawn()
@@ -33,11 +34,5 @@ public class EnemySpawner : MonoBehaviour
     private void SetTime()
     {
         timeSpawn = Random.Range(Min_timeSpawn, Max_timeSpawn);
-    }
-
-    void FixedUpdate()
-    {
-        timeSpawn -= Time.deltaTime;
-        Random_Spawn();
     }
 }

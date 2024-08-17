@@ -1,13 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    private CharacterAnimations characterAnimations;
+    public static Player Instance { get; private set; }
+
     private Movement movement;
+<<<<<<< Updated upstream
+    private Vector2 movementInput;
+    private Vector2 lookDirection;
+    
+=======
+    public Vector2 coords;
+    public static Player Instance {get; private set;}
 
     private Gun gun;
 
@@ -23,24 +32,34 @@ public class Player : MonoBehaviour
         gun?.Attack();
     }
 
+>>>>>>> Stashed changes
     private void Awake()
     {
-        characterAnimations = GetComponentInChildren<CharacterAnimations>();
-        gun = GetComponentInChildren<Gun>();
+        Instance = this;
+
         movement = GetComponent<Movement>();
+        Instance = this;
     }
 
-    void Update()
+    private void Start()
     {
-        gun.PointerPosition = pointerInput;
-        movement.MovementInput = movementInput;
-        AnimateCharacter();
+        GameInput.Instance.OnPlayerShootPerformed += GameInput_OnPlayerShootPerformed;
+    }
+    
+    private void Update()
+    {
+        movementInput = GameInput.Instance.GetPlayerMovementVector2();
+        movement.SetMovementInput(movementInput);
     }
 
-    private void AnimateCharacter()
+    private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
     {
-        lookDirection = pointerInput - (Vector2)transform.position;
-        characterAnimations.RotateToPointer(lookDirection);
-        // TODO: characterAnimations.PlayAnimation(MovementInput);
+        Gun.Instance?.Attack();
+    }
+
+    public Vector2 GiveC()
+    {
+        coords = transform.position;
+        return coords;
     }
 }
