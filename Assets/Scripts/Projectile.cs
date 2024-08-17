@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [SerializeField] private float projectileSpeed;
+    [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private int projectileDamage;
     [SerializeField] private int piercing;
     [SerializeField] private GameObject hitEffect;
@@ -28,5 +30,13 @@ public class Projectile : MonoBehaviour
         }
 
         piercing -= 1;
+    }
+
+    public static void SpawnProjectile(GameObject notePrefab, Transform transform, Quaternion rotation)
+    {
+        var gameObject = Instantiate(notePrefab, transform.position, rotation);
+        var projectile_rb = gameObject.GetComponent<Rigidbody2D>();
+        var projectile = gameObject.GetComponent<Projectile>();
+        projectile_rb.AddForce(transform.right * projectile.projectileSpeed, ForceMode2D.Impulse);
     }
 }

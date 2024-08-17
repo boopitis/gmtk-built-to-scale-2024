@@ -13,9 +13,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private SpriteRenderer characterRenderer;
     [SerializeField] private SpriteRenderer weaponRenderer;
 
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private float projectileSpeed;
-    [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform firePointTransform;
 
     [SerializeField] private GameObject[] projectilePrefabs;
     [SerializeField] private ScaleSO musicScaleSO;
@@ -79,9 +77,7 @@ public class Gun : MonoBehaviour
         StartCoroutine(DelayAttack());
 
         print(note);
-        GameObject projectile = Instantiate(projectilePrefabs[note], firePoint.position, transform.rotation);
-        Rigidbody2D projectile_rb = projectile.GetComponent<Rigidbody2D>();
-        projectile_rb.AddForce(firePoint.right * projectileSpeed, ForceMode2D.Impulse);
+        Projectile.SpawnProjectile(projectilePrefabs[note], firePointTransform, transform.rotation);
 
         note += musicScaleSO.intervals[interval];
         if (note > 11)

@@ -1525,9 +1525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterRenderer: {fileID: 1492231893}
   weaponRenderer: {fileID: 902744749}
-  projectilePrefab: {fileID: 9023553564810294082, guid: e42583c7e7480cf4ea55b75bdaa53310, type: 3}
-  projectileSpeed: 16
-  firePoint: {fileID: 1616649672}
+  firePointTransform: {fileID: 1616649672}
   projectilePrefabs:
   - {fileID: 9023553564810294082, guid: e42583c7e7480cf4ea55b75bdaa53310, type: 3}
   - {fileID: 9023553564810294082, guid: e46cb58bccc0e274095d7a6287f59dfb, type: 3}
