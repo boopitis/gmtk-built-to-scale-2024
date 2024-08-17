@@ -1,46 +1,38 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    private CharacterAnimations characterAnimations;
+    public static Player Instance { get; private set; }
+
     private Movement movement;
-
-    private Gun gun;
-
-    private Vector2 pointerInput, movementInput;
-
-    public Vector2 PointerInput { get => pointerInput; set => pointerInput = value; }
-    public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
-
-    public Vector2 lookDirection { get; private set; }
-
-    public void Shoot()
-    {
-        gun?.Attack();
-    }
-
+    private Vector2 movementInput;
+    private Vector2 lookDirection;
+    
     private void Awake()
     {
-        characterAnimations = GetComponentInChildren<CharacterAnimations>();
-        gun = GetComponentInChildren<Gun>();
+        Instance = this;
+
         movement = GetComponent<Movement>();
     }
 
-    void Update()
+    private void Start()
     {
-        gun.PointerPosition = pointerInput;
-        movement.MovementInput = movementInput;
-        AnimateCharacter();
+        GameInput.Instance.OnPlayerShootPerformed += GameInput_OnPlayerShootPerformed;
+    }
+    
+    private void Update()
+    {
+        movementInput = GameInput.Instance.GetPlayerMovementVector2();
+        movement.SetMovementInput(movementInput);
     }
 
-    private void AnimateCharacter()
+    private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
     {
-        lookDirection = pointerInput - (Vector2)transform.position;
-        characterAnimations.RotateToPointer(lookDirection);
-        // TODO: characterAnimations.PlayAnimation(MovementInput);
+        Gun.Instance?.Attack();
     }
 }
