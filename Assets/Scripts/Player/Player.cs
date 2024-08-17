@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     private Movement movement;
 
     private Gun gun;
-    private Melee melee;
 
     private Vector2 pointerInput, movementInput;
 
@@ -24,24 +23,16 @@ public class Player : MonoBehaviour
         gun?.Attack();
     }
 
-    public void Melee()
-    {
-        melee?.Attack();
-    }
-
     private void Awake()
     {
         characterAnimations = GetComponentInChildren<CharacterAnimations>();
         gun = GetComponentInChildren<Gun>();
-        melee = GetComponentInChildren<Melee>();
         movement = GetComponent<Movement>();
     }
 
     void Update()
     {
         gun.PointerPosition = pointerInput;
-        melee.PointerPosition = pointerInput;
-
         movement.MovementInput = movementInput;
         AnimateCharacter();
     }

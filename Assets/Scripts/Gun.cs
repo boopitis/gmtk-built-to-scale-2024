@@ -8,11 +8,8 @@ public class Gun : MonoBehaviour
     public SpriteRenderer characterRenderer, weaponRenderer;
     public Vector2 PointerPosition { get; set; }
 
-    public Animator animator;
     public float delay = 0.3f;
     private bool attackBlocked;
-
-    public bool isAttacking { get; private set; }
 
     public GameObject projectilePrefab;
     [SerializeField]
@@ -20,18 +17,8 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private Transform firePoint;
 
-    public AudioSource audioSource;
-
-    public void ResetIsAttacking()
-    {
-        isAttacking = false;
-    }
-
     private void Update()
     {
-        if (isAttacking)
-            return;
-
         Vector2 direction = (PointerPosition - (Vector2)transform.position).normalized;
         transform.right = direction;
 
@@ -60,18 +47,17 @@ public class Gun : MonoBehaviour
 
     public void Attack()
     {
+        print(attackBlocked);
         if (attackBlocked)
             return;
 
-        animator?.SetTrigger("Attack");
-        audioSource.Play();
-        isAttacking = true;
         attackBlocked = true;
         StartCoroutine(DelayAttack());
 
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, transform.rotation);
         Rigidbody2D projectile_rb = projectile.GetComponent<Rigidbody2D>();
         projectile_rb.AddForce(firePoint.right * projectileSpeed, ForceMode2D.Impulse);
+
     }
 
     private IEnumerator DelayAttack()

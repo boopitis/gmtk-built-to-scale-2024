@@ -9,10 +9,10 @@ public class PlayerInputs : MonoBehaviour
     [SerializeField]
     private PlayerInput playerInput;
     public UnityEvent<Vector2> OnMovementInput, OnPointerInput;
-    public UnityEvent OnShoot, OnMelee, OnToggleMenu;
+    public UnityEvent OnShoot;
 
     [SerializeField]
-    private InputActionReference movement, shoot, meleeAttack, pointerPosition, openInventory, closeInventory;
+    private InputActionReference movement, shoot, pointerPosition;
 
     private void Update()
     {
@@ -30,38 +30,15 @@ public class PlayerInputs : MonoBehaviour
     private void OnEnable()
     {
         shoot.action.performed += Shoot;
-        meleeAttack.action.performed += Melee;
-        openInventory.action.performed += OpenInventory;
-        closeInventory.action.performed += CloseInventory;
     }
 
     private void OnDisable()
     {
         shoot.action.performed -= Shoot;
-        meleeAttack.action.performed -= Melee;
-        openInventory.action.performed -= OpenInventory;
-        closeInventory.action.performed -= CloseInventory;
     }
 
     private void Shoot(InputAction.CallbackContext context)
     {
         OnShoot?.Invoke();
-    }
-
-    private void Melee(InputAction.CallbackContext context)
-    {
-        OnMelee?.Invoke();
-    }
-
-    private void OpenInventory(InputAction.CallbackContext context)
-    {
-        playerInput.SwitchCurrentActionMap("Menu");
-        OnToggleMenu?.Invoke();
-    }
-
-    private void CloseInventory(InputAction.CallbackContext context)
-    {
-        playerInput.SwitchCurrentActionMap("InGame");
-        OnToggleMenu?.Invoke();
     }
 }
