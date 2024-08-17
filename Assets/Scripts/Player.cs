@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     
     private CharacterAnimations characterAnimations;
     private Movement movement;
-    private Vector2 pointerInput;
+    private Vector2 playerPositionInput;
     private Vector2 movementInput;
     private Vector2 lookDirection;
     
@@ -33,14 +33,18 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Gun.Instance.SetPointerPosition(pointerInput);
+        playerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2();
+        Gun.Instance.SetPointerPosition(playerPositionInput);
+
+        movementInput = GameInput.Instance.GetPlayerMovementVector2();
         movement.SetMovementInput(movementInput);
+        
         AnimateCharacter();
     }
 
     private void AnimateCharacter()
     {
-        lookDirection = pointerInput - (Vector2)transform.position;
+        lookDirection = playerPositionInput - (Vector2)transform.position;
         characterAnimations.RotateToPointer(lookDirection);
         // TODO: characterAnimations.PlayAnimation(MovementInput);
     }
