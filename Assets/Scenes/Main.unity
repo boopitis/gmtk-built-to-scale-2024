@@ -1541,7 +1541,7 @@ MonoBehaviour:
   - {fileID: 9023553564810294082, guid: e424895fb26dbb84e81f0ebfcf8bcb1e, type: 3}
   - {fileID: 9023553564810294082, guid: d89db320804378446941ded8fcedd991, type: 3}
   - {fileID: 9023553564810294082, guid: b6f97d29ddf2b674bbec111637fdba67, type: 3}
-  musicScale: {fileID: 11400000, guid: 2a188254d8c9c094996741b2026c083f, type: 2}
+  musicScaleSO: {fileID: 11400000, guid: 2a188254d8c9c094996741b2026c083f, type: 2}
 --- !u!4 &1095734074
 Transform:
   m_ObjectHideFlags: 0
@@ -2714,7 +2714,7 @@ GameObject:
   - component: {fileID: 2092837547}
   - component: {fileID: 2092837546}
   m_Layer: 0
-  m_Name: ' Game Input'
+  m_Name: Game Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

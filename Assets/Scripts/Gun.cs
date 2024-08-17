@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Gun : MonoBehaviour
 {
@@ -15,22 +17,30 @@ public class Gun : MonoBehaviour
     [SerializeField] private float projectileSpeed;
     [SerializeField] private Transform firePoint;
 
+    [SerializeField] private GameObject[] projectilePrefabs;
+    [SerializeField] private ScaleSO musicScaleSO;
+
     private Vector2 pointerPositionInput;
 
     private const float Delay = 0.3f;
-    private static readonly Vector2 WindowOffset = new Vector2(Screen.width, Screen.height);
     private bool attackBlocked;
+
+    private int note;
+    private int interval;
 
     private void Awake()
     {
         Instance = this;
+        
+        note = 0;
+        
+        // Check if intervals is an octave
+        var totalInterval = musicScaleSO.intervals.Sum();
+        if (totalInterval != 12)
+        {
+            Debug.LogError("Current ScaleSO does not form an octave!");
+        }
     }
-
-    [SerializeField]
-    private GameObject[] projectilePrefabs;
-    private int note = 0;
-    public Scale musicScale;
-    private int interval;
 
     private void Update()
     {
@@ -63,8 +73,7 @@ public class Gun : MonoBehaviour
 
     public void Attack()
     {
-        if (attackBlocked)
-            return;
+        if (attackBlocked) return;
 
         attackBlocked = true;
         StartCoroutine(DelayAttack());
@@ -74,12 +83,12 @@ public class Gun : MonoBehaviour
         Rigidbody2D projectile_rb = projectile.GetComponent<Rigidbody2D>();
         projectile_rb.AddForce(firePoint.right * projectileSpeed, ForceMode2D.Impulse);
 
-        note += musicScale.intervals[interval];
+        note += musicScaleSO.intervals[interval];
         if (note > 11)
             note -= 12;
 
         interval++;
-        if (interval > musicScale.intervals.Length - 1)
+        if (interval > musicScaleSO.intervals.Length - 1)
             interval = 0;
     }
 
