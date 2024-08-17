@@ -9,32 +9,30 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
 
-    [SerializeField] private Movement movement;
-    
-    private Vector2 playerPositionInput;
+    private Movement movement;
     private Vector2 movementInput;
     private Vector2 lookDirection;
     
     private void Awake()
     {
         Instance = this;
+
+        movement = GetComponent<Movement>();
     }
 
     private void Start()
     {
         GameInput.Instance.OnPlayerShootPerformed += GameInput_OnPlayerShootPerformed;
     }
+    
+    private void Update()
+    {
+        movementInput = GameInput.Instance.GetPlayerMovementVector2();
+        movement.SetMovementInput(movementInput);
+    }
 
     private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
     {
         Gun.Instance?.Attack();
-    }
-    
-    private void Update()
-    {
-        playerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2();
-
-        movementInput = GameInput.Instance.GetPlayerMovementVector2();
-        movement.SetMovementInput(movementInput);
     }
 }

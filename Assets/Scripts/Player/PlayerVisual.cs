@@ -20,7 +20,7 @@ public class PlayerVisual : MonoBehaviour
 
     private void Update()
     {
-        playerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2();
+        playerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2InWorldSpace();
         
         lookDirection = playerPositionInput - (Vector2)transform.position;
         characterAnimations.RotateToPointer(lookDirection);

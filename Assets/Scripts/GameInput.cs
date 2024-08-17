@@ -9,7 +9,8 @@ public class GameInput : MonoBehaviour
     public static GameInput Instance { get; private set; }
     
     private InputActions inputActions;
-    
+    private Vector2 playerPointerPositionVector2InWorldSpace;
+
     public event EventHandler OnPlayerShootPerformed;
     public event EventHandler OnUINavigatePerformed;
     public event EventHandler OnUISubmitPerformed;
@@ -40,6 +41,12 @@ public class GameInput : MonoBehaviour
         inputActions.UI.RightClick.performed += UIRightClick_performed;
         // Get UI TrackedDevicePosition from GetUITrackedDevicePositionVector3()
         // Get UI TrackedDeviceOrientation from GetUITrackedDeviceOrientationQuaternion()
+    }
+
+    private void Update()
+    {
+        playerPointerPositionVector2InWorldSpace = Camera.main.ScreenToWorldPoint(
+            inputActions.Player.PointerPosition.ReadValue<Vector2>());
     }
 
     public Quaternion GetUITrackedDeviceOrientationQuaternion()
@@ -97,7 +104,12 @@ public class GameInput : MonoBehaviour
         return inputActions.Player.Movement.ReadValue<Vector2>();
     }
 
-    public Vector2 GetPlayerPointerPositionVector2()
+    public Vector2 GetPlayerPointerPositionVector2InWorldSpace()
+    {
+        return playerPointerPositionVector2InWorldSpace;
+    }
+
+    public Vector2 GetPlayerPointerPositionVector2InPixelResolution()
     {
         return inputActions.Player.PointerPosition.ReadValue<Vector2>();
     }

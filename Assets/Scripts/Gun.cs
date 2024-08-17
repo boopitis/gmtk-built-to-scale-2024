@@ -6,13 +6,13 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public static Gun Instance { get; private set; }
+    
+    [SerializeField] private SpriteRenderer characterRenderer;
+    [SerializeField] private SpriteRenderer weaponRenderer;
 
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float projectileSpeed;
     [SerializeField] private Transform firePoint;
-    
-    [SerializeField] private SpriteRenderer characterRenderer;
-    [SerializeField] private SpriteRenderer weaponRenderer;
 
     private Vector2 pointerPositionInput;
 
@@ -27,7 +27,7 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        pointerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2();
+        pointerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2InWorldSpace();
         Vector2 direction = (pointerPositionInput - (Vector2)transform.position).normalized;
         transform.right = direction;
 
