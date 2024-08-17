@@ -8,9 +8,9 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
+
+    [SerializeField] private Movement movement;
     
-    private CharacterAnimations characterAnimations;
-    private Movement movement;
     private Vector2 playerPositionInput;
     private Vector2 movementInput;
     private Vector2 lookDirection;
@@ -22,35 +22,19 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        characterAnimations = GetComponentInChildren<CharacterAnimations>();
-        movement = GetComponent<Movement>();
+        GameInput.Instance.OnPlayerShootPerformed += GameInput_OnPlayerShootPerformed;
     }
 
-    public void Shoot()
+    private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
     {
         Gun.Instance?.Attack();
     }
-
+    
     private void Update()
     {
         playerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2();
-        Gun.Instance.SetPointerPosition(playerPositionInput);
 
         movementInput = GameInput.Instance.GetPlayerMovementVector2();
         movement.SetMovementInput(movementInput);
-        
-        AnimateCharacter();
-    }
-
-    private void AnimateCharacter()
-    {
-        lookDirection = playerPositionInput - (Vector2)transform.position;
-        characterAnimations.RotateToPointer(lookDirection);
-        // TODO: characterAnimations.PlayAnimation(MovementInput);
-    }
-
-    public Vector2 GetLookDirection()
-    {
-        return lookDirection;
     }
 }

@@ -7,7 +7,7 @@ public class CharacterAnimations : MonoBehaviour
 {
     private Animator animator;
 
-    public Transform parentTransform;
+    [SerializeField] private Transform parentTransform;
 
     private void Awake()
     {

@@ -7,7 +7,9 @@ using UnityEngine.InputSystem;
 public class GameInput : MonoBehaviour
 {
     public static GameInput Instance { get; private set; }
-
+    
+    private InputActions inputActions;
+    
     public event EventHandler OnPlayerShootPerformed;
     public event EventHandler OnUINavigatePerformed;
     public event EventHandler OnUISubmitPerformed;
@@ -15,9 +17,6 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnUIClickPerformed;
     public event EventHandler OnUIMiddleClickPerformed;
     public event EventHandler OnUIRightClickPerformed;
-    
-    private InputActions inputActions;
-    private Vector2 movementVector, pointerPositionVector;
     
     private void Awake()
     {

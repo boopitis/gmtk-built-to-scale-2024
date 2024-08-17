@@ -6,19 +6,19 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public static Gun Instance { get; private set; }
+
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private float projectileSpeed;
+    [SerializeField] private Transform firePoint;
     
-    private SpriteRenderer characterRenderer;
-    private SpriteRenderer weaponRenderer;
-    private Vector2 PointerPosition { get; set; }
+    [SerializeField] private SpriteRenderer characterRenderer;
+    [SerializeField] private SpriteRenderer weaponRenderer;
+
+    private Vector2 pointerPositionInput;
 
     private const float Delay = 0.3f;
+    private static readonly Vector2 WindowOffset = new Vector2(Screen.width, Screen.height);
     private bool attackBlocked;
-
-    private GameObject projectilePrefab;
-    [SerializeField]
-    private float projectileSpeed;
-    [SerializeField]
-    private Transform firePoint;
 
     private void Awake()
     {
@@ -27,16 +27,17 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        Vector2 direction = (PointerPosition - (Vector2)transform.position).normalized;
+        pointerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2();
+        Vector2 direction = (pointerPositionInput - (Vector2)transform.position).normalized;
         transform.right = direction;
 
         Vector2 scale = transform.localScale;
-        if (Player.Instance.GetLookDirection().x < 0)
+        if (PlayerVisual.Instance.GetLookDirection().x < 0)
         {
             scale.y = -1;
             scale.x = -1;
         }
-        else if (Player.Instance.GetLookDirection().x > 0)
+        else if (PlayerVisual.Instance.GetLookDirection().x > 0)
         {
             scale.y = 1;
             scale.x = 1;
@@ -72,10 +73,5 @@ public class Gun : MonoBehaviour
     {
         yield return new WaitForSeconds(Delay);
         attackBlocked = false;
-    }
-
-    public void SetPointerPosition(Vector2 vector2)
-    {
-        PointerPosition = vector2;
     }
 }

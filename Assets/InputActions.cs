@@ -113,8 +113,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""25036413-3851-4d16-aa58-8ec0d314310a"",
-                    ""path"": ""<Mouse>/position"",
+                    ""id"": ""e7fb088a-76a7-4625-a18b-0206070682af"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
