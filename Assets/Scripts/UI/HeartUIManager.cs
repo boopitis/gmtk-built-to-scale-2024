@@ -7,12 +7,12 @@ public class HeartUIManager : MonoBehaviour
 {
     public GameObject heartPrefab;
     public List<Image> hearts;
-
-    public Health playerHealth;
+    
+    [SerializeField] private Health playerHealth;
 
     private void Awake()
     {
-        for(int i = 0; i < Mathf.Ceil(playerHealth.maxHealth / 2); i++)
+        for(int i = 0; i < Mathf.Ceil(playerHealth.GetMaxHealth() / 2f); i++)
         {
             GameObject heart = Instantiate(heartPrefab, this.transform);
             hearts.Add(heart.GetComponent<Image>());
@@ -21,7 +21,7 @@ public class HeartUIManager : MonoBehaviour
 
     public void UpdateHealth()
     {
-        float heartFill = playerHealth.health / 2f;
+        float heartFill = playerHealth.GetHealth() / 2f;
 
         foreach(Image image in hearts)
         {
@@ -37,7 +37,7 @@ public class HeartUIManager : MonoBehaviour
             Destroy(image.gameObject);
         }
         hearts.Clear();
-        for(int i = 0; i < Mathf.Ceil(playerHealth.maxHealth / 2); i++)
+        for(int i = 0; i < Mathf.Ceil(playerHealth.GetMaxHealth() / 2f); i++)
         {
             GameObject heart = Instantiate(heartPrefab, this.transform);
             hearts.Add(heart.GetComponent<Image>());
