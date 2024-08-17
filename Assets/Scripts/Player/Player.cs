@@ -11,44 +11,42 @@ public class Player : MonoBehaviour
     
     private CharacterAnimations characterAnimations;
     private Movement movement;
-
-    private Gun gun;
-
-    private Vector2 PointerInput { get; set; }
-
-    private Vector2 MovementInput { get; set; }
-
-    private Vector2 LookDirection { get; set; }
+    private Vector2 pointerInput;
+    private Vector2 movementInput;
+    private Vector2 lookDirection;
     
     private void Awake()
     {
         Instance = this;
+    }
 
+    private void Start()
+    {
         characterAnimations = GetComponentInChildren<CharacterAnimations>();
-        gun = GetComponentInChildren<Gun>();
         movement = GetComponent<Movement>();
     }
+
     public void Shoot()
     {
-        gun?.Attack();
+        Gun.Instance?.Attack();
     }
 
     private void Update()
     {
-        Gun.Instance.SetPointerPosition(PointerInput);
-        movement.MovementInput = MovementInput;
+        Gun.Instance.SetPointerPosition(pointerInput);
+        movement.SetMovementInput(movementInput);
         AnimateCharacter();
     }
 
     private void AnimateCharacter()
     {
-        LookDirection = PointerInput - (Vector2)transform.position;
-        characterAnimations.RotateToPointer(LookDirection);
+        lookDirection = pointerInput - (Vector2)transform.position;
+        characterAnimations.RotateToPointer(lookDirection);
         // TODO: characterAnimations.PlayAnimation(MovementInput);
     }
 
     public Vector2 GetLookDirection()
     {
-        return LookDirection;
+        return lookDirection;
     }
 }
