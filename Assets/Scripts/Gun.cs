@@ -5,37 +5,46 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public SpriteRenderer characterRenderer, weaponRenderer;
-    public Vector2 PointerPosition { get; set; }
+    public static Gun Instance { get; private set; }
+    
+    [SerializeField] private SpriteRenderer characterRenderer;
+    [SerializeField] private SpriteRenderer weaponRenderer;
 
-    public float delay = 0.3f;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private float projectileSpeed;
+    [SerializeField] private Transform firePoint;
+
+    private Vector2 pointerPositionInput;
+
+    private const float Delay = 0.3f;
+    private static readonly Vector2 WindowOffset = new Vector2(Screen.width, Screen.height);
     private bool attackBlocked;
 
-    public GameObject projectilePrefab;
-    [SerializeField]
-    private float projectileSpeed;
-    [SerializeField]
-    private Transform firePoint;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Update()
     {
-        Vector2 direction = (PointerPosition - (Vector2)transform.position).normalized;
+        pointerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2InWorldSpace();
+        Vector2 direction = (pointerPositionInput - (Vector2)transform.position).normalized;
         transform.right = direction;
 
         Vector2 scale = transform.localScale;
-        if (gameObject.GetComponentInParent<Player>().lookDirection.x < 0)
+        if (PlayerVisual.Instance.GetLookDirection().x < 0)
         {
             scale.y = -1;
             scale.x = -1;
         }
-        else if (gameObject.GetComponentInParent<Player>().lookDirection.x > 0)
+        else if (PlayerVisual.Instance.GetLookDirection().x > 0)
         {
             scale.y = 1;
             scale.x = 1;
         }
         transform.localScale = scale;
 
-        if (transform.eulerAngles.z > 0 && transform.eulerAngles.z < 180)
+        if (transform.eulerAngles.z is > 0 and < 180)
         {
             weaponRenderer.sortingOrder = characterRenderer.sortingOrder - 1;
         }
@@ -62,7 +71,7 @@ public class Gun : MonoBehaviour
 
     private IEnumerator DelayAttack()
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(Delay);
         attackBlocked = false;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,18 +6,22 @@ using UnityEngine.Events;
 
 public class KnockbackFeedback : MonoBehaviour
 {
-    [SerializeField]
-    private Rigidbody2D rb2d;
+    public event EventHandler OnBegin, OnDone;
 
-    [SerializeField]
-    private float strength = 8, delay = 0.15f;
+    [SerializeField] private Rigidbody2D rb2d;
+    [SerializeField] private float strength;
+    [SerializeField] private float delay;
 
-    public UnityEvent OnBegin, OnDone;
-
+    public void Awake()
+    {
+        strength = 8;
+        delay = 0.15f;
+    }
+    
     public void PlayFeedback(GameObject sender)
     {
         StopAllCoroutines();
-        OnBegin?.Invoke();
+        OnBegin?.Invoke(this, EventArgs.Empty);
         Vector2 direction = (transform.position - sender.transform.position).normalized;
         rb2d.AddForce(direction * strength, ForceMode2D.Impulse);
         StartCoroutine(Reset());
@@ -26,6 +31,6 @@ public class KnockbackFeedback : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         rb2d.velocity = Vector3.zero;
-        OnDone?.Invoke();
+        OnDone?.Invoke(this, EventArgs.Empty);
     }
 }
