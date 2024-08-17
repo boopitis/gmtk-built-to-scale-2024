@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -16,6 +17,12 @@ public class Gun : MonoBehaviour
     private float projectileSpeed;
     [SerializeField]
     private Transform firePoint;
+
+    [SerializeField]
+    private GameObject[] projectilePrefabs;
+    private int note = 0;
+    public Scale musicScale;
+    private int interval;
 
     private void Update()
     {
@@ -47,17 +54,24 @@ public class Gun : MonoBehaviour
 
     public void Attack()
     {
-        print(attackBlocked);
         if (attackBlocked)
             return;
 
         attackBlocked = true;
         StartCoroutine(DelayAttack());
 
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, transform.rotation);
+        print(note);
+        GameObject projectile = Instantiate(projectilePrefabs[note], firePoint.position, transform.rotation);
         Rigidbody2D projectile_rb = projectile.GetComponent<Rigidbody2D>();
         projectile_rb.AddForce(firePoint.right * projectileSpeed, ForceMode2D.Impulse);
 
+        note += musicScale.intervals[interval];
+        if (note > 11)
+            note -= 12;
+
+        interval++;
+        if (interval > musicScale.intervals.Length - 1)
+            interval = 0;
     }
 
     private IEnumerator DelayAttack()
