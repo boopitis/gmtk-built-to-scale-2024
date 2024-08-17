@@ -327,11 +327,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34b4ee8ecc0af04ba266461d936805d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterRenderer: {fileID: 1492231893}
+  weaponRenderer: {fileID: 902744749}
   projectilePrefab: {fileID: 9023553564810294082, guid: e42583c7e7480cf4ea55b75bdaa53310, type: 3}
   projectileSpeed: 16
   firePoint: {fileID: 1616649672}
-  characterRenderer: {fileID: 1492231893}
-  weaponRenderer: {fileID: 902744749}
 --- !u!4 &1095734074
 Transform:
   m_ObjectHideFlags: 0
@@ -554,25 +554,6 @@ MonoBehaviour:
   health: 6
   maxHealth: 6
   immunityDuration: 1
-  OnHitWithReference:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HeartUIManager, Assembly-CSharp
-        m_MethodName: UpdateHealth
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDeathWithReference:
-    m_PersistentCalls:
-      m_Calls: []
-  isDead: 0
 --- !u!114 &1530667150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,7 +568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 10
   acceleration: 5
-  deceleration: 1
+  deceleration: 5
 --- !u!4 &1530667151
 Transform:
   m_ObjectHideFlags: 0
@@ -688,7 +669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 965d2ea58d6934a4984d3c0fe17772c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {fileID: 1530667150}
 --- !u!1 &1616649671
 GameObject:
   m_ObjectHideFlags: 0
