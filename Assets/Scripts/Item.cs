@@ -4,21 +4,14 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    [SerializeField]
-    private string itemName;
-
-    [SerializeField]
-    private int quantity;
-
-    [SerializeField]
-    private Sprite sprite;
+    [SerializeField] private string itemName;
+    [SerializeField] private int quantity;
+    [SerializeField] private Sprite sprite;
 
     [TextArea]
-    [SerializeField]
-    private string itemDescription;
+    [SerializeField] private string itemDescription;
 
     private InventoryManager inventoryManager;
-
     private Collider2D lastHit;
 
     private void Awake()
@@ -30,14 +23,14 @@ public class Item : MonoBehaviour
     {
         if (other == lastHit) return;
 
-        if (other.gameObject.tag == "Player")
-        {
-            int leftOverItems = inventoryManager.AddItem(itemName, quantity, sprite, itemDescription);
-            if (leftOverItems <= 0)
-                Destroy(gameObject);
-            else
-                quantity = leftOverItems;
-            lastHit = other;
-        }
+        if (!other.gameObject.CompareTag("Player")) return;
+        
+        var leftOverItems = inventoryManager.AddItem(itemName, quantity, sprite, itemDescription);
+        
+        if (leftOverItems <= 0)
+            Destroy(gameObject);
+        else
+            quantity = leftOverItems;
+        lastHit = other;
     }
 }
