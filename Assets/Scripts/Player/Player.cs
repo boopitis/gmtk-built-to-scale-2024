@@ -1,46 +1,54 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
+    
     private CharacterAnimations characterAnimations;
     private Movement movement;
 
     private Gun gun;
 
-    private Vector2 pointerInput, movementInput;
+    private Vector2 PointerInput { get; set; }
 
-    public Vector2 PointerInput { get => pointerInput; set => pointerInput = value; }
-    public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
+    private Vector2 MovementInput { get; set; }
 
-    public Vector2 lookDirection { get; private set; }
+    private Vector2 LookDirection { get; set; }
+    
+    private void Awake()
+    {
+        Instance = this;
 
+        characterAnimations = GetComponentInChildren<CharacterAnimations>();
+        gun = GetComponentInChildren<Gun>();
+        movement = GetComponent<Movement>();
+    }
     public void Shoot()
     {
         gun?.Attack();
     }
 
-    private void Awake()
+    private void Update()
     {
-        characterAnimations = GetComponentInChildren<CharacterAnimations>();
-        gun = GetComponentInChildren<Gun>();
-        movement = GetComponent<Movement>();
-    }
-
-    void Update()
-    {
-        gun.PointerPosition = pointerInput;
-        movement.MovementInput = movementInput;
+        Gun.Instance.SetPointerPosition(PointerInput);
+        movement.MovementInput = MovementInput;
         AnimateCharacter();
     }
 
     private void AnimateCharacter()
     {
-        lookDirection = pointerInput - (Vector2)transform.position;
-        characterAnimations.RotateToPointer(lookDirection);
+        LookDirection = PointerInput - (Vector2)transform.position;
+        characterAnimations.RotateToPointer(LookDirection);
         // TODO: characterAnimations.PlayAnimation(MovementInput);
+    }
+
+    public Vector2 GetLookDirection()
+    {
+        return LookDirection;
     }
 }

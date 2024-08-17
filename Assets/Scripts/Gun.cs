@@ -5,17 +5,25 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public SpriteRenderer characterRenderer, weaponRenderer;
-    public Vector2 PointerPosition { get; set; }
+    public static Gun Instance { get; private set; }
+    
+    private SpriteRenderer characterRenderer;
+    private SpriteRenderer weaponRenderer;
+    private Vector2 PointerPosition { get; set; }
 
-    public float delay = 0.3f;
+    private const float Delay = 0.3f;
     private bool attackBlocked;
 
-    public GameObject projectilePrefab;
+    private GameObject projectilePrefab;
     [SerializeField]
     private float projectileSpeed;
     [SerializeField]
     private Transform firePoint;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Update()
     {
@@ -23,19 +31,19 @@ public class Gun : MonoBehaviour
         transform.right = direction;
 
         Vector2 scale = transform.localScale;
-        if (gameObject.GetComponentInParent<Player>().lookDirection.x < 0)
+        if (Player.Instance.GetLookDirection().x < 0)
         {
             scale.y = -1;
             scale.x = -1;
         }
-        else if (gameObject.GetComponentInParent<Player>().lookDirection.x > 0)
+        else if (Player.Instance.GetLookDirection().x > 0)
         {
             scale.y = 1;
             scale.x = 1;
         }
         transform.localScale = scale;
 
-        if (transform.eulerAngles.z > 0 && transform.eulerAngles.z < 180)
+        if (transform.eulerAngles.z is > 0 and < 180)
         {
             weaponRenderer.sortingOrder = characterRenderer.sortingOrder - 1;
         }
@@ -62,7 +70,12 @@ public class Gun : MonoBehaviour
 
     private IEnumerator DelayAttack()
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(Delay);
         attackBlocked = false;
+    }
+
+    public void SetPointerPosition(Vector2 vector2)
+    {
+        PointerPosition = vector2;
     }
 }
