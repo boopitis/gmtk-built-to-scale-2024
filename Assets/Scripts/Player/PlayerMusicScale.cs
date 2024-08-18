@@ -23,7 +23,7 @@ public class PlayerMusicScale : MonoBehaviour
 
     [SerializeField] private ScaleListSO scaleListSO;
     
-    [SerializeField] private List<NoteSO> currentNoteSOList; // SERIALIZEFIELD DEBUG
+    [SerializeField] private List<NoteSO> currentNoteSOList; // TODO REMOVE SERIALIZEFIELD DEBUG
 
     private void Awake()
     {

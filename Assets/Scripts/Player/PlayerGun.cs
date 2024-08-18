@@ -27,12 +27,25 @@ public class PlayerGun : MonoBehaviour
     private int noteIndex;
     private int interval;
 
+    private List<NoteSO> currentNoteSOList;
+
     private void Awake()
     {
         Instance = this;
         
         note = 0;
         noteIndex = 0;
+    }
+
+    private void Start()
+    {
+        currentNoteSOList = PlayerMusicScale.Instance.GetCurrentNoteSOList();
+        PlayerMusicScale.Instance.OnCurrentNotesChanged += PlayerMusicScale_OnCurrentNotesChanged;
+    }
+
+    private void PlayerMusicScale_OnCurrentNotesChanged(object sender, EventArgs e)
+    {
+        currentNoteSOList = PlayerMusicScale.Instance.GetCurrentNoteSOList();
     }
 
     private void Update()
@@ -71,19 +84,14 @@ public class PlayerGun : MonoBehaviour
         attackBlocked = true;
         StartCoroutine(DelayAttack());
 
-        print(noteIndex);
+        var firedNoteSO = currentNoteSOList[noteIndex];
+        Projectile.SpawnProjectile(projectilePrefabs[firedNoteSO.pitch], firePointTransform, transform.rotation);
+
+        Debug.Log(noteIndex);
+        Debug.Log(firedNoteSO.name);
 
         noteIndex++;
-        if (noteIndex > musicScaleSO.noteSOList.Length - 1) noteIndex = 0;
-
-        // print(note);
-        // Projectile.SpawnProjectile(projectilePrefabs[note], firePointTransform, transform.rotation);
-        
-        // note += musicScaleSO.intervals[interval];
-        // if (note > 11) note -= 12;
-        //
-        // interval++;
-        // if (interval > musicScaleSO.intervals.Length - 1) interval = 0;
+        if (noteIndex > currentNoteSOList.Count - 1) noteIndex = 0;
     }
 
     private IEnumerator DelayAttack()
