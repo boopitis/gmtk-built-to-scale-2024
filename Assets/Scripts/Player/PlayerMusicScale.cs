@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /**
  * Manages the notes that the Player currently has.
@@ -22,8 +23,10 @@ public class PlayerMusicScale : MonoBehaviour
     public event EventHandler OnCurrentNotesChanged;
 
     [SerializeField] private ScaleListSO scaleListSO;
+    [SerializeField] private int maxCreatedScales;
     
     [SerializeField] private List<NoteSO> currentNoteSOList; // TODO REMOVE SERIALIZEFIELD DEBUG
+    [SerializeField] private List<ScaleSO> createdScaleSOList;
 
     private void Awake()
     {
@@ -134,9 +137,23 @@ public class PlayerMusicScale : MonoBehaviour
                 ScaleSO = scaleSO
             });
             Debug.Log($"{scaleSO.scaleName} created!"); //DEBUG
-            break;
+
+            var alreadyCreated = createdScaleSOList.Any(createdScaleSO => 
+                scaleSO.scaleName == createdScaleSO.scaleName);
+
+            if (alreadyCreated) return;
+            
+            createdScaleSOList.Add(scaleSO);
+
+            if (createdScaleSOList.Count <= maxCreatedScales) return;
+            
+            createdScaleSOList.RemoveAt(0);
+            
+            return;
         }
     }
 
     public List<NoteSO> GetCurrentNoteSOList() => currentNoteSOList;
+
+    public List<ScaleSO> GetCreatedScaleSOList() => createdScaleSOList;
 }
