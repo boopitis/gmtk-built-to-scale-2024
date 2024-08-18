@@ -121,7 +121,7 @@ public class PlayerMusicScale : MonoBehaviour
     {
         foreach (var scaleSO in scaleListSO.scaleSOs)
         {
-            Debug.Log($"Testing {scaleSO.name}...");
+            Debug.Log($"Testing {scaleSO.name}..."); //DEBUG
             if (scaleSO.noteSOList.Length != currentNoteSOList.Count) continue;
                 
             var validScale = !scaleSO.noteSOList.Where((noteSO, j) => 
