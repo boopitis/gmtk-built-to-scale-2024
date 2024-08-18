@@ -32,6 +32,6 @@ public class Player : MonoBehaviour
 
     private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
     {
-        Gun.Instance?.Attack();
+        PlayerGun.Instance?.Attack();
     }
 }

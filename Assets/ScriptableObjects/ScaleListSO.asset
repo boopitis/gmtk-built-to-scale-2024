@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73eeb9d115764574bc4e367b208216c5, type: 3}
+  m_Name: ScaleListSO
+  m_EditorClassIdentifier: 
+  scaleSOs:
+  - {fileID: 11400000, guid: 2a188254d8c9c094996741b2026c083f, type: 2}
+  - {fileID: 11400000, guid: ba3da22f0fb052b4ab5762727c5a19fa, type: 2}
