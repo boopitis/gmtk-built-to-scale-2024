@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class MelodicMinorSpecial : BaseSpecial
 {
+    /**
+     * Big bullet attack
+     */
     public override void Fire(Transform position, Quaternion rotation)
     {
-        throw new System.NotImplementedException();
+        Projectile.SpawnProjectile(projectile.gameObject, position, rotation, out _);
     }
 }
