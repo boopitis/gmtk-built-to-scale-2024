@@ -7,7 +7,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public static Gun Instance { get; private set; }
-    
+
     [SerializeField] private SpriteRenderer characterRenderer;
     [SerializeField] private SpriteRenderer weaponRenderer;
 
@@ -29,7 +29,8 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private GameObject[] projectilePrefabs;
     private int note = 0;
-    public Scale musicScale;
+    [SerializeField]
+    private Scale musicScale;
     private int interval;
 
     private void Update()
@@ -63,6 +64,7 @@ public class Gun : MonoBehaviour
 
     public void Attack()
     {
+        print("pew");
         if (attackBlocked)
             return;
 
