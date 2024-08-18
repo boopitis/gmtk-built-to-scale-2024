@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private Movement movement;
     private Vector2 movementInput;
     private Vector2 lookDirection;
-    
+
     private void Awake()
     {
         Instance = this;
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     {
         GameInput.Instance.OnPlayerShootPerformed += GameInput_OnPlayerShootPerformed;
     }
-    
+
     private void Update()
     {
         movementInput = GameInput.Instance.GetPlayerMovementVector2();
