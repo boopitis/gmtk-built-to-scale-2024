@@ -11,8 +11,8 @@ public class FindGuy : MonoBehaviour
     
     void Start()
     {
-        minvelocity = 3;
-        maxvelocity = 6.5f;
+        minvelocity = 1.75f;
+        maxvelocity = 3.5f;
         
         velocity = Random.Range(minvelocity, maxvelocity);
     }

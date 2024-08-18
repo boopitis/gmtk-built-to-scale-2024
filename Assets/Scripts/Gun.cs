@@ -49,15 +49,15 @@ public class Gun : MonoBehaviour
             scale.y = 1;
             scale.x = 1;
         }
-        transform.localScale = scale;
+        //transform.localScale = scale;
 
         if (transform.eulerAngles.z is > 0 and < 180)
         {
-            weaponRenderer.sortingOrder = characterRenderer.sortingOrder - 1;
+            weaponRenderer.sortingOrder = characterRenderer.sortingOrder + 1;
         }
         else
         {
-            weaponRenderer.sortingOrder = characterRenderer.sortingOrder + 1;
+            weaponRenderer.sortingOrder = characterRenderer.sortingOrder + 2;
         }
     }
 
