@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private int projectileDamage;
-    [SerializeField] private int piercing;
+    public int piercing;
     [SerializeField] private GameObject hitEffect;
 
     private Collider2D lastHit;

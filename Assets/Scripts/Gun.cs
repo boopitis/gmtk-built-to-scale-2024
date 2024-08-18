@@ -2,8 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
+public enum Special
+{
+    Major,
+    MelodicMinor
+}
 public class Gun : MonoBehaviour
 {
     public static Gun Instance { get; private set; }
@@ -20,6 +26,8 @@ public class Gun : MonoBehaviour
     private const float Delay = 0.3f;
     private static readonly Vector2 WindowOffset = new Vector2(Screen.width, Screen.height);
     private bool attackBlocked;
+
+    [SerializeField] private Special special;
 
     private void Awake()
     {
@@ -70,23 +78,72 @@ public class Gun : MonoBehaviour
         attackBlocked = true;
         StartCoroutine(DelayAttack());
 
-        print(note);
-        GameObject projectile = Instantiate(projectilePrefabs[note], firePoint.position, transform.rotation);
-        Rigidbody2D projectile_rb = projectile.GetComponent<Rigidbody2D>();
-        projectile_rb.AddForce(firePoint.right * projectileSpeed, ForceMode2D.Impulse);
+        if (note == 12)
+        {
+            switch (special)
+            {
+                case Special.Major:
+                    MajorShotgun();
+                    break;
+                case Special.MelodicMinor:
+                    MelodicMinorBigBullet();
+                    break;
+            }
+        }
+        else
+        {
+            GameObject projectile = Instantiate(projectilePrefabs[note], firePoint.position, transform.rotation);
+            Rigidbody2D projectile_rb = projectile.GetComponent<Rigidbody2D>();
+            projectile_rb.AddForce(firePoint.right * projectileSpeed, ForceMode2D.Impulse);
 
-        note += musicScale.intervals[interval];
-        if (note > 11)
-            note -= 12;
-
-        interval++;
-        if (interval > musicScale.intervals.Length - 1)
-            interval = 0;
+            NextNote();
+        }
     }
 
     private IEnumerator DelayAttack()
     {
         yield return new WaitForSeconds(Delay);
         attackBlocked = false;
+    }
+
+    private void MajorShotgun()
+    {
+        int bullets = 8;
+        int spread = 30;
+
+        note = 0;
+        interval = 0;
+        for (int i = 0; i < bullets; i++)
+        {
+            GameObject projectile = Instantiate(projectilePrefabs[note], firePoint.position, Quaternion.Euler(0, 0, -spread + (spread * 2 / bullets * i)) * transform.rotation);
+            Rigidbody2D projectile_rb = projectile.GetComponent<Rigidbody2D>();
+            projectile_rb.AddForce(Quaternion.Euler(0, 0, -spread + (spread * 2 / (bullets - 1) * i)) * firePoint.right * projectileSpeed, ForceMode2D.Impulse);
+
+            NextNote();
+        }
+        note = 0;
+        interval = 0;
+    }
+
+    private void MelodicMinorBigBullet()
+    {
+        GameObject projectile = Instantiate(projectilePrefabs[note], firePoint.position, transform.rotation);
+        projectile.transform.localScale *= 8f;
+        projectile.GetComponent<Projectile>().piercing = 20;
+        Rigidbody2D projectile_rb = projectile.GetComponent<Rigidbody2D>();
+        projectile_rb.AddForce(firePoint.right * projectileSpeed, ForceMode2D.Impulse);
+
+        NextNote();
+    }
+
+    private void NextNote()
+    {
+        note += musicScale.intervals[interval];
+        if (note > 12)
+            note -= 13;
+
+        interval++;
+        if (interval > musicScale.intervals.Length - 1)
+            interval = 0;
     }
 }
