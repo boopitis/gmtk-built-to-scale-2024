@@ -40,12 +40,22 @@ public class PlayerScale : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.M))
         {
-            TryAddNote(debug2);
+            TryRemoveNote(debug1);
         }
         
         if (Input.GetKeyDown(KeyCode.N))
         {
             TryAddNote(debug3);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            TryAddNote(debug2);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            TryRemoveNote(debug2);
         }
     }
 
@@ -55,7 +65,7 @@ public class PlayerScale : MonoBehaviour
         {
             Debug.LogError("Cannot add a C note!");
         }
-        ;
+        
         for (var i = 0; i < currentNoteSOList.Count-1; i++)
         {
             var noteSO = currentNoteSOList[i];
@@ -74,6 +84,22 @@ public class PlayerScale : MonoBehaviour
         return true;
     }
 
+    public bool TryRemoveNote(NoteSO potentialNoteSO)
+    {
+        if (potentialNoteSO.pitch == 0)
+        {
+            Debug.LogError("Cannot remove a C note!");
+        }
+        
+        var removalSuccessful =  currentNoteSOList.Remove(potentialNoteSO);
+        
+        if (removalSuccessful) CheckScaleMatch();
+        return removalSuccessful;
+    }
+
+    /**
+     * Checks against all scales in scaleListSO to see if current notes match any scale in the scaleListSO.
+     */
     private void CheckScaleMatch()
     {
         foreach (var scaleSO in scaleListSO.scaleSOs)

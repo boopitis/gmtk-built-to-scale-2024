@@ -1604,10 +1604,6 @@ MonoBehaviour:
   scaleListSO: {fileID: 11400000, guid: 89efe2dc1aea18040937fe6105960b3b, type: 2}
   currentNoteSOList:
   - {fileID: 11400000, guid: bfa9899a6c271ee49ae8a370eec38dc3, type: 2}
-  - {fileID: 11400000, guid: 6b40dceb088427447b448bf14e2e9fb1, type: 2}
-  - {fileID: 11400000, guid: 5e47939e694f66043aed852958d7ed2c, type: 2}
-  - {fileID: 11400000, guid: eb14ea05a14c7514892f19efdc1d2aeb, type: 2}
-  - {fileID: 11400000, guid: d31c9bb7bb9586a448ba703846f29b57, type: 2}
   - {fileID: 11400000, guid: bfa9899a6c271ee49ae8a370eec38dc3, type: 2}
   debug1: {fileID: 11400000, guid: 837ec9897ebf29c49974d58506d13e7b, type: 2}
   debug2: {fileID: 11400000, guid: 5c815867f2264fe4c80182c1b746cf5c, type: 2}
