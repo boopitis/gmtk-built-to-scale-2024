@@ -26,8 +26,6 @@ public class MenuManager : MonoBehaviour
 
     private void GameInput_OnPlayerMenuOpenClosePerformed(object sender, EventArgs e)
     {
-
-        print("uhuh");
         if (isPaused)
         {
             print("Menu Close");

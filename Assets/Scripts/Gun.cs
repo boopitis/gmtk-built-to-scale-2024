@@ -64,7 +64,6 @@ public class Gun : MonoBehaviour
 
     public void Attack()
     {
-        print("pew");
         if (attackBlocked)
             return;
 
