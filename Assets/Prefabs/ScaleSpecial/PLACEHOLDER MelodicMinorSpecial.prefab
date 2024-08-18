@@ -96,9 +96,9 @@ GameObject:
   - component: {fileID: 5717301686225412426}
   - component: {fileID: 5983265244016871122}
   - component: {fileID: 1894440118413765170}
-  - component: {fileID: 7728398649243898217}
+  - component: {fileID: 489970639914246554}
   m_Layer: 0
-  m_Name: MajorSpecial
+  m_Name: PLACEHOLDER MelodicMinorSpecial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
   projectileDamage: 1
   piercing: 0
   hitEffect: {fileID: 4270783003175672712}
---- !u!114 &7728398649243898217
+--- !u!114 &489970639914246554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,8 +218,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 9035312376651765115}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2864b8959bb943646bad153d2b287ce8, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bd483a070f24fd49b9175d70bb4c3f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireTime: 1
-  projectile: {fileID: 1894440118413765170}
+  fireTime: 0
+  projectile: {fileID: 0}

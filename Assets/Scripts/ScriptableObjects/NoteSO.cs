@@ -6,8 +6,8 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "New Note", menuName = "Scriptable Objects/New Note")]
 public class NoteSO : ScriptableObject
 {
+    public GameObject prefab;
     // Range from 0-11; 0 is lowest C, 11 is B
     public int pitch;
-    public GameObject prefab;
     [FormerlySerializedAs("name")] public string noteName;
 }
