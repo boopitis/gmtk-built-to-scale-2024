@@ -131,8 +131,6 @@ public class PlayerGun : MonoBehaviour
                 Quaternion.Euler(0, 0, -spread + (spread * 2.0f / bullets * i)) * transform.rotation,
                 Quaternion.Euler(0, 0, -spread + (spread * 2.0f / (bullets - 1) * i)),
                 out _);
-            Debug.Log(Quaternion.Euler(0, 0, -spread + (spread * 2.0f / bullets * i)) * transform.rotation 
-                * Vector2.right); //DEBUG
         }
     }
 
