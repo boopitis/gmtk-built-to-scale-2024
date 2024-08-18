@@ -6,9 +6,9 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Gun : MonoBehaviour
+public class PlayerGun : MonoBehaviour
 {
-    public static Gun Instance { get; private set; }
+    public static PlayerGun Instance { get; private set; }
     
     [SerializeField] private SpriteRenderer characterRenderer;
     [SerializeField] private SpriteRenderer weaponRenderer;
