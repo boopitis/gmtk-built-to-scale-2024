@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class BaseSpecial : MonoBehaviour
 {
-    protected enum FireTime
+    protected enum IndexToFire
     {
         First,
         Last,
@@ -13,26 +14,26 @@ public abstract class BaseSpecial : MonoBehaviour
         SecondLast
     }
     
-    [SerializeField] protected FireTime fireTime;
+    [SerializeField] protected IndexToFire indexToFire;
     [SerializeField] protected Projectile projectile;
 
     public abstract void Fire(Transform position, Quaternion rotation);
 
-    public bool IsNeedingFiring(int createScaleLength, int currentNote)
+    public bool IsNeedingFiring(int currentScaleLength, int index)
     {
-        switch (fireTime)
+        switch (indexToFire)
         {
             default:
-            case FireTime.First:
-                return currentNote == 0;
-            case FireTime.Last:
-                return currentNote == createScaleLength - 1;
-            case FireTime.Middle:
-                return createScaleLength / 2 == currentNote;
-            case FireTime.Second:
-                return currentNote == 1;
-            case FireTime.SecondLast:
-                return currentNote == createScaleLength - 2;
+            case IndexToFire.First:
+                return index == 0;
+            case IndexToFire.Last:
+                return index == currentScaleLength - 1;
+            case IndexToFire.Middle:
+                return currentScaleLength / 2 == index;
+            case IndexToFire.Second:
+                return index == 1;
+            case IndexToFire.SecondLast:
+                return index == currentScaleLength - 2;
         }
     }
 }

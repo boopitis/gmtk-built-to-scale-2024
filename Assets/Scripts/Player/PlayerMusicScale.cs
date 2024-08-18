@@ -124,7 +124,6 @@ public class PlayerMusicScale : MonoBehaviour
     {
         foreach (var scaleSO in scaleListSO.scaleSOs)
         {
-            Debug.Log($"Testing {scaleSO.scaleName}..."); //DEBUG
             if (scaleSO.noteSOList.Length != currentNoteSOList.Count) continue;
                 
             var validScale = !scaleSO.noteSOList.Where((noteSO, j) => 
@@ -136,7 +135,6 @@ public class PlayerMusicScale : MonoBehaviour
             {
                 ScaleSO = scaleSO
             });
-            Debug.Log($"{scaleSO.scaleName} created!"); //DEBUG
 
             var alreadyCreated = createdScaleSOList.Any(createdScaleSO => 
                 scaleSO.scaleName == createdScaleSO.scaleName);
@@ -155,9 +153,9 @@ public class PlayerMusicScale : MonoBehaviour
 
     public List<NoteSO> GetCurrentNoteSOList() => currentNoteSOList;
 
-    public List<ScaleSO> GetScaleSpecialsNeedingFiring(int currentNote)
+    public List<ScaleSO> GetScaleSpecialsNeedingFiring(int index)
     {
         return createdScaleSOList.Where(scaleSO => 
-            scaleSO.special.IsNeedingFiring(createdScaleSOList.Count, currentNote)).ToList();
+            scaleSO.special.IsNeedingFiring(currentNoteSOList.Count, index)).ToList();
     }
 }

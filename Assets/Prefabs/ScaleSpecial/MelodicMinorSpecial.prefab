@@ -204,9 +204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b09711c1ecc6a94ab2c0e36c95d6824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 16
-  projectilePrefab: {fileID: 4270783003175672712}
-  projectileDamage: 1
+  speed: 16
+  prefab: {fileID: 4270783003175672712}
+  damage: 1
   piercing: 20
   hitEffect: {fileID: 4270783003175672712}
 --- !u!114 &489970639914246554
@@ -221,5 +221,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd483a070f24fd49b9175d70bb4c3f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireTime: 1
+  indexToFire: 1
   projectile: {fileID: 1894440118413765170}
