@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: B
   m_EditorClassIdentifier: 
   pitch: 11
-  name: B
+  prefab: {fileID: 359292703734685612, guid: 509a9c2eadf84fc4d94adc85741b2730, type: 3}
+  noteName: B

@@ -8,5 +8,6 @@ public class NoteSO : ScriptableObject
 {
     // Range from 0-11; 0 is lowest C, 11 is B
     public int pitch;
+    public GameObject prefab;
     [FormerlySerializedAs("name")] public string noteName;
 }
