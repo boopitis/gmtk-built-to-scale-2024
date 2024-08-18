@@ -1557,6 +1557,61 @@ Transform:
   - {fileID: 1616649672}
   m_Father: {fileID: 1443875568}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1104652144
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1104652145}
+  - component: {fileID: 1104652146}
+  m_Layer: 3
+  m_Name: Player Scale
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1104652145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104652144}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1530667151}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1104652146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104652144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3246a2aa72234a79b65e0a0464c37dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleListSO: {fileID: 11400000, guid: 89efe2dc1aea18040937fe6105960b3b, type: 2}
+  currentNoteSOList:
+  - {fileID: 11400000, guid: bfa9899a6c271ee49ae8a370eec38dc3, type: 2}
+  - {fileID: 11400000, guid: 6b40dceb088427447b448bf14e2e9fb1, type: 2}
+  - {fileID: 11400000, guid: 5e47939e694f66043aed852958d7ed2c, type: 2}
+  - {fileID: 11400000, guid: eb14ea05a14c7514892f19efdc1d2aeb, type: 2}
+  - {fileID: 11400000, guid: d31c9bb7bb9586a448ba703846f29b57, type: 2}
+  - {fileID: 11400000, guid: bfa9899a6c271ee49ae8a370eec38dc3, type: 2}
+  debug1: {fileID: 11400000, guid: 837ec9897ebf29c49974d58506d13e7b, type: 2}
+  debug2: {fileID: 11400000, guid: 5c815867f2264fe4c80182c1b746cf5c, type: 2}
+  debug3: {fileID: 11400000, guid: e22b482930be0c845b982beb9a7a7850, type: 2}
 --- !u!1 &1235659831
 GameObject:
   m_ObjectHideFlags: 0
@@ -2207,6 +2262,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1443875568}
+  - {fileID: 1104652145}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1530667152

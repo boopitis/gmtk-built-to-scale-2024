@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /**
@@ -20,36 +21,68 @@ public class PlayerScale : MonoBehaviour
 
     [SerializeField] private ScaleListSO scaleListSO;
     
-    private List<NoteSO> noteSOList;
+    [SerializeField] private List<NoteSO> currentNoteSOList; // SERIALIZEFIELD DEBUG
 
     private void Awake()
     {
         Instance = this;
-
-        noteSOList = new List<NoteSO>();
     }
 
-    public void AddNote(int pitch)
+    [SerializeField] private NoteSO debug1;
+    [SerializeField] private NoteSO debug2;
+    [SerializeField] private NoteSO debug3;
+    private void Update() //DEBUG
     {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            TryAddNote(debug1);
+        }
         
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            TryAddNote(debug2);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            TryAddNote(debug3);
+        }
+    }
+
+    public bool TryAddNote(NoteSO potentialNoteSO)
+    {
+        if (potentialNoteSO.pitch == 0)
+        {
+            Debug.LogError("Cannot add a C note!");
+        }
+        ;
+        for (var i = 0; i < currentNoteSOList.Count-1; i++)
+        {
+            var noteSO = currentNoteSOList[i];
+            
+            if (potentialNoteSO.pitch == noteSO.pitch) return false;
+
+            if (potentialNoteSO.pitch > noteSO.pitch) continue;
+            
+            currentNoteSOList.Insert(i, potentialNoteSO);
+            CheckScaleMatch();
+            return true;
+        }
+        
+        currentNoteSOList.Insert(currentNoteSOList.Count-1, potentialNoteSO);
+        CheckScaleMatch();
+        return true;
     }
 
     private void CheckScaleMatch()
     {
         foreach (var scaleSO in scaleListSO.scaleSOs)
         {
-            if (scaleSO.noteSOList.Length != noteSOList.Count) continue;
+            Debug.Log($"Testing {scaleSO.name}...");
+            if (scaleSO.noteSOList.Length != currentNoteSOList.Count) continue;
                 
-            var validScale = true;
-
-            for (var j = 0; j < scaleSO.noteSOList.Length; j++)
-            {
-                var noteSO = scaleSO.noteSOList[j];
-                if (noteSO == noteSOList[j]) continue;
-
-                validScale = false;
-                break;
-            }
+            var validScale = !scaleSO.noteSOList.Where((noteSO, j) => 
+                noteSO.pitch != currentNoteSOList[j].pitch).Any();
 
             if (!validScale) continue;
             
@@ -57,7 +90,7 @@ public class PlayerScale : MonoBehaviour
             {
                 ScaleSO = scaleSO
             });
-            Debug.Log($"{scaleSO.name} scale created!");
+            Debug.Log($"{scaleSO.name} created!"); //DEBUG
             break;
         }
     }
