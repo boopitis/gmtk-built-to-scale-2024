@@ -75,8 +75,8 @@ public class PlayerGun : MonoBehaviour
         attackBlocked = true;
         StartCoroutine(DelayAttack());
 
-        var firedNoteSO = PlayerMusicScale.Instance.GetCurrentNoteSOList()[noteIndex];
-        var activeScaleSOSpecials = PlayerMusicScale.Instance.GetScaleSpecialsNeedingFiring(noteIndex);
+        var firedNoteSO = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList()[noteIndex];
+        var activeScaleSOSpecials = PlayerMusicScaleManager.Instance.GetScaleSpecialsNeedingFiring(noteIndex);
 
         Debug.Log(noteIndex); //DEBUG
         
@@ -95,7 +95,7 @@ public class PlayerGun : MonoBehaviour
         }
 
         noteIndex++;
-        if (noteIndex == PlayerMusicScale.Instance.GetCurrentNoteSOList().Count) noteIndex = 0;
+        if (noteIndex == PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count) noteIndex = 0;
     }
 
     private IEnumerator DelayAttack()

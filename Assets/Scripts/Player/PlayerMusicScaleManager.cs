@@ -9,10 +9,9 @@ using UnityEngine.Serialization;
  * Manages the notes that the Player currently has.
  * When a scale is completed, OnScaleCreated is fired with the relevant scale.
  */
-public class PlayerMusicScale : MonoBehaviour
+public class PlayerMusicScaleManager : MonoBehaviour
 {
-
-    public static PlayerMusicScale Instance { get; private set; }
+    public static PlayerMusicScaleManager Instance { get; private set; }
 
     public event EventHandler<OnScaleCreatedEventArgs> OnScaleCreated;
     public class OnScaleCreatedEventArgs : EventArgs
