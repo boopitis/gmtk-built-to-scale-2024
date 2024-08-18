@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,10 +11,7 @@ public class Player : MonoBehaviour
     public static Player Instance { get; private set; }
 
     private Movement movement;
-    private Vector2 movementInput;
-    private Vector2 lookDirection;
-    public Vector2 coords;
-
+    private UnityEngine.Vector2 movementInput;
     private void Awake()
     {
         Instance = this;
@@ -38,9 +36,10 @@ public class Player : MonoBehaviour
         Gun.Instance?.Attack();
     }
 
-    public Vector2 GiveC()
+    public UnityEngine.Vector2 GiveC()
     {
-        coords = transform.position;
+        
+        UnityEngine.Vector2 coords = (UnityEngine.Vector2)transform.position;
         return coords;
     }
 }
