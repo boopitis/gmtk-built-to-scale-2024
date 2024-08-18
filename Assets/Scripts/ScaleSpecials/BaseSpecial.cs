@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseSpecial : MonoBehaviour, ISpecial
+public abstract class BaseSpecial : MonoBehaviour
 {
     protected enum FireTime
     {
