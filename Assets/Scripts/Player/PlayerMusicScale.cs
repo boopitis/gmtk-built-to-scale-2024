@@ -124,34 +124,41 @@ public class PlayerMusicScale : MonoBehaviour
     {
         foreach (var scaleSO in scaleListSO.scaleSOs)
         {
-            if (scaleSO.noteSOList.Length != currentNoteSOList.Count) continue;
+            createdScaleSOList.Clear();
+
+            if (scaleSO.noteSOList.Count != currentNoteSOList.Count) continue;
                 
             var validScale = !scaleSO.noteSOList.Where((noteSO, j) => 
                 noteSO.pitch != currentNoteSOList[j].pitch).Any();
 
-            if (!validScale) continue;
-            
+            if (!validScale) 
+                continue;
             OnScaleCreated?.Invoke(this, new OnScaleCreatedEventArgs
             {
                 ScaleSO = scaleSO
             });
 
-            var alreadyCreated = createdScaleSOList.Any(createdScaleSO => 
-                scaleSO.scaleName == createdScaleSO.scaleName);
+            // var alreadyCreated = createdScaleSOList.Any(createdScaleSO => 
+            //     scaleSO.scaleName == createdScaleSO.scaleName);
 
-            if (alreadyCreated) return;
+            // if (alreadyCreated) return;
             
             createdScaleSOList.Add(scaleSO);
 
-            if (createdScaleSOList.Count <= maxCreatedScales) return;
+            // if (createdScaleSOList.Count <= maxCreatedScales) return;
             
-            createdScaleSOList.RemoveAt(0);
+            // createdScaleSOList.RemoveAt(0);
             
             return;
         }
     }
 
     public List<NoteSO> GetCurrentNoteSOList() => currentNoteSOList;
+    public void SetCurrentNoteSOList(List<NoteSO> newNoteSOList)
+    {
+        currentNoteSOList = newNoteSOList;
+        CheckScaleMatch();
+    }
 
     public List<ScaleSO> GetScaleSpecialsNeedingFiring(int index)
     {
