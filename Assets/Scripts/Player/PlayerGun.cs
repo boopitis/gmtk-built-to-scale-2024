@@ -24,6 +24,7 @@ public class PlayerGun : MonoBehaviour
     private bool attackBlocked;
 
     private int note;
+    private int noteIndex;
     private int interval;
 
     private void Awake()
@@ -31,13 +32,7 @@ public class PlayerGun : MonoBehaviour
         Instance = this;
         
         note = 0;
-        
-        // Check if intervals is an octave
-        var totalInterval = musicScaleSO.intervals.Sum();
-        if (totalInterval != 12)
-        {
-            Debug.LogError("Current ScaleSO does not form an octave!");
-        }
+        noteIndex = 0;
     }
 
     private void Update()
@@ -76,14 +71,19 @@ public class PlayerGun : MonoBehaviour
         attackBlocked = true;
         StartCoroutine(DelayAttack());
 
-        print(note);
-        Projectile.SpawnProjectile(projectilePrefabs[note], firePointTransform, transform.rotation);
+        print(noteIndex);
 
-        note += musicScaleSO.intervals[interval];
-        if (note > 11) note -= 12;
+        noteIndex++;
+        if (noteIndex > musicScaleSO.noteSOList.Length - 1) noteIndex = 0;
 
-        interval++;
-        if (interval > musicScaleSO.intervals.Length - 1) interval = 0;
+        // print(note);
+        // Projectile.SpawnProjectile(projectilePrefabs[note], firePointTransform, transform.rotation);
+        
+        // note += musicScaleSO.intervals[interval];
+        // if (note > 11) note -= 12;
+        //
+        // interval++;
+        // if (interval > musicScaleSO.intervals.Length - 1) interval = 0;
     }
 
     private IEnumerator DelayAttack()

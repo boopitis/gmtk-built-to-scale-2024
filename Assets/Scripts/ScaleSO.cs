@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Scale", menuName = "Scriptable Objects/New Scale")]
 public class ScaleSO : ScriptableObject
 {
-    public int[] intervals;
+    public NoteSO[] noteSOList;
     public string name;
 }

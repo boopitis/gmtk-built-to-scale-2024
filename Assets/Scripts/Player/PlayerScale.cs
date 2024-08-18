@@ -38,19 +38,19 @@ public class PlayerScale : MonoBehaviour
     {
         foreach (var scaleSO in scaleListSO.scaleSOs)
         {
-            if (scaleSO.intervals.Length+1 != noteSOList.Count) continue;
+            if (scaleSO.noteSOList.Length != noteSOList.Count) continue;
                 
             var validScale = true;
-         
-            for (var j = 0; j < scaleSO.intervals.Length; j++)
+
+            for (var j = 0; j < scaleSO.noteSOList.Length; j++)
             {
-                int interval = scaleSO.intervals[j];
-                if (noteSOList[j + 1].pitch - noteSOList[j].pitch == interval) continue;
-                
+                var noteSO = scaleSO.noteSOList[j];
+                if (noteSO == noteSOList[j]) continue;
+
                 validScale = false;
                 break;
             }
-            
+
             if (!validScale) continue;
             
             OnScaleCreated?.Invoke(this, new OnScaleCreatedEventArgs
