@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     {
         GameInput.Instance.OnPlayerShootPerformed += GameInput_OnPlayerShootPerformed;
     }
-    
+
     private void Update()
     {
         movementInput = GameInput.Instance.GetPlayerMovementVector2();

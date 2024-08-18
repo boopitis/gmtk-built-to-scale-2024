@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -20,20 +21,22 @@ public class PlayerGun : MonoBehaviour
 
     private Vector2 pointerPositionInput;
 
-    private const float Delay = 0.3f;
+    private const float ShootDelay = 0.3f;
     private bool attackBlocked;
 
-    private int note;
     private int noteIndex;
-    private int interval;
-
     private List<NoteSO> currentNoteSOList;
-
+    [SerializeField] private Special special;
+    private enum Special
+    {
+        Major,
+        MelodicMinor
+    }
+    
     private void Awake()
     {
         Instance = this;
         
-        note = 0;
         noteIndex = 0;
     }
 
@@ -85,18 +88,58 @@ public class PlayerGun : MonoBehaviour
         StartCoroutine(DelayAttack());
 
         var firedNoteSO = currentNoteSOList[noteIndex];
-        Projectile.SpawnProjectile(projectilePrefabs[firedNoteSO.pitch], firePointTransform, transform.rotation);
 
-        Debug.Log(noteIndex);
-        Debug.Log(firedNoteSO.name);
+        Debug.Log(noteIndex); //DEBUG
+        Debug.Log(firedNoteSO.name); //DEBUG
 
         noteIndex++;
-        if (noteIndex > currentNoteSOList.Count - 1) noteIndex = 0;
+        if (noteIndex != currentNoteSOList.Count)
+        {
+            Projectile.SpawnProjectile(projectilePrefabs[firedNoteSO.pitch], firePointTransform, transform.rotation, out _);
+            return;
+        }
+        
+        noteIndex = 0;
+        switch (special)
+        {
+            default:
+            case Special.Major:
+                MajorShotgun();
+                break;
+            case Special.MelodicMinor:
+                MelodicMinorBigBullet();
+                break;
+        }
     }
 
     private IEnumerator DelayAttack()
     {
-        yield return new WaitForSeconds(Delay);
+        yield return new WaitForSeconds(ShootDelay);
         attackBlocked = false;
+    }
+
+    private void MajorShotgun()
+    {
+        const int bullets = 8;
+        const int spread = 30;
+
+        for (int i = 0; i < bullets; i++)
+        {
+            Projectile.SpawnProjectile(
+                projectilePrefabs[0], 
+                firePointTransform, 
+                Quaternion.Euler(0, 0, -spread + (spread * 2.0f / bullets * i)) * transform.rotation,
+                Quaternion.Euler(0, 0, -spread + (spread * 2.0f / (bullets - 1) * i)),
+                out _);
+            Debug.Log(Quaternion.Euler(0, 0, -spread + (spread * 2.0f / bullets * i)) * transform.rotation 
+                * Vector2.right); //DEBUG
+        }
+    }
+
+    private void MelodicMinorBigBullet()
+    {
+        Projectile.SpawnProjectile(projectilePrefabs[0], firePointTransform, transform.rotation, out var projectile);
+        projectile.transform.localScale *= 8f;
+        projectile.SetPiercing(20);
     }
 }
