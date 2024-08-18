@@ -3514,21 +3514,9 @@ MonoBehaviour:
   characterRenderer: {fileID: 1492231893}
   weaponRenderer: {fileID: 902744749}
   firePointTransform: {fileID: 1616649672}
-  projectilePrefabs:
-  - {fileID: 359292703734685612, guid: bf306b455f2915d439b7b3030a736bcb, type: 3}
-  - {fileID: 359292703734685612, guid: cb6b12845b9d02a4495fbc260e3c3876, type: 3}
-  - {fileID: 359292703734685612, guid: 395e4f112ddd6154695d226fbf81927c, type: 3}
-  - {fileID: 359292703734685612, guid: 4492b9f7bbe7db647bd87cd798172604, type: 3}
-  - {fileID: 359292703734685612, guid: f059ae75a0b50484f81be357bf50ded1, type: 3}
-  - {fileID: 359292703734685612, guid: 2b52cca6f49561a458f6b882b0f94c20, type: 3}
-  - {fileID: 359292703734685612, guid: 87ff68717a2404e44a17569c418ec86f, type: 3}
-  - {fileID: 359292703734685612, guid: d74e31846ddc05e478ac3ac21ca4e0b3, type: 3}
-  - {fileID: 359292703734685612, guid: 8dcbde27f3e1ae8498778d961375e155, type: 3}
-  - {fileID: 359292703734685612, guid: 94e51f374238adc4998e10e73e087292, type: 3}
-  - {fileID: 359292703734685612, guid: 39fcf20cba0ca9e42be5685066c8d906, type: 3}
-  - {fileID: 359292703734685612, guid: 509a9c2eadf84fc4d94adc85741b2730, type: 3}
   musicScaleSO: {fileID: 11400000, guid: 2a188254d8c9c094996741b2026c083f, type: 2}
-  special: 0
+  debugSpecialProjectile: {fileID: 359292703734685612, guid: bf306b455f2915d439b7b3030a736bcb, type: 3}
+  debugSpecial: 0
 --- !u!4 &1095734074
 Transform:
   m_ObjectHideFlags: 0
