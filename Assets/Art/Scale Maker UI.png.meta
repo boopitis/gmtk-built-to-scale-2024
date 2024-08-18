@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2625734a23f56f442a5850ca160fbdd6
+guid: 540ca776d63274043b39bd2de414aea1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -49,7 +49,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 24, y: 12, z: 24, w: 21}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -97,22 +97,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI1_0
+      name: Scale Maker UI_0
       rect:
         serializedVersion: 2
-        x: 8
+        x: 0
         y: 0
         width: 78
         height: 63
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d68a83b048f19c7438f058ddee90d0ca
-      internalID: -1189347892
+      spriteID: 735db176a2b53954d85a11e9897d23ea
+      internalID: -992883976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Scale Maker UI_1
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 53
+        width: 3
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fad6cc574f86df44bb8ecef42ec22224
+      internalID: 1209828786
       vertices: []
       indices: 
       edges: []
@@ -121,15 +142,15 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      UI1_0: -1189347892
-      UI1_1: 804419647
+      Scale Maker UI_0: -992883976
+      Scale Maker UI_1: 1209828786
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
