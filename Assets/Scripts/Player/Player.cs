@@ -10,15 +10,10 @@ public class Player : MonoBehaviour
     public static Player Instance { get; private set; }
 
     private Movement movement;
-<<<<<<< Updated upstream
     private Vector2 movementInput;
     private Vector2 lookDirection;
-    
-=======
     public Vector2 coords;
-    public static Player Instance {get; private set;}
 
->>>>>>> Stashed changes
     private void Awake()
     {
         Instance = this;
