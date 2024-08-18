@@ -25,7 +25,6 @@ public class PlayerGun : MonoBehaviour
     private bool attackBlocked;
 
     private int noteIndex;
-    private List<NoteSO> currentNoteSOList;
     [SerializeField] private Special special;
     private enum Special
     {
@@ -39,18 +38,7 @@ public class PlayerGun : MonoBehaviour
         
         noteIndex = 0;
     }
-
-    private void Start()
-    {
-        currentNoteSOList = PlayerMusicScale.Instance.GetCurrentNoteSOList();
-        PlayerMusicScale.Instance.OnCurrentNotesChanged += PlayerMusicScale_OnCurrentNotesChanged;
-    }
-
-    private void PlayerMusicScale_OnCurrentNotesChanged(object sender, EventArgs e)
-    {
-        currentNoteSOList = PlayerMusicScale.Instance.GetCurrentNoteSOList();
-    }
-
+    
     private void Update()
     {
         pointerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2InWorldSpace();
@@ -87,13 +75,13 @@ public class PlayerGun : MonoBehaviour
         attackBlocked = true;
         StartCoroutine(DelayAttack());
 
-        var firedNoteSO = currentNoteSOList[noteIndex];
+        var firedNoteSO = PlayerMusicScale.Instance.GetCurrentNoteSOList()[noteIndex];
 
         Debug.Log(noteIndex); //DEBUG
         Debug.Log(firedNoteSO.name); //DEBUG
 
         noteIndex++;
-        if (noteIndex != currentNoteSOList.Count)
+        if (noteIndex != PlayerMusicScale.Instance.GetCurrentNoteSOList().Count)
         {
             Projectile.SpawnProjectile(projectilePrefabs[firedNoteSO.pitch], firePointTransform, transform.rotation, out _);
             return;
