@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Note : Projectile
+public class NoteProjectile : Projectile
 {
     // Range from 0-11; 0 is lowest C, 11 is B
     [SerializeField] private int pitch;
