@@ -9,6 +9,8 @@ using UnityEngine.Serialization;
  */
 public class BeatManager : MonoBehaviour
 {
+    public static BeatManager Instance { get; private set; }
+    
     public event EventHandler<OnCurrentSubdivisionChangeEventArgs> OnCurrentSubdivisionChange;
     public class OnCurrentSubdivisionChangeEventArgs : EventArgs
     {
@@ -24,6 +26,8 @@ public class BeatManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+        
         currentSubdivision = 0;
         
         beatInterval = new BeatInterval(2); // Set to trigger every eighth note
@@ -33,6 +37,7 @@ public class BeatManager : MonoBehaviour
     private void BeatInterval_OnTrigger(object sender, EventArgs e)
     {
         currentSubdivision = (currentSubdivision + 1) % 16;
+        Debug.Log(currentSubdivision);
         OnCurrentSubdivisionChange?.Invoke(this, new OnCurrentSubdivisionChangeEventArgs
         {
             CurrentSubdivision = currentSubdivision
