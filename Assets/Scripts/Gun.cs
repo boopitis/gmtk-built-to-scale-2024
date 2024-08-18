@@ -80,12 +80,10 @@ public class Gun : MonoBehaviour
         Projectile.SpawnProjectile(projectilePrefabs[note], firePointTransform, transform.rotation);
 
         note += musicScaleSO.intervals[interval];
-        if (note > 11)
-            note -= 12;
+        if (note > 11) note -= 12;
 
         interval++;
-        if (interval > musicScaleSO.intervals.Length - 1)
-            interval = 0;
+        if (interval > musicScaleSO.intervals.Length - 1) interval = 0;
     }
 
     private IEnumerator DelayAttack()
