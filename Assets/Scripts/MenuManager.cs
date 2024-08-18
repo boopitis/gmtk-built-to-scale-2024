@@ -8,13 +8,15 @@ public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance { get; private set; }
 
-    [SerializeField] private GameObject menuCanvas;
+    [SerializeField] private GameObject menuCanvasGO;
+    [SerializeField] private GameObject MusicScaleMakerGO;
+    [SerializeField] private GameObject MusicScaleSelectorGO;
 
     private bool isPaused = false;
 
     private void Start()
     {
-        menuCanvas.SetActive(false);
+        menuCanvasGO.SetActive(false);
 
         GameInput.Instance.OnPlayerMenuOpenClosePerformed += GameInput_OnPlayerMenuOpenClosePerformed;
     }
@@ -28,17 +30,17 @@ public class MenuManager : MonoBehaviour
     {
         if (isPaused)
         {
-            print("Menu Close");
             Time.timeScale = 1f;
             isPaused = false;
-            menuCanvas.SetActive(false);
+            menuCanvasGO.SetActive(false);
+            MusicScaleMakerGO.SetActive(true);
+            MusicScaleSelectorGO.SetActive(false);
         }
         else
         {
-            print("Menu Open");
             Time.timeScale = 0f;
             isPaused = true;
-            menuCanvas.SetActive(true);
+            menuCanvasGO.SetActive(true);
         }
     }
 }
