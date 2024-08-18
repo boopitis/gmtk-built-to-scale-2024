@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ISpecial
 {
-    public void Fire();
+    public void Fire(Transform position, Quaternion rotation);
 
     public bool IsQueued(int createScaleLength, int currentNote);
 }

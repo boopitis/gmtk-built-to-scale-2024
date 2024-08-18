@@ -16,7 +16,7 @@ public abstract class BaseSpecial : MonoBehaviour, ISpecial
     [SerializeField] protected FireTime fireTime;
     [SerializeField] protected Projectile projectile;
 
-    public abstract void Fire();
+    public abstract void Fire(Transform position, Quaternion rotation);
 
     public bool IsQueued(int createScaleLength, int currentNote)
     {
