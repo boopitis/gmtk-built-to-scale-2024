@@ -12,4 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3f2dd77d0e1124c864751fff0d7d58, type: 3}
   m_Name: Major
   m_EditorClassIdentifier: 
-  intervals: 0200000002000000010000000200000002000000020000000100000001000000
+  noteSOList:
+  - {fileID: 11400000, guid: bfa9899a6c271ee49ae8a370eec38dc3, type: 2}
+  - {fileID: 11400000, guid: 6b40dceb088427447b448bf14e2e9fb1, type: 2}
+  - {fileID: 11400000, guid: 5c815867f2264fe4c80182c1b746cf5c, type: 2}
+  - {fileID: 11400000, guid: 5e47939e694f66043aed852958d7ed2c, type: 2}
+  - {fileID: 11400000, guid: eb14ea05a14c7514892f19efdc1d2aeb, type: 2}
+  - {fileID: 11400000, guid: d31c9bb7bb9586a448ba703846f29b57, type: 2}
+  - {fileID: 11400000, guid: e22b482930be0c845b982beb9a7a7850, type: 2}
+  - {fileID: 11400000, guid: bfa9899a6c271ee49ae8a370eec38dc3, type: 2}
+  name: Major Scale
