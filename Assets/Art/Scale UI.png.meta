@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 540ca776d63274043b39bd2de414aea1
+guid: 79c4463c4cf99e1499f6ad158bb1f261
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,74 +97,74 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Scale Maker UI_0
+      name: Scale UI_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 27
         width: 78
         height: 63
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 735db176a2b53954d85a11e9897d23ea
-      internalID: -992883976
+      spriteID: e66bc5a4576c05f4bb5200b14cf21357
+      internalID: -1549650616
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Scale Maker UI_1
+      name: Scale UI_1
       rect:
         serializedVersion: 2
-        x: 86
-        y: 44
+        x: 9
+        y: 9
+        width: 3
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fee5d0d3f79fa9d4ebfd1ca82f6c102b
+      internalID: -1067418216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Scale UI_2
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 0
         width: 4
         height: 19
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fad6cc574f86df44bb8ecef42ec22224
-      internalID: 1209828786
+      spriteID: a516346eaaf90f94e8c45210cea6400c
+      internalID: 1258869938
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Scale Maker UI_2
+      name: Scale UI_3
       rect:
         serializedVersion: 2
-        x: 86
-        y: 44
-        width: 4
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4ad87cb9094fdde449414822f616ff14
-      internalID: -152780913
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Scale Maker UI_3
-      rect:
-        serializedVersion: 2
-        x: 91
-        y: 44
+        x: 19
+        y: 0
         width: 5
         height: 19
       alignment: 0
@@ -174,18 +174,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42e762cfbc6294b41a63ee99b540ce5e
-      internalID: -1819812527
+      spriteID: 318024166a86a204681f98bb9a7a10c8
+      internalID: 249519094
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Scale Maker UI_4
+      name: Scale UI_4
       rect:
         serializedVersion: 2
-        x: 97
-        y: 44
+        x: 25
+        y: 0
         width: 5
         height: 19
       alignment: 0
@@ -195,18 +195,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 884d109c67c3d354fb8212fbd937f17c
-      internalID: 697836152
+      spriteID: e8b607efa86401c47bc29c6351f947fb
+      internalID: 252650602
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Scale Maker UI_5
+      name: Scale UI_5
       rect:
         serializedVersion: 2
-        x: 103
-        y: 44
+        x: 31
+        y: 0
         width: 5
         height: 19
       alignment: 0
@@ -216,18 +216,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af0555521ec1da94cbb26c44b33a5729
-      internalID: 1016986164
+      spriteID: 17e2dab724d69f742842bd92872d305f
+      internalID: 624452933
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Scale Maker UI_6
+      name: Scale UI_6
       rect:
         serializedVersion: 2
-        x: 109
-        y: 44
+        x: 37
+        y: 0
         width: 5
         height: 19
       alignment: 0
@@ -237,18 +237,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e60307551baee6444bbf8c8f050073df
-      internalID: -815567789
+      spriteID: c753142f10aa7b945bb498902ff7481f
+      internalID: -1799327266
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Scale Maker UI_7
+      name: Scale UI_7
       rect:
         serializedVersion: 2
-        x: 115
-        y: 44
+        x: 43
+        y: 0
         width: 5
         height: 19
       alignment: 0
@@ -258,18 +258,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5025f089d88f91c46a66de11b313b44c
-      internalID: 2015602697
+      spriteID: 9e618bdec301ffd40bc5ad7e76a8f2e9
+      internalID: -1753549882
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Scale Maker UI_8
+      name: Scale UI_8
       rect:
         serializedVersion: 2
-        x: 121
-        y: 44
+        x: 49
+        y: 0
         width: 5
         height: 19
       alignment: 0
@@ -279,8 +279,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e279694e9cec9048af0b8e03ba136c5
-      internalID: -941382904
+      spriteID: b3837d782238ee44d8af209aed34f89f
+      internalID: -1160901894
       vertices: []
       indices: 
       edges: []
@@ -296,15 +296,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Scale Maker UI_0: -992883976
-      Scale Maker UI_1: 1209828786
-      Scale Maker UI_2: -152780913
-      Scale Maker UI_3: -1819812527
-      Scale Maker UI_4: 697836152
-      Scale Maker UI_5: 1016986164
-      Scale Maker UI_6: -815567789
-      Scale Maker UI_7: 2015602697
-      Scale Maker UI_8: -941382904
+      Scale UI_0: -1549650616
+      Scale UI_1: -1067418216
+      Scale UI_2: 1258869938
+      Scale UI_3: 249519094
+      Scale UI_4: 252650602
+      Scale UI_5: 624452933
+      Scale UI_6: -1799327266
+      Scale UI_7: -1753549882
+      Scale UI_8: -1160901894
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
