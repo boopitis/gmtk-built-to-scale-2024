@@ -16,7 +16,6 @@ public class PlayerGun : MonoBehaviour
 
     [SerializeField] private Transform firePointTransform;
 
-    [SerializeField] private GameObject[] projectilePrefabs;
     [SerializeField] private ScaleSO musicScaleSO;
 
     private Vector2 pointerPositionInput;
@@ -25,8 +24,8 @@ public class PlayerGun : MonoBehaviour
     private bool attackBlocked;
 
     private int noteIndex;
-    private List<NoteSO> currentNoteSOList;
-    [SerializeField] private Special special;
+    [SerializeField] private GameObject debugSpecialProjectile;
+    [SerializeField] private Special debugSpecial;
     private enum Special
     {
         Major,
@@ -39,18 +38,7 @@ public class PlayerGun : MonoBehaviour
         
         noteIndex = 0;
     }
-
-    private void Start()
-    {
-        currentNoteSOList = PlayerMusicScale.Instance.GetCurrentNoteSOList();
-        PlayerMusicScale.Instance.OnCurrentNotesChanged += PlayerMusicScale_OnCurrentNotesChanged;
-    }
-
-    private void PlayerMusicScale_OnCurrentNotesChanged(object sender, EventArgs e)
-    {
-        currentNoteSOList = PlayerMusicScale.Instance.GetCurrentNoteSOList();
-    }
-
+    
     private void Update()
     {
         pointerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2InWorldSpace();
@@ -87,57 +75,32 @@ public class PlayerGun : MonoBehaviour
         attackBlocked = true;
         StartCoroutine(DelayAttack());
 
-        var firedNoteSO = currentNoteSOList[noteIndex];
+        var firedNoteSO = PlayerMusicScale.Instance.GetCurrentNoteSOList()[noteIndex];
+        var activeScaleSOSpecials = PlayerMusicScale.Instance.GetScaleSpecialsNeedingFiring(noteIndex);
 
         Debug.Log(noteIndex); //DEBUG
-        Debug.Log(firedNoteSO.name); //DEBUG
+        
+        if (activeScaleSOSpecials.Count == 0) // Fire normal note
+        {
+            Debug.Log(firedNoteSO.name); //DEBUG
+            Projectile.SpawnProjectile(firedNoteSO.prefab, firePointTransform, transform.rotation, out _);
+        }
+        else // Fire special(s)
+        {
+            foreach (var scaleSO in activeScaleSOSpecials)
+            {
+                Debug.Log(scaleSO.name); //DEBUG
+                scaleSO.special.Fire(firePointTransform, transform.rotation);
+            }
+        }
 
         noteIndex++;
-        if (noteIndex != currentNoteSOList.Count)
-        {
-            Projectile.SpawnProjectile(projectilePrefabs[firedNoteSO.pitch], firePointTransform, transform.rotation, out _);
-            return;
-        }
-        
-        noteIndex = 0;
-        switch (special)
-        {
-            default:
-            case Special.Major:
-                MajorShotgun();
-                break;
-            case Special.MelodicMinor:
-                MelodicMinorBigBullet();
-                break;
-        }
+        if (noteIndex == PlayerMusicScale.Instance.GetCurrentNoteSOList().Count) noteIndex = 0;
     }
 
     private IEnumerator DelayAttack()
     {
         yield return new WaitForSeconds(ShootDelay);
         attackBlocked = false;
-    }
-
-    private void MajorShotgun()
-    {
-        const int bullets = 8;
-        const int spread = 30;
-
-        for (int i = 0; i < bullets; i++)
-        {
-            Projectile.SpawnProjectile(
-                projectilePrefabs[0], 
-                firePointTransform, 
-                Quaternion.Euler(0, 0, -spread + (spread * 2.0f / bullets * i)) * transform.rotation,
-                Quaternion.Euler(0, 0, -spread + (spread * 2.0f / (bullets - 1) * i)),
-                out _);
-        }
-    }
-
-    private void MelodicMinorBigBullet()
-    {
-        Projectile.SpawnProjectile(projectilePrefabs[0], firePointTransform, transform.rotation, out var projectile);
-        projectile.transform.localScale *= 8f;
-        projectile.SetPiercing(20);
     }
 }

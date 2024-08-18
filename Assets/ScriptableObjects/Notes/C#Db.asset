@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: C#Db
   m_EditorClassIdentifier: 
   pitch: 1
-  name: C#Db
+  prefab: {fileID: 359292703734685612, guid: cb6b12845b9d02a4495fbc260e3c3876, type: 3}
+  noteName: C#Db
