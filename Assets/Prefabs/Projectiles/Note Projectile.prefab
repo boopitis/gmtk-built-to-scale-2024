@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8122037440494729671}
   - component: {fileID: 2367425652528860780}
-  - component: {fileID: 3597435349272378840}
   - component: {fileID: -8709643306438522468}
   - component: {fileID: -2128505399157272628}
+  - component: {fileID: 2947095729560048709}
   m_Layer: 0
   m_Name: Note Projectile
   m_TagString: Untagged
@@ -87,23 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3597435349272378840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9023553564810294082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b09711c1ecc6a94ab2c0e36c95d6824, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileSpeed: 16
-  projectilePrefab: {fileID: 0}
-  projectileDamage: 1
-  piercing: 0
-  hitEffect: {fileID: 9023553564810294082}
 --- !u!50 &-8709643306438522468
 Rigidbody2D:
   serializedVersion: 4
@@ -176,3 +159,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2947095729560048709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9023553564810294082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ad3260bd0f4528843f677a701fc102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileSpeed: 16
+  projectilePrefab: {fileID: 9023553564810294082}
+  projectileDamage: 1
+  piercing: 0
+  hitEffect: {fileID: 9023553564810294082}
+  pitch: 0

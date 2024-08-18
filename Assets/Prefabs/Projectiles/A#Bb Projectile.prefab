@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Color.g
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2947095729560048709, guid: ae9034a741802984e85a9524664a6be4, type: 3}
+      propertyPath: pitch
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8122037440494729671, guid: ae9034a741802984e85a9524664a6be4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -58,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9023553564810294082, guid: ae9034a741802984e85a9524664a6be4, type: 3}
       propertyPath: m_Name
-      value: A#Bb Projectile 1
+      value: A#Bb Projectile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
