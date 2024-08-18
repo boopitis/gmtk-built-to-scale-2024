@@ -8,10 +8,10 @@ using UnityEngine;
  * Manages the notes that the Player currently has.
  * When a scale is completed, OnScaleCreated is fired with the relevant scale.
  */
-public class PlayerScale : MonoBehaviour
+public class PlayerMusicScale : MonoBehaviour
 {
 
-    public static PlayerScale Instance { get; private set; }
+    public static PlayerMusicScale Instance { get; private set; }
 
     public event EventHandler<OnScaleCreatedEventArgs> OnScaleCreated;
     public class OnScaleCreatedEventArgs : EventArgs
@@ -59,6 +59,11 @@ public class PlayerScale : MonoBehaviour
         }
     }
 
+    /**
+     * Attempts to add a note to currentNoteSOList.
+     * Returns bool depending on if adding was successful.
+     * Runs CheckScaleMatch() if successful.
+     */
     public bool TryAddNote(NoteSO potentialNoteSO)
     {
         if (potentialNoteSO.pitch == 0)
@@ -84,6 +89,11 @@ public class PlayerScale : MonoBehaviour
         return true;
     }
 
+    /**
+     * Attempts to remove a note from currentNoteSOList.
+     * Returns bool depending on if removal was successful.
+     * Runs CheckScaleMatch() if successful.
+     */
     public bool TryRemoveNote(NoteSO potentialNoteSO)
     {
         if (potentialNoteSO.pitch == 0)
