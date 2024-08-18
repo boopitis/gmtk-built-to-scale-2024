@@ -23,7 +23,7 @@ public class Gun : MonoBehaviour
 
     private Vector2 pointerPositionInput;
 
-    private const float Delay = 0.3f;
+    [SerializeField] private float shootDelay = 0.3f;
     private static readonly Vector2 WindowOffset = new Vector2(Screen.width, Screen.height);
     private bool attackBlocked;
 
@@ -102,7 +102,7 @@ public class Gun : MonoBehaviour
 
     private IEnumerator DelayAttack()
     {
-        yield return new WaitForSeconds(Delay);
+        yield return new WaitForSeconds(shootDelay);
         attackBlocked = false;
     }
 
