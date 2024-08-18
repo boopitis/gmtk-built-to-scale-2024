@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8987182665363442557}
-  - component: {fileID: 2399491791550423188}
   - component: {fileID: 9173634295477777918}
   - component: {fileID: 7884643927119019097}
   - component: {fileID: 957788532428934922}
   - component: {fileID: 5694807914414982252}
   - component: {fileID: 7685124287363608403}
+  - component: {fileID: 1322918091131399259}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -40,21 +40,6 @@ Transform:
   - {fileID: 4132365368437905043}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2399491791550423188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 546991551971026003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b47cd66e30a29764ba9c80e6471f660b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 1
-  acceleration: -28.07
-  deceleration: 1
 --- !u!114 &9173634295477777918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +143,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1322918091131399259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546991551971026003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08cfeee47bf473049893066499edebbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 1
+  acceleration: 1
+  deceleration: 1
 --- !u!1 &1525879704498881202
 GameObject:
   m_ObjectHideFlags: 0

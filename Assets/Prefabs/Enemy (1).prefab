@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 3257935922192253794}
   - component: {fileID: 1899628755152424887}
   - component: {fileID: 6507228220270777262}
-  - component: {fileID: 1274939588458515643}
+  - component: {fileID: 2619437425589236145}
   m_Layer: 0
   m_Name: Enemy (1)
   m_TagString: Untagged
@@ -239,7 +239,7 @@ PolygonCollider2D:
       - {x: 0.0045245886, y: -0.28408283}
       - {x: 0.54277444, y: -0.0044852197}
   m_UseDelaunayMesh: 0
---- !u!114 &1274939588458515643
+--- !u!114 &2619437425589236145
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3721886325395467927}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b47cd66e30a29764ba9c80e6471f660b, type: 3}
+  m_Script: {fileID: 11500000, guid: 08cfeee47bf473049893066499edebbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 1
