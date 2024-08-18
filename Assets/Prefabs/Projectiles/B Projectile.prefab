@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: pitch
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 2947095729560048709, guid: ae9034a741802984e85a9524664a6be4, type: 3}
+      propertyPath: noteSO
+      value: 
+      objectReference: {fileID: 11400000, guid: e22b482930be0c845b982beb9a7a7850, type: 2}
     - target: {fileID: 8122037440494729671, guid: ae9034a741802984e85a9524664a6be4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
