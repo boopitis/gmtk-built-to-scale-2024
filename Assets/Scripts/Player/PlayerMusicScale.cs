@@ -19,6 +19,8 @@ public class PlayerMusicScale : MonoBehaviour
         public ScaleSO ScaleSO;
     }
 
+    public event EventHandler OnCurrentNotesChanged;
+
     [SerializeField] private ScaleListSO scaleListSO;
     
     [SerializeField] private List<NoteSO> currentNoteSOList; // SERIALIZEFIELD DEBUG
@@ -81,11 +83,13 @@ public class PlayerMusicScale : MonoBehaviour
             
             currentNoteSOList.Insert(i, potentialNoteSO);
             CheckScaleMatch();
+            OnCurrentNotesChanged?.Invoke(this, EventArgs.Empty);
             return true;
         }
         
         currentNoteSOList.Insert(currentNoteSOList.Count-1, potentialNoteSO);
         CheckScaleMatch();
+        OnCurrentNotesChanged?.Invoke(this, EventArgs.Empty);
         return true;
     }
 
@@ -102,9 +106,12 @@ public class PlayerMusicScale : MonoBehaviour
         }
         
         var removalSuccessful =  currentNoteSOList.Remove(potentialNoteSO);
+
+        if (!removalSuccessful) return false;
         
-        if (removalSuccessful) CheckScaleMatch();
-        return removalSuccessful;
+        CheckScaleMatch();
+        OnCurrentNotesChanged?.Invoke(this, EventArgs.Empty);
+        return true;
     }
 
     /**
@@ -130,4 +137,6 @@ public class PlayerMusicScale : MonoBehaviour
             break;
         }
     }
+
+    public List<NoteSO> GetCurrentNoteSOList() => currentNoteSOList;
 }
