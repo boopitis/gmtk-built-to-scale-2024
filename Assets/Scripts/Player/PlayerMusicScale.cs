@@ -155,5 +155,9 @@ public class PlayerMusicScale : MonoBehaviour
 
     public List<NoteSO> GetCurrentNoteSOList() => currentNoteSOList;
 
-    public List<ScaleSO> GetCreatedScaleSOList() => createdScaleSOList;
+    public List<ScaleSO> GetScaleSpecialsNeedingFiring(int currentNote)
+    {
+        return createdScaleSOList.Where(scaleSO => 
+            scaleSO.special.IsNeedingFiring(createdScaleSOList.Count, currentNote)).ToList();
+    }
 }

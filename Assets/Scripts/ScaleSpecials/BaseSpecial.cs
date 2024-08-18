@@ -18,7 +18,7 @@ public abstract class BaseSpecial : MonoBehaviour
 
     public abstract void Fire(Transform position, Quaternion rotation);
 
-    public bool IsQueued(int createScaleLength, int currentNote)
+    public bool IsNeedingFiring(int createScaleLength, int currentNote)
     {
         switch (fireTime)
         {
