@@ -10,6 +10,12 @@ using UnityEngine.Serialization;
 public class PlayerGun : MonoBehaviour
 {
     public static PlayerGun Instance { get; private set; }
+
+    public event EventHandler<OnAttackEventArgs> OnAttack;
+    public class OnAttackEventArgs : EventArgs
+    {
+        public NoteSO FiredNoteSO;
+    }
     
     [SerializeField] private SpriteRenderer characterRenderer;
     [SerializeField] private SpriteRenderer weaponRenderer;
@@ -99,6 +105,11 @@ public class PlayerGun : MonoBehaviour
         var firedNoteSO = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList()[noteIndex];
         Debug.Log(firedNoteSO.name);
 
+        OnAttack?.Invoke(this, new OnAttackEventArgs
+        {
+            FiredNoteSO = firedNoteSO
+        });
+        
         do // do/while exists so break; is usable
         {
             if (noteIndex != PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count - 1 ||
