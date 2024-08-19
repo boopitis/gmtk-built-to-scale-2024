@@ -24,7 +24,7 @@ public class PlayerMusicScale : MonoBehaviour
 
     [SerializeField] private ScaleListSO scaleListSO;
     [SerializeField] private int maxCreatedScales;
-    
+
     [SerializeField] private List<NoteSO> currentNoteSOList; // TODO REMOVE SERIALIZEFIELD DEBUG
     [SerializeField] private List<ScaleSO> createdScaleSOList;
 
@@ -42,22 +42,22 @@ public class PlayerMusicScale : MonoBehaviour
         {
             TryAddNote(debug1);
         }
-        
+
         if (Input.GetKeyDown(KeyCode.M))
         {
             TryRemoveNote(debug1);
         }
-        
+
         if (Input.GetKeyDown(KeyCode.N))
         {
             TryAddNote(debug3);
         }
-        
+
         if (Input.GetKeyDown(KeyCode.O))
         {
             TryAddNote(debug2);
         }
-        
+
         if (Input.GetKeyDown(KeyCode.P))
         {
             TryRemoveNote(debug2);
@@ -75,22 +75,22 @@ public class PlayerMusicScale : MonoBehaviour
         {
             Debug.LogError("Cannot add a C note!");
         }
-        
-        for (var i = 0; i < currentNoteSOList.Count-1; i++)
+
+        for (var i = 0; i < currentNoteSOList.Count - 1; i++)
         {
             var noteSO = currentNoteSOList[i];
-            
+
             if (potentialNoteSO.pitch == noteSO.pitch) return false;
 
             if (potentialNoteSO.pitch > noteSO.pitch) continue;
-            
+
             currentNoteSOList.Insert(i, potentialNoteSO);
             CheckScaleMatch();
             OnCurrentNotesChanged?.Invoke(this, EventArgs.Empty);
             return true;
         }
-        
-        currentNoteSOList.Insert(currentNoteSOList.Count-1, potentialNoteSO);
+
+        currentNoteSOList.Insert(currentNoteSOList.Count - 1, potentialNoteSO);
         CheckScaleMatch();
         OnCurrentNotesChanged?.Invoke(this, EventArgs.Empty);
         return true;
@@ -107,11 +107,11 @@ public class PlayerMusicScale : MonoBehaviour
         {
             Debug.LogError("Cannot remove a C note!");
         }
-        
-        var removalSuccessful =  currentNoteSOList.Remove(potentialNoteSO);
+
+        var removalSuccessful = currentNoteSOList.Remove(potentialNoteSO);
 
         if (!removalSuccessful) return false;
-        
+
         CheckScaleMatch();
         OnCurrentNotesChanged?.Invoke(this, EventArgs.Empty);
         return true;
@@ -127,11 +127,11 @@ public class PlayerMusicScale : MonoBehaviour
             createdScaleSOList.Clear();
 
             if (scaleSO.noteSOList.Count != currentNoteSOList.Count) continue;
-                
-            var validScale = !scaleSO.noteSOList.Where((noteSO, j) => 
+
+            var validScale = !scaleSO.noteSOList.Where((noteSO, j) =>
                 noteSO.pitch != currentNoteSOList[j].pitch).Any();
 
-            if (!validScale) 
+            if (!validScale)
                 continue;
             OnScaleCreated?.Invoke(this, new OnScaleCreatedEventArgs
             {
@@ -142,13 +142,21 @@ public class PlayerMusicScale : MonoBehaviour
             //     scaleSO.scaleName == createdScaleSO.scaleName);
 
             // if (alreadyCreated) return;
-            
+
             createdScaleSOList.Add(scaleSO);
 
+            for (int i = 0; i < scaleListSO.scaleSOs.Length; i++)
+            {
+                if (scaleSO == scaleListSO.scaleSOs[i])
+                {
+                    ScaleViewer.Instance.CreateScalePanel(i);
+                }
+            }
+
             // if (createdScaleSOList.Count <= maxCreatedScales) return;
-            
+
             // createdScaleSOList.RemoveAt(0);
-            
+
             return;
         }
     }
@@ -162,7 +170,7 @@ public class PlayerMusicScale : MonoBehaviour
 
     public List<ScaleSO> GetScaleSpecialsNeedingFiring(int index)
     {
-        return createdScaleSOList.Where(scaleSO => 
+        return createdScaleSOList.Where(scaleSO =>
             scaleSO.special.IsNeedingFiring(currentNoteSOList.Count, index)).ToList();
     }
 }
