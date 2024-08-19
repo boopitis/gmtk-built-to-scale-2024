@@ -13,7 +13,7 @@ public class PlayerMusicScaleManager : MonoBehaviour
 {
     public static PlayerMusicScaleManager Instance { get; private set; }
 
-    public event EventHandler<OnScaleCreatedEventArgs> OnScaleCreated;
+    public event EventHandler<OnScaleCreatedEventArgs> OnScaleChanged;
     public class OnScaleCreatedEventArgs : EventArgs
     {
         public ScaleSO ScaleSO;
@@ -22,10 +22,9 @@ public class PlayerMusicScaleManager : MonoBehaviour
     public event EventHandler OnCurrentNotesChanged;
 
     [SerializeField] private ScaleListSO scaleListSO;
-    [SerializeField] private int maxCreatedScales;
     
     [SerializeField] private List<NoteSO> currentNoteSOList; // TODO REMOVE SERIALIZEFIELD DEBUG
-    [SerializeField] private List<ScaleSO> createdScaleSOList;
+    [FormerlySerializedAs("createdScaleSO")] [SerializeField] private ScaleSO currentScaleSO; // TODO REMOVE SERIALIZEFIELD DEBUG
 
     private void Awake()
     {
@@ -121,6 +120,8 @@ public class PlayerMusicScaleManager : MonoBehaviour
      */
     private void CheckScaleMatch()
     {
+        ScaleSO newCreatedScaleSO = null;
+        
         foreach (var scaleSO in scaleListSO.scaleSOs)
         {
             if (scaleSO.noteSOList.Length != currentNoteSOList.Count) continue;
@@ -129,32 +130,22 @@ public class PlayerMusicScaleManager : MonoBehaviour
                 noteSO.pitch != currentNoteSOList[j].pitch).Any();
 
             if (!validScale) continue;
+
+            newCreatedScaleSO = scaleSO;
             
-            OnScaleCreated?.Invoke(this, new OnScaleCreatedEventArgs
+            break;
+        }
+
+        if (newCreatedScaleSO == currentScaleSO)
+        {
+            OnScaleChanged?.Invoke(this, new OnScaleCreatedEventArgs
             {
-                ScaleSO = scaleSO
+                ScaleSO = currentScaleSO
             });
-
-            var alreadyCreated = createdScaleSOList.Any(createdScaleSO => 
-                scaleSO.scaleName == createdScaleSO.scaleName);
-
-            if (alreadyCreated) return;
-            
-            createdScaleSOList.Add(scaleSO);
-
-            if (createdScaleSOList.Count <= maxCreatedScales) return;
-            
-            createdScaleSOList.RemoveAt(0);
-            
-            return;
         }
     }
 
     public List<NoteSO> GetCurrentNoteSOList() => currentNoteSOList;
 
-    public List<ScaleSO> GetScaleSpecialsNeedingFiring(int index)
-    {
-        return createdScaleSOList.Where(scaleSO => 
-            scaleSO.special.IsNeedingFiring(currentNoteSOList.Count, index)).ToList();
-    }
+    public ScaleSO GetCreatedScaleSO() => currentScaleSO;
 }

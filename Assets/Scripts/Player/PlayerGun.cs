@@ -27,7 +27,7 @@ public class PlayerGun : MonoBehaviour
     }
 
     private void Start()
-    {
+    {   
         BeatManager.Instance.OnCurrentSubdivisionChange += BeatManager_OnCurrentSubdivisionChange;
     }
 
@@ -73,21 +73,23 @@ public class PlayerGun : MonoBehaviour
     public void Attack(int currentSubdivision)
     {
         var firedNoteSO = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList()[noteIndex];
-        var activeScaleSOSpecials = PlayerMusicScaleManager.Instance.GetScaleSpecialsNeedingFiring(noteIndex);
-        
-        if (activeScaleSOSpecials.Count == 0) // Fire normal note
-        { 
-            Projectile.SpawnProjectile(firedNoteSO.prefab, firePointTransform, transform.rotation, out _);
-        }
-        else // Fire special(s)
-        {
-            foreach (var scaleSO in activeScaleSOSpecials)
-            {
-                Debug.Log(scaleSO.name); //DEBUG
-                scaleSO.special.Fire(firePointTransform, transform.rotation);
-            }
-        }
 
+        do // do/while exists so break; is useable
+        {
+            if (noteIndex == PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count) // Fire normal projectile
+            {
+                noteIndex = 0;
+                Projectile.SpawnProjectile(firedNoteSO.prefab, firePointTransform, transform.rotation, out _);
+                break;
+            }
+
+            // Fire special
+            if (PlayerMusicScaleManager.Instance.GetCreatedScaleSO() is null) break;
+            
+            Debug.Log(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().name); //DEBUG
+            PlayerMusicScaleManager.Instance.GetCreatedScaleSO().special.Fire(firePointTransform, transform.rotation);
+        } while (false);
+        
         noteIndex++;
         if (noteIndex == PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count) noteIndex = 0;
     }
