@@ -53,11 +53,11 @@ public class Gun : MonoBehaviour
 
         if (transform.eulerAngles.z is > 0 and < 180)
         {
-            weaponRenderer.sortingOrder = characterRenderer.sortingOrder + 1;
+            weaponRenderer.sortingOrder = characterRenderer.sortingOrder - 1;
         }
         else
         {
-            weaponRenderer.sortingOrder = characterRenderer.sortingOrder + 2;
+            weaponRenderer.sortingOrder = characterRenderer.sortingOrder + 1;
         }
     }
 
