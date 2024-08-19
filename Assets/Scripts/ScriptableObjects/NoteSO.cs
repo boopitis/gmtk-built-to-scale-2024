@@ -7,6 +7,7 @@ using UnityEngine.Serialization;
 public class NoteSO : ScriptableObject
 {
     public GameObject prefab;
+    public AudioClip audioClip;
     // Range from 0-12; 0 is lowest C, 12 is highest C
     public int pitch;
     [FormerlySerializedAs("name")] public string noteName;

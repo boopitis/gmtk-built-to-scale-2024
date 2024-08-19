@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: C (high)
   m_EditorClassIdentifier: 
   prefab: {fileID: 359292703734685612, guid: bf306b455f2915d439b7b3030a736bcb, type: 3}
+  audioClip: {fileID: 8300000, guid: 0dce685f3c0b94349b615106b4407679, type: 3}
   pitch: 12
   noteName: High C
