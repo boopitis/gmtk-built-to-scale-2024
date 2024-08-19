@@ -5,18 +5,18 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject MusicScaleMakerGO;
-    [SerializeField] private GameObject MusicScaleViewerGO;
+    [SerializeField] private GameObject MusicScaleSelectorGO;
 
     public void OpenMusicScaleMaker()
     {
         MusicScaleMakerGO.SetActive(true);
-        MusicScaleViewerGO.SetActive(false);
+        MusicScaleSelectorGO.SetActive(false);
     }
 
-    public void OpenMusicScaleViewer()
+    public void OpenMusicScaleSelector()
     {
         MusicScaleMakerGO.SetActive(false);
-        MusicScaleViewerGO.SetActive(true);
+        MusicScaleSelectorGO.SetActive(true);
     }
 
     public void QuitGame()

@@ -24,5 +24,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e22b482930be0c845b982beb9a7a7850, type: 2}
   - {fileID: 11400000, guid: bfa9899a6c271ee49ae8a370eec38dc3, type: 2}
   scaleName: Melodic Minor Scale
-  specialDescription: Big Bullet
-  passiveDescription: -25% Enemy Movement
