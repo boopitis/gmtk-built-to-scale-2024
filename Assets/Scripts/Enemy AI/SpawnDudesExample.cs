@@ -31,7 +31,7 @@ public class SpawnDudesExample : MonoBehaviour
         for (int i = 0; i < enemies; i++)
         {
             SetOffset();
-            Instantiate(enemyPrefab, Quaternion.Euler(0, 0, 0  + rotateOffset + 360 / enemies * i) * (playerGO.transform.right + new Vector3(radius + distanceOffset, 0, 0)), Quaternion.identity);
+            Instantiate(enemyPrefab, Quaternion.Euler(0, 0, 0  + (rotateOffset + 360) / enemies * i) * (playerGO.transform.right + new Vector3(radius + distanceOffset, 0, 0)), Quaternion.identity);
         }
     }
 
