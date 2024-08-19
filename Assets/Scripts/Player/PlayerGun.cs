@@ -20,7 +20,9 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] private SpriteRenderer characterRenderer;
     [SerializeField] private SpriteRenderer weaponRenderer;
     
-    [SerializeField] private Transform firePointTransform; 
+    [SerializeField] private Transform firePointTransform;
+
+    [SerializeField] private int timingWindow;
 
     private Vector2 pointerPositionInput;
     private int noteIndex;
@@ -37,11 +39,18 @@ public class PlayerGun : MonoBehaviour
     }
 
     private void Start()
-    {   
+    {
+        GameInput.Instance.OnPlayerShootPerformed += GameInput_OnPlayerShootPerformed;
+        
         PlayerMusicScaleManager.Instance.OnCurrentNotesChanged += PlayerMusicScaleManager_OnCurrentNotesChanged;
-        BeatManager.Instance.OnCurrentSubdivisionChange += BeatManager_OnCurrentSubdivisionChange;
+        MusicSyncManager.Instance.OnCurrentSubdivisionChange += MusicSyncManager_OnCurrentSubdivisionChange;
         
         SetSubdivisionTiming();
+    }
+
+    private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
+    {
+        // throw new NotImplementedException();
     }
 
     private void PlayerMusicScaleManager_OnCurrentNotesChanged(object sender, EventArgs e)
@@ -57,7 +66,7 @@ public class PlayerGun : MonoBehaviour
         subdivisionTiming.Sort();
     }
 
-    private void BeatManager_OnCurrentSubdivisionChange(object sender, BeatManager.OnCurrentSubdivisionChangeEventArgs e)
+    private void MusicSyncManager_OnCurrentSubdivisionChange(object sender, MusicSyncManager.OnCurrentSubdivisionChangeEventArgs e)
     {
         if (subdivisionTiming[noteIndex] != e.CurrentSubdivision) return;
         

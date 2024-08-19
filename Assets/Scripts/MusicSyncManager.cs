@@ -20,10 +20,12 @@ public class MusicSyncManager : MonoBehaviour
     [SerializeField] private float bpm;
     [SerializeField] private AudioSource audioSource;
     
-    private MeasureInterval eighthMeasureInterval;
-    private MeasureInterval fullMeasureInterval;
+    private float halfMeasureLength;
     
-    private float timeSinceLastHalfMeasure;
+    private MeasureInterval eighthMeasureInterval;
+    private MeasureInterval twoMeasureInterval;
+    
+    private float timeToNextHalfMeasure;
     // Range from 0-15. Stores the current beat that the subdivision is on. (eg. 0 is beat 1, 15 is beat 4+)
     private int currentSubdivision, pCurrentSubdivision;
 
@@ -31,19 +33,21 @@ public class MusicSyncManager : MonoBehaviour
     {
         Instance = this;
 
-        timeSinceLastHalfMeasure = 0f;
-        currentSubdivision = 0;
+        halfMeasureLength = BeatsToSeconds(2);
         
-        eighthMeasureInterval = new MeasureInterval(4); // Set to trigger every eighth note
-        fullMeasureInterval = new MeasureInterval(1.0f/4); // Set to trigger every measure
+        eighthMeasureInterval = new MeasureInterval(2); // Set to trigger every eighth note
+        twoMeasureInterval = new MeasureInterval(1.0f/8); // Set to trigger every 2 measures
+        
+        timeToNextHalfMeasure = halfMeasureLength;
+        currentSubdivision = 0;
 
-        eighthMeasureInterval.OnTrigger += EighthMeasureIntervalOnTrigger;
-        fullMeasureInterval.OnTrigger += FullMeasureIntervalOnTrigger;
+        eighthMeasureInterval.OnTrigger += EighthMeasureInterval_OnTrigger;
+        twoMeasureInterval.OnTrigger += TwoMeasureInterval_OnTrigger;
     }
 
-    private void FullMeasureIntervalOnTrigger(object sender, EventArgs e)
+    private void TwoMeasureInterval_OnTrigger(object sender, EventArgs e)
     {
-        timeSinceLastHalfMeasure = 0f;
+        timeToNextHalfMeasure = halfMeasureLength;
         currentSubdivision = 0;
         OnCurrentSubdivisionChange?.Invoke(this, new OnCurrentSubdivisionChangeEventArgs
         {
@@ -52,7 +56,7 @@ public class MusicSyncManager : MonoBehaviour
         pCurrentSubdivision = currentSubdivision;
     }
 
-    private void EighthMeasureIntervalOnTrigger(object sender, EventArgs e)
+    private void EighthMeasureInterval_OnTrigger(object sender, EventArgs e)
     {
         if (pCurrentSubdivision == 15) return;
         currentSubdivision++;
@@ -65,14 +69,13 @@ public class MusicSyncManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(timeSinceLastHalfMeasure);
-        timeSinceLastHalfMeasure += Time.deltaTime;
+        Debug.Log(timeToNextHalfMeasure);
+        timeToNextHalfMeasure -= Time.deltaTime;
         
-        const int beats = 2;
-        if (SecondsToBeats(timeSinceLastHalfMeasure) > beats) timeSinceLastHalfMeasure = 0f;
+        if (SecondsToBeats(timeToNextHalfMeasure) <= 0) timeToNextHalfMeasure = halfMeasureLength;
         
         UpdateBeatInterval(eighthMeasureInterval);
-        UpdateBeatInterval(fullMeasureInterval);
+        UpdateBeatInterval(twoMeasureInterval);
     }
 
     private void UpdateBeatInterval(MeasureInterval measureInterval)
@@ -82,10 +85,15 @@ public class MusicSyncManager : MonoBehaviour
         measureInterval.CheckForNewInterval(sampledTime);
     }
 
-    // TODO Each beat takes 2/3 seconds
     private float SecondsToBeats(float seconds)
     {
         const float secondsInMinute = 60f;
         return seconds * (bpm / secondsInMinute);
+    }
+
+    private float BeatsToSeconds(float beats)
+    {
+        const float secondsInMinute = 60f;
+        return beats * (secondsInMinute / bpm);
     }
 }

@@ -20,12 +20,6 @@ public class MeasureInterval
         this.subdivision = subdivision;
     }
 
-    public static float GetDefaultIntervalLength(float bpm)
-    {
-        const float seconds = 60f;
-        return seconds / bpm;
-    }
-
     public float GetIntervalLength(float bpm)
     {
         const float seconds = 60f;
