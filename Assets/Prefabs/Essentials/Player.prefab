@@ -377,8 +377,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 6656249204800257181}
-  health: 6
-  maxHealth: 6
   immunityDuration: 1
 --- !u!50 &6460075135439925387
 Rigidbody2D:
@@ -640,7 +638,7 @@ MonoBehaviour:
   weaponRenderer: {fileID: 7929753988749435020}
   firePointTransform: {fileID: 4952167804138597635}
   pivotTransform: {fileID: 186621946057564310}
-  timingWindowInMillis: 0
+  timingWindowInMillis: 160
 --- !u!114 &2276863762386100752
 MonoBehaviour:
   m_ObjectHideFlags: 0
