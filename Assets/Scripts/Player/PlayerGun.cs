@@ -59,10 +59,8 @@ public class PlayerGun : MonoBehaviour
 
     private void BeatManager_OnCurrentSubdivisionChange(object sender, BeatManager.OnCurrentSubdivisionChangeEventArgs e)
     {
-        Debug.Log(e.CurrentSubdivision);
         if (subdivisionTiming[noteIndex] != e.CurrentSubdivision) return;
         
-        Debug.Log("fired projectile!");
         Attack();
     }
 
@@ -103,7 +101,6 @@ public class PlayerGun : MonoBehaviour
     public void Attack()
     {
         var firedNoteSO = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList()[noteIndex];
-        Debug.Log(firedNoteSO.name);
 
         OnAttack?.Invoke(this, new OnAttackEventArgs
         {
@@ -120,7 +117,6 @@ public class PlayerGun : MonoBehaviour
             }
             
             // Fire special
-            Debug.Log(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().name); //DEBUG
             PlayerMusicScaleManager.Instance.GetCreatedScaleSO().special.Fire(firePointTransform, transform.rotation);
         } while (false);
         
