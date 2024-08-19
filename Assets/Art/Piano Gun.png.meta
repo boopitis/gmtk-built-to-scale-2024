@@ -101,7 +101,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 8
-        y: 175
+        y: 446
         width: 104
         height: 64
       alignment: 0
@@ -121,12 +121,12 @@ TextureImporter:
       name: Piano Gun_1
       rect:
         serializedVersion: 2
-        x: 8
-        y: 8
+        x: 120
+        y: 361
         width: 149
         height: 149
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -151,6 +151,7 @@ TextureImporter:
     nameFileIdTable:
       Piano Gun_0: 1729451923
       Piano Gun_1: -1791643888
+      Piano Gun_2: -1625872060
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
