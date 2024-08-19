@@ -7,29 +7,32 @@ using UnityEngine.InputSystem;
 public class GameInput : MonoBehaviour
 {
     public static GameInput Instance { get; private set; }
-    
+
     private InputActions inputActions;
     private Vector2 playerPointerPositionVector2InWorldSpace;
 
     public event EventHandler OnPlayerShootPerformed;
+    public event EventHandler OnPlayerMenuOpenClosePerformed;
     public event EventHandler OnUINavigatePerformed;
     public event EventHandler OnUISubmitPerformed;
     public event EventHandler OnUICancelPerformed;
     public event EventHandler OnUIClickPerformed;
     public event EventHandler OnUIMiddleClickPerformed;
     public event EventHandler OnUIRightClickPerformed;
-    
+
     private void Awake()
     {
         Instance = this;
 
         inputActions = new InputActions();
-        
+
         inputActions.Player.Enable();
         // Get Player Movement from GetPlayerMovementVector2()
         // Get Player PointerPosition from GetPlayerPointerPositionVector2()
         inputActions.Player.Shoot.performed += PlayerShoot_performed;
-        
+
+        inputActions.Player.MenuOpenClose.performed += PlayerMenuOpenClose_performed;
+
         inputActions.UI.Enable();
         inputActions.UI.Navigate.performed += UINavigate_performed;
         inputActions.UI.Submit.performed += UISubmit_performed;
@@ -117,5 +120,10 @@ public class GameInput : MonoBehaviour
     private void PlayerShoot_performed(InputAction.CallbackContext obj)
     {
         OnPlayerShootPerformed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void PlayerMenuOpenClose_performed(InputAction.CallbackContext obj)
+    {
+        OnPlayerMenuOpenClosePerformed?.Invoke(this, EventArgs.Empty);
     }
 }

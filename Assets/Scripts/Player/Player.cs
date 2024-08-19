@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     private Movement movement;
 <<<<<<< Updated upstream
     private Vector2 movementInput;
-    private Vector2 lookDirection;
     
 =======
     public Vector2 coords;
@@ -45,7 +44,7 @@ public class Player : MonoBehaviour
     {
         GameInput.Instance.OnPlayerShootPerformed += GameInput_OnPlayerShootPerformed;
     }
-    
+
     private void Update()
     {
         movementInput = GameInput.Instance.GetPlayerMovementVector2();
@@ -54,7 +53,7 @@ public class Player : MonoBehaviour
 
     private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
     {
-        Gun.Instance?.Attack();
+        // PlayerGun.Instance?.Attack();
     }
 
     public Vector2 GiveC()
