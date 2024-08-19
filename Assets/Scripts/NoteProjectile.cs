@@ -7,9 +7,9 @@ public class NoteProjectile : Projectile
 {
     [SerializeField] private NoteSO noteSO;
 
-    private void Start()
+    private void Awake()
     {
-        if (noteSO.pitch is < 0 or > 12)
+        if (noteSO.pitch is < 0 or > 11)
         {
             Debug.LogError("Invalid pitch in Note class!");
         }

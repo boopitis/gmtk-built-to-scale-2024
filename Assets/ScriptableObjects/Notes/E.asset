@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251be8938f68468bbcaf7f963168b892, type: 3}
   m_Name: E
   m_EditorClassIdentifier: 
-  prefab: {fileID: 359292703734685612, guid: f059ae75a0b50484f81be357bf50ded1, type: 3}
-  audioClip: {fileID: 8300000, guid: 330f145683a07034985c193c6c26b847, type: 3}
   pitch: 4
+  prefab: {fileID: 359292703734685612, guid: f059ae75a0b50484f81be357bf50ded1, type: 3}
   noteName: E
