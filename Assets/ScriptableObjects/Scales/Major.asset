@@ -24,3 +24,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e22b482930be0c845b982beb9a7a7850, type: 2}
   - {fileID: 11400000, guid: 16b22d5ec168128438f56f61d2f152b4, type: 2}
   scaleName: Major Scale
+  specialDescription: Shotgun
+  passiveDescription: Blah blah blah
