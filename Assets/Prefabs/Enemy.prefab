@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7884643927119019097}
   - component: {fileID: 957788532428934922}
   - component: {fileID: 5694807914414982252}
-  - component: {fileID: 7685124287363608403}
   - component: {fileID: 1322918091131399259}
+  - component: {fileID: 870176823031664984}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -95,8 +95,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c818fb9e47caa6b4ab7025ff4c2e29ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!58 &7685124287363608403
-CircleCollider2D:
+--- !u!114 &1322918091131399259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546991551971026003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08cfeee47bf473049893066499edebbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 1
+  acceleration: 1
+  deceleration: 1
+--- !u!70 &870176823031664984
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -127,24 +142,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &1322918091131399259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 546991551971026003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08cfeee47bf473049893066499edebbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 1
-  acceleration: 1
-  deceleration: 1
+  m_Offset: {x: 0, y: 0.02}
+  m_Size: {x: 0.5, y: 1.3}
+  m_Direction: 0
 --- !u!1 &1525879704498881202
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,6 +347,7 @@ GameObject:
   - component: {fileID: 4080351263192127367}
   - component: {fileID: 568846999020700616}
   - component: {fileID: 1517896022125346147}
+  - component: {fileID: 8613406195809292613}
   m_Layer: 0
   m_Name: Effector
   m_TagString: Untagged
@@ -376,7 +377,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6701485527028054279}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -417,6 +418,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+--- !u!70 &8613406195809292613
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6701485527028054279}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.02}
+  m_Size: {x: 0.6, y: 1.45}
+  m_Direction: 0
 --- !u!1 &7792005358892122331
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +480,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.07218718}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8987182665363442557}
@@ -487,10 +523,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 265947729
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -104449405, guid: 509fb258972dbeb42ade328f15f8c4d8, type: 3}
   m_Color: {r: 0.24254353, g: 0.1199786, b: 0.5169811, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -15,6 +15,8 @@ public class SpawnDude : MonoBehaviour
     [SerializeField] private float minOffset = 1f;
     [SerializeField] private float maxOffset = 5f;
     private float delay;
+    private GameObject[] Enemyarray = new GameObject[100];
+    private int enemyNum = -1;
     
     private bool blockSpawn = false;
 
@@ -30,8 +32,19 @@ public class SpawnDude : MonoBehaviour
             SetOffset();
             Vector2 euler_vector = playerGO.position + (Quaternion.Euler(0, 0, 0 + (rotateOffset + (360 / enemies * i))) * new Vector3(distanceOffset + radius, 0, 0));
             //Debug.Log("euler is " + euler_vector);
-            Instantiate(enemyPrefab, euler_vector, Quaternion.identity, transform);
-            //Debug.Log("spawned enemy " + i);
+            if (enemyNum < 50)
+            {
+                GameObject Instantiated_enemy = Instantiate(enemyPrefab, euler_vector, Quaternion.identity, transform);
+                enemyNum = enemyNum + 1;
+                Enemyarray[enemyNum] = Instantiated_enemy;
+                Debug.Log(Enemyarray[enemyNum]);
+                //Debug.Log("spawned enemy " + i);
+                Debug.Log("There are " + Enemyarray.Length + " enemies.");
+            }
+            if (enemyNum >= 50)
+            {
+                return;
+            }
         }
     }
 
