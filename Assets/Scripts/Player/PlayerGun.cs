@@ -22,7 +22,7 @@ public class PlayerGun : MonoBehaviour
     
     [SerializeField] private Transform firePointTransform;
 
-    [SerializeField] private int timingWindow;
+    [SerializeField] private int timingWindowInMillis;
 
     private Vector2 pointerPositionInput;
     private int noteIndex;
@@ -50,7 +50,34 @@ public class PlayerGun : MonoBehaviour
 
     private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
     {
-        // throw new NotImplementedException();
+        int accuracyInMillis;
+        int subdivision;
+        
+        float timeToLastHalfMeasure = MusicSyncManager.Instance.GetTimeToLastHalfMeasure();
+        float timeToNextHalfMeasure = MusicSyncManager.Instance.GetTimeToNextHalfMeasure();
+
+        if (timeToLastHalfMeasure < timeToNextHalfMeasure)
+        {
+            accuracyInMillis = (int)(timeToLastHalfMeasure * 1000);
+            subdivision = MusicSyncManager.Instance.GetLastHalfMeasureSubdivision();
+        } else
+        {
+            accuracyInMillis = (int)(timeToNextHalfMeasure * 1000);
+            subdivision = MusicSyncManager.Instance.GetNextHalfMeasureSubdivision();
+        }
+
+        if (accuracyInMillis < timingWindowInMillis)
+        {
+            QueueNotes(subdivision);
+        }
+    }
+
+    private void QueueNotes(int subdivision)
+    {
+        if (subdivision % 4 != 0)
+        {
+            Debug.LogError("Subdivision does not correspond with a half measure!");
+        }
     }
 
     private void PlayerMusicScaleManager_OnCurrentNotesChanged(object sender, EventArgs e)

@@ -28,13 +28,13 @@ public class MusicSyncManager : MonoBehaviour
     private float timeToNextHalfMeasure;
     // Range from 0-15. Stores the current beat that the subdivision is on. (eg. 0 is beat 1, 15 is beat 4+)
     private int currentSubdivision, pCurrentSubdivision;
-
+    
     private void Awake()
     {
         Instance = this;
 
         halfMeasureLength = BeatsToSeconds(2);
-        
+   
         eighthMeasureInterval = new MeasureInterval(2); // Set to trigger every eighth note
         twoMeasureInterval = new MeasureInterval(1.0f/8); // Set to trigger every 2 measures
         
@@ -69,7 +69,6 @@ public class MusicSyncManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(timeToNextHalfMeasure);
         timeToNextHalfMeasure -= Time.deltaTime;
         
         if (SecondsToBeats(timeToNextHalfMeasure) <= 0) timeToNextHalfMeasure = halfMeasureLength;
@@ -95,5 +94,19 @@ public class MusicSyncManager : MonoBehaviour
     {
         const float secondsInMinute = 60f;
         return beats * (secondsInMinute / bpm);
+    }
+
+    public float GetTimeToLastHalfMeasure() => halfMeasureLength - timeToNextHalfMeasure;
+
+    public float GetTimeToNextHalfMeasure() => timeToNextHalfMeasure;
+
+    public int GetLastHalfMeasureSubdivision()
+    { 
+        return currentSubdivision / 4 * 4;
+    }
+
+    public int GetNextHalfMeasureSubdivision()
+    {
+        return (currentSubdivision / 4 * 4 + 4) % 16;
     }
 }
