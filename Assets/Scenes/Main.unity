@@ -7010,8 +7010,8 @@ MonoBehaviour:
   weaponRenderer: {fileID: 103490298}
   firePointTransform: {fileID: 1616649672}
   pivotTransform: {fileID: 1011201748}
-  musicScaleSO: {fileID: 11400000, guid: 2a188254d8c9c094996741b2026c083f, type: 2}
-  debugSpecialProjectile: {fileID: 359292703734685612, guid: bf306b455f2915d439b7b3030a736bcb, type: 3}
+  musicScaleSO: {fileID: 0}
+  debugSpecialProjectile: {fileID: 0}
   debugSpecial: 0
 --- !u!4 &1095734074
 Transform:
@@ -7075,7 +7075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaleListSO: {fileID: 11400000, guid: 89efe2dc1aea18040937fe6105960b3b, type: 2}
-  maxCreatedScales: 1
+  maxCreatedScales: 0
   currentNoteSOList:
   - {fileID: 11400000, guid: bfa9899a6c271ee49ae8a370eec38dc3, type: 2}
   - {fileID: 11400000, guid: bfa9899a6c271ee49ae8a370eec38dc3, type: 2}
