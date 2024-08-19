@@ -18,7 +18,11 @@ public class PlayerGun : MonoBehaviour
 
     private Vector2 pointerPositionInput;
     private int noteIndex;
-    
+    // Order which subdivisions are played in
+    private static int[] _subdivisionTimingOrder = { 0, 12, 8, 4, 10, 6, 2, 11, 9, 7, 5, 3, 1 };
+    // Which subdivisions get played
+    [SerializeField] private List<int> subdivisionTiming;
+
     private void Awake()
     {
         Instance = this;
@@ -28,12 +32,32 @@ public class PlayerGun : MonoBehaviour
 
     private void Start()
     {   
+        PlayerMusicScaleManager.Instance.OnCurrentNotesChanged += PlayerMusicScaleManager_OnCurrentNotesChanged;
         BeatManager.Instance.OnCurrentSubdivisionChange += BeatManager_OnCurrentSubdivisionChange;
+        
+        SetSubdivisionTiming();
+    }
+
+    private void PlayerMusicScaleManager_OnCurrentNotesChanged(object sender, EventArgs e)
+    {
+        SetSubdivisionTiming();
+    }
+
+    private void SetSubdivisionTiming()
+    {
+        var currentNoteSOListSize = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count;
+        subdivisionTiming = new List<int>(_subdivisionTimingOrder[..currentNoteSOListSize]);
+        
+        subdivisionTiming.Sort();
     }
 
     private void BeatManager_OnCurrentSubdivisionChange(object sender, BeatManager.OnCurrentSubdivisionChangeEventArgs e)
     {
-        Attack(e.CurrentSubdivision);
+        Debug.Log(e.CurrentSubdivision);
+        if (subdivisionTiming[noteIndex] != e.CurrentSubdivision) return;
+        
+        Debug.Log("fired projectile!");
+        Attack();
     }
 
     private void Update()
@@ -70,21 +94,21 @@ public class PlayerGun : MonoBehaviour
         }
     }
 
-    public void Attack(int currentSubdivision)
+    public void Attack()
     {
         var firedNoteSO = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList()[noteIndex];
+        Debug.Log(firedNoteSO.name);
 
         do // do/while exists so break; is usable
         {
-            if (noteIndex != PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count - 1) // Fire normal projectile
-            {
+            if (noteIndex != PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count - 1 ||
+                PlayerMusicScaleManager.Instance.GetCreatedScaleSO() is null)
+            { // Fire normal projectile
                 Projectile.SpawnProjectile(firedNoteSO.prefab, firePointTransform, transform.rotation, out _);
                 break;
             }
-
-            // Fire special
-            if (PlayerMusicScaleManager.Instance.GetCreatedScaleSO() is null) break;
             
+            // Fire special
             Debug.Log(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().name); //DEBUG
             PlayerMusicScaleManager.Instance.GetCreatedScaleSO().special.Fire(firePointTransform, transform.rotation);
         } while (false);
