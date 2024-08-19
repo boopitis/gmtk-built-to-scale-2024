@@ -146,15 +146,6 @@ public class PlayerGun : MonoBehaviour
         subdivisionTiming.Sort();
     }
 
-    private void BeatManager_OnCurrentSubdivisionChange(object sender, BeatManager.OnCurrentSubdivisionChangeEventArgs e)
-    {
-        // Debug.Log(e.CurrentSubdivision);
-        if (subdivisionTiming[noteIndex] != e.CurrentSubdivision) return;
-
-        // Debug.Log("fired projectile!");
-        Attack();
-    }
-
     private void Update()
     {
         UpdateFacingDirection();
