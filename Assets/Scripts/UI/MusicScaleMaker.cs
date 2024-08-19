@@ -13,12 +13,12 @@ public class MusicScaleMaker : MonoBehaviour
         if (keyImages[key].activeInHierarchy)
         {
             keyImages[key].SetActive(false);
-            PlayerMusicScale.Instance.TryRemoveNote(noteSOS[key]);
+            PlayerMusicScaleManager.Instance.TryRemoveNote(noteSOS[key]);
         }
         else
         {
             keyImages[key].SetActive(true);
-            PlayerMusicScale.Instance.TryAddNote(noteSOS[key]);
+            PlayerMusicScaleManager.Instance.TryAddNote(noteSOS[key]);
         }
     }
 }

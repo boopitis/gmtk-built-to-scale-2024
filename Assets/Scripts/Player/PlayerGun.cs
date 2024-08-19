@@ -16,11 +16,11 @@ public class PlayerGun : MonoBehaviour
     {
         public NoteSO FiredNoteSO;
     }
-    
-    [SerializeField] private SpriteRenderer characterRenderer;
+
     [SerializeField] private SpriteRenderer weaponRenderer;
-    
-    [SerializeField] private Transform firePointTransform; 
+
+    [SerializeField] private Transform firePointTransform;
+    [SerializeField] private Transform pivotTransform;
 
     private Vector2 pointerPositionInput;
     private int noteIndex;
@@ -32,15 +32,15 @@ public class PlayerGun : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        
+
         noteIndex = 0;
     }
 
     private void Start()
-    {   
+    {
         PlayerMusicScaleManager.Instance.OnCurrentNotesChanged += PlayerMusicScaleManager_OnCurrentNotesChanged;
         BeatManager.Instance.OnCurrentSubdivisionChange += BeatManager_OnCurrentSubdivisionChange;
-        
+
         SetSubdivisionTiming();
     }
 
@@ -53,7 +53,7 @@ public class PlayerGun : MonoBehaviour
     {
         var currentNoteSOListSize = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count;
         subdivisionTiming = new List<int>(_subdivisionTimingOrder[..currentNoteSOListSize]);
-        
+
         subdivisionTiming.Sort();
     }
 
@@ -61,7 +61,7 @@ public class PlayerGun : MonoBehaviour
     {
         Debug.Log(e.CurrentSubdivision);
         if (subdivisionTiming[noteIndex] != e.CurrentSubdivision) return;
-        
+
         Debug.Log("fired projectile!");
         Attack();
     }
@@ -74,30 +74,10 @@ public class PlayerGun : MonoBehaviour
     private void UpdateFacingDirection()
     {
         pointerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2InWorldSpace();
-        Vector2 direction = (pointerPositionInput - (Vector2)transform.position).normalized;
-        transform.right = direction;
-
-        Vector2 scale = transform.localScale;
-        if (PlayerVisual.Instance.GetLookDirection().x < 0)
-        {
-            scale.y = -1;
-            scale.x = -1;
-        }
-        else if (PlayerVisual.Instance.GetLookDirection().x > 0)
-        {
-            scale.y = 1;
-            scale.x = 1;
-        }
-        transform.localScale = scale;
-
-        if (transform.eulerAngles.z is > 0 and < 180)
-        {
-            weaponRenderer.sortingOrder = characterRenderer.sortingOrder - 1;
-        }
-        else
-        {
-            weaponRenderer.sortingOrder = characterRenderer.sortingOrder + 1;
-        }
+        Vector2 direction = (pointerPositionInput - (Vector2)pivotTransform.position).normalized;
+        pivotTransform.right = direction;
+        transform.position = (Vector2)pivotTransform.position + (1.175f * direction);
+        transform.rotation = pivotTransform.rotation;
     }
 
     public void Attack()
@@ -109,7 +89,7 @@ public class PlayerGun : MonoBehaviour
         {
             FiredNoteSO = firedNoteSO
         });
-        
+
         do // do/while exists so break; is usable
         {
             if (noteIndex != PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count - 1 ||
@@ -118,12 +98,12 @@ public class PlayerGun : MonoBehaviour
                 Projectile.SpawnProjectile(firedNoteSO.prefab, firePointTransform, transform.rotation, out _);
                 break;
             }
-            
+
             // Fire special
             Debug.Log(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().name); //DEBUG
             PlayerMusicScaleManager.Instance.GetCreatedScaleSO().special.Fire(firePointTransform, transform.rotation);
         } while (false);
-        
+
         noteIndex++;
         if (noteIndex == PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count) noteIndex = 0;
     }
