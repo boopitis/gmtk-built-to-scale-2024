@@ -26,6 +26,7 @@ public class MusicSyncManager : MonoBehaviour
     private int HalfMeasureSubdivisionLength; // DO NOT MODIFY
     
     private MeasureInterval eighthMeasureInterval;
+    private MeasureInterval halfMeasureInterval;
     private MeasureInterval twoMeasureInterval;
     
     private float timeToNextHalfMeasure;
@@ -38,6 +39,7 @@ public class MusicSyncManager : MonoBehaviour
         Instance = this;
    
         eighthMeasureInterval = new MeasureInterval(2); // Set to trigger every eighth note
+        halfMeasureInterval = new MeasureInterval(1.0f/2); // Set to trigger every half note
         twoMeasureInterval = new MeasureInterval(1.0f/8); // Set to trigger every 2 measures
         
         HalfMeasureSecondLength = BeatsToSeconds(2); // Length of 2 beats
@@ -48,12 +50,12 @@ public class MusicSyncManager : MonoBehaviour
         firstTwoMeasureIntervalTriggered = false;
 
         eighthMeasureInterval.OnTrigger += EighthMeasureInterval_OnTrigger;
+        halfMeasureInterval.OnTrigger += HalfMeasureInterval_OnTrigger;
         twoMeasureInterval.OnTrigger += TwoMeasureInterval_OnTrigger;
     }
 
     private void TwoMeasureInterval_OnTrigger(object sender, EventArgs e)
     {
-        timeToNextHalfMeasure = HalfMeasureSecondLength;
         firstTwoMeasureIntervalTriggered = true;
         
         currentSubdivision = 0;
@@ -64,6 +66,11 @@ public class MusicSyncManager : MonoBehaviour
         pCurrentSubdivision = currentSubdivision;
         
         OnTwoMeasureIntervalTriggered?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void HalfMeasureInterval_OnTrigger(object sender, EventArgs e)
+    {
+        timeToNextHalfMeasure = HalfMeasureSecondLength;
     }
 
     private void EighthMeasureInterval_OnTrigger(object sender, EventArgs e)
@@ -78,13 +85,12 @@ public class MusicSyncManager : MonoBehaviour
         pCurrentSubdivision = currentSubdivision;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         timeToNextHalfMeasure -= Time.deltaTime;
-
-        if (SecondsToBeats(timeToNextHalfMeasure) <= 0) timeToNextHalfMeasure = HalfMeasureSecondLength;
         
         UpdateBeatInterval(eighthMeasureInterval);
+        UpdateBeatInterval(halfMeasureInterval);
         UpdateBeatInterval(twoMeasureInterval);
     }
 
