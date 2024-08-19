@@ -5,7 +5,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputControlExtensions;
 
-public class Spawn_Hold : MonoBehaviour
+public class SpawnHold : MonoBehaviour
 {
     [SerializeField] private GameObject[] Spawner_Holder;
     [SerializeField] private float distanceMag;
