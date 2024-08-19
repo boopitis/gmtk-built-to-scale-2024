@@ -7,9 +7,9 @@ using UnityEngine.Serialization;
 /**
  * https://youtu.be/gIjajeyjRfE?feature=shared
  */
-public class BeatManager : MonoBehaviour
+public class MusicSyncManager : MonoBehaviour
 {
-    public static BeatManager Instance { get; private set; }
+    public static MusicSyncManager Instance { get; private set; }
     
     public event EventHandler<OnCurrentSubdivisionChangeEventArgs> OnCurrentSubdivisionChange;
     public class OnCurrentSubdivisionChangeEventArgs : EventArgs
@@ -34,8 +34,8 @@ public class BeatManager : MonoBehaviour
         timeSinceLastHalfMeasure = 0f;
         currentSubdivision = 0;
         
-        eighthMeasureInterval = new MeasureInterval(2); // Set to trigger every eighth note
-        fullMeasureInterval = new MeasureInterval(1.0f/8); // Set to trigger every measure
+        eighthMeasureInterval = new MeasureInterval(4); // Set to trigger every eighth note
+        fullMeasureInterval = new MeasureInterval(1.0f/4); // Set to trigger every measure
 
         eighthMeasureInterval.OnTrigger += EighthMeasureIntervalOnTrigger;
         fullMeasureInterval.OnTrigger += FullMeasureIntervalOnTrigger;
@@ -63,14 +63,13 @@ public class BeatManager : MonoBehaviour
         pCurrentSubdivision = currentSubdivision;
     }
 
-    private float debugTimer = 0f;
     private void Update()
     {
+        Debug.Log(timeSinceLastHalfMeasure);
         timeSinceLastHalfMeasure += Time.deltaTime;
-
+        
         const int beats = 2;
         if (SecondsToBeats(timeSinceLastHalfMeasure) > beats) timeSinceLastHalfMeasure = 0f;
-        Debug.Log($"timeSinceLastBeat: {timeSinceLastHalfMeasure}");
         
         UpdateBeatInterval(eighthMeasureInterval);
         UpdateBeatInterval(fullMeasureInterval);
@@ -86,7 +85,7 @@ public class BeatManager : MonoBehaviour
     // TODO Each beat takes 2/3 seconds
     private float SecondsToBeats(float seconds)
     {
-        float secondsInMinute = 60f;
+        const float secondsInMinute = 60f;
         return seconds * (bpm / secondsInMinute);
     }
 }
