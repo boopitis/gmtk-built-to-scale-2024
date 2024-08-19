@@ -11,8 +11,7 @@ public class Player : MonoBehaviour
 
     private Movement movement;
     private Vector2 movementInput;
-    private Vector2 lookDirection;
-
+    
     private void Awake()
     {
         Instance = this;
@@ -33,6 +32,6 @@ public class Player : MonoBehaviour
 
     private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
     {
-        Gun.Instance?.Attack();
+        PlayerGun.Instance?.Attack();
     }
 }
