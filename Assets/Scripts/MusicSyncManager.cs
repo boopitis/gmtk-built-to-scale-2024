@@ -16,6 +16,8 @@ public class MusicSyncManager : MonoBehaviour
     {
         public int CurrentSubdivision;
     }
+
+    public event EventHandler OnTwoMeasureIntervalTriggered;
     
     [SerializeField] private float bpm;
     [SerializeField] private AudioSource audioSource;
@@ -60,6 +62,8 @@ public class MusicSyncManager : MonoBehaviour
             CurrentSubdivision = currentSubdivision
         });
         pCurrentSubdivision = currentSubdivision;
+        
+        OnTwoMeasureIntervalTriggered?.Invoke(this, EventArgs.Empty);
     }
 
     private void EighthMeasureInterval_OnTrigger(object sender, EventArgs e)
@@ -77,7 +81,7 @@ public class MusicSyncManager : MonoBehaviour
     private void Update()
     {
         timeToNextHalfMeasure -= Time.deltaTime;
-        
+
         if (SecondsToBeats(timeToNextHalfMeasure) <= 0) timeToNextHalfMeasure = HalfMeasureSecondLength;
         
         UpdateBeatInterval(eighthMeasureInterval);

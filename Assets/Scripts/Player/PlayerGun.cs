@@ -56,8 +56,14 @@ public class PlayerGun : MonoBehaviour
         
         PlayerMusicScaleManager.Instance.OnCurrentNotesChanged += PlayerMusicScaleManager_OnCurrentNotesChanged;
         MusicSyncManager.Instance.OnCurrentSubdivisionChange += MusicSyncManager_OnCurrentSubdivisionChange;
+        MusicSyncManager.Instance.OnTwoMeasureIntervalTriggered += MusicSyncManager_OnTwoMeasureIntervalTriggered;
         
         SetSubdivisionTiming();
+    }
+
+    private void MusicSyncManager_OnTwoMeasureIntervalTriggered(object sender, EventArgs e)
+    {
+        pSubdivisionOnShoot = -1;
     }
 
     private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
@@ -109,7 +115,7 @@ public class PlayerGun : MonoBehaviour
 
         if (subdivision == pSubdivisionOnShoot) return;
 
-        int index = subdivisionTiming.IndexOf(subdivision);
+        var index = subdivisionTiming.IndexOf(subdivision);
 
         if (index == -1) return;
 
