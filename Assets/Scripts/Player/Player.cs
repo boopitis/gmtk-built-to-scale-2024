@@ -11,12 +11,15 @@ public class Player : MonoBehaviour
 
     private Movement movement;
     private Vector2 movementInput;
-    
+
+    public Vector2 coords;
+
     private void Awake()
     {
         Instance = this;
 
         movement = GetComponent<Movement>();
+        Instance = this;
     }
 
     private void Start()
@@ -33,5 +36,11 @@ public class Player : MonoBehaviour
     private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
     {
         // PlayerGun.Instance?.Attack();
+    }
+
+    public Vector2 GiveC()
+    {
+        coords = transform.position;
+        return coords;
     }
 }
