@@ -10,11 +10,12 @@ using UnityEngine.Serialization;
 public class PlayerGun : MonoBehaviour
 {
     public static PlayerGun Instance { get; private set; }
-    
+
     [SerializeField] private SpriteRenderer characterRenderer;
     [SerializeField] private SpriteRenderer weaponRenderer;
 
     [SerializeField] private Transform firePointTransform;
+    [SerializeField] private Transform pivotTransform;
 
     [SerializeField] private ScaleSO musicScaleSO;
 
@@ -31,41 +32,21 @@ public class PlayerGun : MonoBehaviour
         Major,
         MelodicMinor
     }
-    
+
     private void Awake()
     {
         Instance = this;
-        
+
         noteIndex = 0;
     }
-    
+
     private void Update()
     {
         pointerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2InWorldSpace();
-        Vector2 direction = (pointerPositionInput - (Vector2)transform.position).normalized;
-        transform.right = direction;
-
-        Vector2 scale = transform.localScale;
-        if (PlayerVisual.Instance.GetLookDirection().x < 0)
-        {
-            scale.y = -1;
-            scale.x = -1;
-        }
-        else if (PlayerVisual.Instance.GetLookDirection().x > 0)
-        {
-            scale.y = 1;
-            scale.x = 1;
-        }
-        transform.localScale = scale;
-
-        if (transform.eulerAngles.z is > 0 and < 180)
-        {
-            weaponRenderer.sortingOrder = characterRenderer.sortingOrder - 1;
-        }
-        else
-        {
-            weaponRenderer.sortingOrder = characterRenderer.sortingOrder + 1;
-        }
+        Vector2 direction = (pointerPositionInput - (Vector2)pivotTransform.position).normalized;
+        pivotTransform.right = direction;
+        transform.position = (Vector2)pivotTransform.position + (1.175f * direction);
+        transform.rotation = pivotTransform.rotation;
     }
 
     public void Attack()
@@ -79,7 +60,7 @@ public class PlayerGun : MonoBehaviour
         var activeScaleSOSpecials = PlayerMusicScale.Instance.GetScaleSpecialsNeedingFiring(noteIndex);
 
         Debug.Log(noteIndex); //DEBUG
-        
+
         if (activeScaleSOSpecials.Count == 0) // Fire normal note
         {
             Debug.Log(firedNoteSO.name); //DEBUG

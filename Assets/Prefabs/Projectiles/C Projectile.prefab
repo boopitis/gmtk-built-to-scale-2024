@@ -8,10 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2128505399157272628, guid: ae9034a741802984e85a9524664a6be4, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 410255144931765680, guid: ae9034a741802984e85a9524664a6be4, type: 3}
       propertyPath: noteSO
       value: 
       objectReference: {fileID: 11400000, guid: bfa9899a6c271ee49ae8a370eec38dc3, type: 2}
+    - target: {fileID: 813789958821806722, guid: ae9034a741802984e85a9524664a6be4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 813789958821806722, guid: ae9034a741802984e85a9524664a6be4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -2137431275
+      objectReference: {fileID: 0}
     - target: {fileID: 8122037440494729671, guid: ae9034a741802984e85a9524664a6be4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
