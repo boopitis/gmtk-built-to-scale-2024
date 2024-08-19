@@ -69,7 +69,7 @@ public class PlayerMusicScaleManager : MonoBehaviour
      */
     public bool TryAddNote(NoteSO potentialNoteSO)
     {
-        if (potentialNoteSO.pitch == 0)
+        if (potentialNoteSO.pitch is 0 or 12)
         {
             Debug.LogError("Cannot add a C note!");
         }
@@ -101,7 +101,7 @@ public class PlayerMusicScaleManager : MonoBehaviour
      */
     public bool TryRemoveNote(NoteSO potentialNoteSO)
     {
-        if (potentialNoteSO.pitch == 0)
+        if (potentialNoteSO.pitch is 0 or 12)
         {
             Debug.LogError("Cannot remove a C note!");
         }

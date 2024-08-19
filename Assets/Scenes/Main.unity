@@ -3657,7 +3657,6 @@ MonoBehaviour:
   characterRenderer: {fileID: 1492231893}
   weaponRenderer: {fileID: 902744749}
   firePointTransform: {fileID: 1616649672}
-  subdivisionTiming: 
 --- !u!4 &1095734074
 Transform:
   m_ObjectHideFlags: 0
