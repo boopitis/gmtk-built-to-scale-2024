@@ -37,7 +37,6 @@ public class BeatManager : MonoBehaviour
     private void BeatInterval_OnTrigger(object sender, EventArgs e)
     {
         currentSubdivision = (currentSubdivision + 1) % 16;
-        Debug.Log(currentSubdivision);
         OnCurrentSubdivisionChange?.Invoke(this, new OnCurrentSubdivisionChangeEventArgs
         {
             CurrentSubdivision = currentSubdivision

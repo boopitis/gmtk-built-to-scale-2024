@@ -136,13 +136,13 @@ public class PlayerMusicScaleManager : MonoBehaviour
             break;
         }
 
-        if (newCreatedScaleSO == currentScaleSO)
+        if (newCreatedScaleSO == currentScaleSO) return;
+        
+        currentScaleSO = newCreatedScaleSO;
+        OnScaleChanged?.Invoke(this, new OnScaleCreatedEventArgs
         {
-            OnScaleChanged?.Invoke(this, new OnScaleCreatedEventArgs
-            {
-                ScaleSO = currentScaleSO
-            });
-        }
+            ScaleSO = currentScaleSO
+        });
     }
 
     public List<NoteSO> GetCurrentNoteSOList() => currentNoteSOList;

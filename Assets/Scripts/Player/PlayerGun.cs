@@ -74,11 +74,10 @@ public class PlayerGun : MonoBehaviour
     {
         var firedNoteSO = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList()[noteIndex];
 
-        do // do/while exists so break; is useable
+        do // do/while exists so break; is usable
         {
-            if (noteIndex == PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count) // Fire normal projectile
+            if (noteIndex != PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count - 1) // Fire normal projectile
             {
-                noteIndex = 0;
                 Projectile.SpawnProjectile(firedNoteSO.prefab, firePointTransform, transform.rotation, out _);
                 break;
             }
