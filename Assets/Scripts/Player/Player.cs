@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,7 +10,28 @@ public class Player : MonoBehaviour
     public static Player Instance { get; private set; }
 
     private Movement movement;
-    private UnityEngine.Vector2 movementInput;
+<<<<<<< Updated upstream
+    private Vector2 movementInput;
+    
+=======
+    public Vector2 coords;
+    public static Player Instance {get; private set;}
+
+    private Gun gun;
+
+    private Vector2 pointerInput, movementInput;
+
+    public Vector2 PointerInput { get => pointerInput; set => pointerInput = value; }
+    public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
+
+    public Vector2 lookDirection { get; private set; }
+
+    public void Shoot()
+    {
+        gun?.Attack();
+    }
+
+>>>>>>> Stashed changes
     private void Awake()
     {
         Instance = this;
@@ -24,7 +44,7 @@ public class Player : MonoBehaviour
     {
         GameInput.Instance.OnPlayerShootPerformed += GameInput_OnPlayerShootPerformed;
     }
-    
+
     private void Update()
     {
         movementInput = GameInput.Instance.GetPlayerMovementVector2();
@@ -33,13 +53,12 @@ public class Player : MonoBehaviour
 
     private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
     {
-        Gun.Instance?.Attack();
+        // PlayerGun.Instance?.Attack();
     }
 
-    public UnityEngine.Vector2 GiveC()
+    public Vector2 GiveC()
     {
-        
-        UnityEngine.Vector2 coords = (UnityEngine.Vector2)transform.position;
+        coords = transform.position;
         return coords;
     }
 }

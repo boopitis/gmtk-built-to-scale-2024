@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251be8938f68468bbcaf7f963168b892, type: 3}
+  m_Name: G
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 359292703734685612, guid: d74e31846ddc05e478ac3ac21ca4e0b3, type: 3}
+  audioClip: {fileID: 8300000, guid: b0e3dfa7681c4cd4c8ff56216b557c8a, type: 3}
+  pitch: 7
+  noteName: G
