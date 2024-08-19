@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2137431275
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: -8709643306438522468}
   - component: {fileID: -2128505399157272628}
   - component: {fileID: 410255144931765680}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Note Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -203,9 +203,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79ad3260bd0f4528843f677a701fc102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 16
-  projectilePrefab: {fileID: 7826078735361896725}
-  projectileDamage: 1
+  speed: 16
+  prefab: {fileID: 7826078735361896725}
+  damage: 1
   piercing: 0
   hitEffect: {fileID: 7826078735361896725}
   noteSO: {fileID: 0}
