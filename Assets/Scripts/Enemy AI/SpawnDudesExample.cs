@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SpawnDudesExample : MonoBehaviour
 {
-    [SerializeField] GameObject playerGO;
-    [SerializeField] GameObject enemyPrefab;
+    private GameObject playerGO;
+    [SerializeField] private GameObject enemyPrefab;
 
     private void Awake()
     {
