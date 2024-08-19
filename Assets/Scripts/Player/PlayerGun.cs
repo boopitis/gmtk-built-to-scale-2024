@@ -59,10 +59,10 @@ public class PlayerGun : MonoBehaviour
 
     private void BeatManager_OnCurrentSubdivisionChange(object sender, BeatManager.OnCurrentSubdivisionChangeEventArgs e)
     {
-        // Debug.Log(e.CurrentSubdivision);
+        Debug.Log(e.CurrentSubdivision);
         if (subdivisionTiming[noteIndex] != e.CurrentSubdivision) return;
 
-        // Debug.Log("fired projectile!");
+        Debug.Log("fired projectile!");
         Attack();
     }
 
@@ -76,14 +76,14 @@ public class PlayerGun : MonoBehaviour
         pointerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2InWorldSpace();
         Vector2 direction = (pointerPositionInput - (Vector2)pivotTransform.position).normalized;
         pivotTransform.right = direction;
-        transform.position = (Vector2)pivotTransform.position + (0.65f * direction);
+        transform.position = (Vector2)pivotTransform.position + (1.175f * direction);
         transform.rotation = pivotTransform.rotation;
     }
 
     public void Attack()
     {
         var firedNoteSO = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList()[noteIndex];
-        // Debug.Log(firedNoteSO.name);
+        Debug.Log(firedNoteSO.name);
 
         OnAttack?.Invoke(this, new OnAttackEventArgs
         {
@@ -96,23 +96,15 @@ public class PlayerGun : MonoBehaviour
                 PlayerMusicScaleManager.Instance.GetCreatedScaleSO() is null)
             { // Fire normal projectile
                 Projectile.SpawnProjectile(firedNoteSO.prefab, firePointTransform, transform.rotation, out _);
-                PlayerGunAnimations.Instance.BasicAttackAnimation();
                 break;
             }
 
             // Fire special
             Debug.Log(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().name); //DEBUG
-            StartCoroutine(DelaySpecialAttack());
-            PlayerGunAnimations.Instance.SpecialAttackAnimation(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().name);
+            PlayerMusicScaleManager.Instance.GetCreatedScaleSO().special.Fire(firePointTransform, transform.rotation);
         } while (false);
 
         noteIndex++;
         if (noteIndex == PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count) noteIndex = 0;
-    }
-
-    private IEnumerator DelaySpecialAttack()
-    {
-        yield return new WaitForSeconds(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().specialAnimationDelay);
-        PlayerMusicScaleManager.Instance.GetCreatedScaleSO().special.Fire(firePointTransform, transform.rotation);
     }
 }
