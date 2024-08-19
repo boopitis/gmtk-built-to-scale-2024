@@ -14,16 +14,14 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] private SpriteRenderer characterRenderer;
     [SerializeField] private SpriteRenderer weaponRenderer;
     
-    [SerializeField] private Transform firePointTransform;
-
-    [SerializeField] private BeatManager beatManager;
+    [SerializeField] private Transform firePointTransform; 
 
     private Vector2 pointerPositionInput;
     private int noteIndex;
     // Order which subdivisions are played in
     private static int[] _subdivisionTimingOrder = { 0, 12, 8, 4, 10, 6, 2, 11, 9, 7, 5, 3, 1 };
     // Which subdivisions get played
-    private List<int> subdivisionTiming;
+    [SerializeField] private List<int> subdivisionTiming;
 
     private void Awake()
     {
@@ -35,7 +33,7 @@ public class PlayerGun : MonoBehaviour
     private void Start()
     {   
         PlayerMusicScaleManager.Instance.OnCurrentNotesChanged += PlayerMusicScaleManager_OnCurrentNotesChanged;
-        beatManager.OnCurrentSubdivisionChange += BeatManager_OnCurrentSubdivisionChange;
+        BeatManager.Instance.OnCurrentSubdivisionChange += BeatManager_OnCurrentSubdivisionChange;
         
         SetSubdivisionTiming();
     }
