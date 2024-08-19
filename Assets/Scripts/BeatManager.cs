@@ -19,27 +19,31 @@ public class BeatManager : MonoBehaviour
     
     [SerializeField] private float bpm;
     [SerializeField] private AudioSource audioSource;
-
-    private BeatInterval eighthBeatInterval;
-    private BeatInterval measureBeatInterval;
+    
+    private MeasureInterval eighthMeasureInterval;
+    private MeasureInterval fullMeasureInterval;
+    
+    private float timeSinceLastHalfMeasure;
     // Range from 0-15. Stores the current beat that the subdivision is on. (eg. 0 is beat 1, 15 is beat 4+)
     private int currentSubdivision, pCurrentSubdivision;
 
     private void Awake()
     {
         Instance = this;
-        
+
+        timeSinceLastHalfMeasure = 0f;
         currentSubdivision = 0;
         
-        eighthBeatInterval = new BeatInterval(2); // Set to trigger every eighth note
-        measureBeatInterval = new BeatInterval(1.0f/8); // Set to trigger every measure
+        eighthMeasureInterval = new MeasureInterval(2); // Set to trigger every eighth note
+        fullMeasureInterval = new MeasureInterval(1.0f/8); // Set to trigger every measure
 
-        eighthBeatInterval.OnTrigger += EighthBeatInterval_OnTrigger;
-        measureBeatInterval.OnTrigger += MeasureBeatInterval_OnTrigger;
+        eighthMeasureInterval.OnTrigger += EighthMeasureIntervalOnTrigger;
+        fullMeasureInterval.OnTrigger += FullMeasureIntervalOnTrigger;
     }
 
-    private void MeasureBeatInterval_OnTrigger(object sender, EventArgs e)
+    private void FullMeasureIntervalOnTrigger(object sender, EventArgs e)
     {
+        timeSinceLastHalfMeasure = 0f;
         currentSubdivision = 0;
         OnCurrentSubdivisionChange?.Invoke(this, new OnCurrentSubdivisionChangeEventArgs
         {
@@ -48,7 +52,7 @@ public class BeatManager : MonoBehaviour
         pCurrentSubdivision = currentSubdivision;
     }
 
-    private void EighthBeatInterval_OnTrigger(object sender, EventArgs e)
+    private void EighthMeasureIntervalOnTrigger(object sender, EventArgs e)
     {
         if (pCurrentSubdivision == 15) return;
         currentSubdivision++;
@@ -59,16 +63,30 @@ public class BeatManager : MonoBehaviour
         pCurrentSubdivision = currentSubdivision;
     }
 
+    private float debugTimer = 0f;
     private void Update()
     {
-        UpdateBeatInterval(eighthBeatInterval);
-        UpdateBeatInterval(measureBeatInterval);
+        timeSinceLastHalfMeasure += Time.deltaTime;
+
+        const int beats = 2;
+        if (SecondsToBeats(timeSinceLastHalfMeasure) > beats) timeSinceLastHalfMeasure = 0f;
+        Debug.Log($"timeSinceLastBeat: {timeSinceLastHalfMeasure}");
+        
+        UpdateBeatInterval(eighthMeasureInterval);
+        UpdateBeatInterval(fullMeasureInterval);
     }
 
-    private void UpdateBeatInterval(BeatInterval beatInterval)
+    private void UpdateBeatInterval(MeasureInterval measureInterval)
     {
         float sampledTime = audioSource.timeSamples /
-                            (audioSource.clip.frequency * beatInterval.GetIntervalLength(bpm));
-        beatInterval.CheckForNewInterval(sampledTime);
+                            (audioSource.clip.frequency * measureInterval.GetIntervalLength(bpm));
+        measureInterval.CheckForNewInterval(sampledTime);
+    }
+
+    // TODO Each beat takes 2/3 seconds
+    private float SecondsToBeats(float seconds)
+    {
+        float secondsInMinute = 60f;
+        return seconds * (bpm / secondsInMinute);
     }
 }
