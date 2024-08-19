@@ -7,11 +7,11 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance {get; private set;}
     private Movement movement;
     
 
     public Vector2 coords;
-    public static Player Instance {get; private set;}
 
     //private Gun gun;
 

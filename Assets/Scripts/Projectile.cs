@@ -5,9 +5,9 @@ using UnityEngine.Serialization;
 
 public class Projectile : MonoBehaviour
 {
-    [FormerlySerializedAs("projectileSpeed")] [SerializeField] private float speed;
-    [FormerlySerializedAs("projectilePrefab")] [SerializeField] private GameObject prefab;
-    [FormerlySerializedAs("projectileDamage")] [SerializeField] private int damage;
+    [FormerlySerializedAs("projectileSpeed")][SerializeField] private float speed;
+    [FormerlySerializedAs("projectilePrefab")][SerializeField] private GameObject prefab;
+    [FormerlySerializedAs("projectileDamage")][SerializeField] private int damage;
     [SerializeField] private int piercing;
     [SerializeField] private GameObject hitEffect;
 
@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
             lastHit = other;
         }
 
-        if (piercing == 0 || other.gameObject.layer == 11)
+        if (piercing == 0 || other.gameObject.layer == 6)
         {
             GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
             Destroy(effect, 1f);
@@ -48,7 +48,7 @@ public class Projectile : MonoBehaviour
         var gameObject = Instantiate(notePrefab, transform.position, rotation);
         projectile = gameObject.GetComponent<Projectile>();
         var projectile_rb = gameObject.GetComponent<Rigidbody2D>();
-        
+
         projectile_rb.AddForce(fireDirection * transform.right * projectile.speed, ForceMode2D.Impulse);
     }
 

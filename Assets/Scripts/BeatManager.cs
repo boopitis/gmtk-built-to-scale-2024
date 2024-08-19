@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.Serialization;
 
 /**
@@ -10,13 +11,13 @@ using UnityEngine.Serialization;
 public class BeatManager : MonoBehaviour
 {
     public static BeatManager Instance { get; private set; }
-    
+
     public event EventHandler<OnCurrentSubdivisionChangeEventArgs> OnCurrentSubdivisionChange;
     public class OnCurrentSubdivisionChangeEventArgs : EventArgs
     {
         public int CurrentSubdivision;
     }
-    
+
     [SerializeField] private float bpm;
     [SerializeField] private AudioSource audioSource;
 
@@ -28,11 +29,11 @@ public class BeatManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        
+
         currentSubdivision = 0;
-        
+
         eighthBeatInterval = new BeatInterval(2); // Set to trigger every eighth note
-        measureBeatInterval = new BeatInterval(1.0f/8); // Set to trigger every measure
+        measureBeatInterval = new BeatInterval(1.0f / 8); // Set to trigger every measure
 
         eighthBeatInterval.OnTrigger += EighthBeatInterval_OnTrigger;
         measureBeatInterval.OnTrigger += MeasureBeatInterval_OnTrigger;
