@@ -20,8 +20,8 @@ public class MusicSyncManager : MonoBehaviour
     [SerializeField] private float bpm;
     [SerializeField] private AudioSource audioSource;
     
-    private float halfMeasureSecondLength;
-    private int halfMeasureSubdivisionLength;
+    private float HalfMeasureSecondLength; // DO NOT MODIFY
+    private int HalfMeasureSubdivisionLength; // DO NOT MODIFY
     
     private MeasureInterval eighthMeasureInterval;
     private MeasureInterval twoMeasureInterval;
@@ -29,6 +29,7 @@ public class MusicSyncManager : MonoBehaviour
     private float timeToNextHalfMeasure;
     // Range from 0-15. Stores the current beat that the subdivision is on. (eg. 0 is beat 1, 15 is beat 4+)
     private int currentSubdivision, pCurrentSubdivision;
+    private bool firstTwoMeasureIntervalTriggered;
     
     private void Awake()
     {
@@ -37,11 +38,12 @@ public class MusicSyncManager : MonoBehaviour
         eighthMeasureInterval = new MeasureInterval(2); // Set to trigger every eighth note
         twoMeasureInterval = new MeasureInterval(1.0f/8); // Set to trigger every 2 measures
         
-        halfMeasureSecondLength = BeatsToSeconds(2); // Length of 2 beats
-        halfMeasureSubdivisionLength = 4;
+        HalfMeasureSecondLength = BeatsToSeconds(2); // Length of 2 beats
+        HalfMeasureSubdivisionLength = 4;
 
-        timeToNextHalfMeasure = halfMeasureSecondLength;
+        timeToNextHalfMeasure = HalfMeasureSecondLength;
         currentSubdivision = 0;
+        firstTwoMeasureIntervalTriggered = false;
 
         eighthMeasureInterval.OnTrigger += EighthMeasureInterval_OnTrigger;
         twoMeasureInterval.OnTrigger += TwoMeasureInterval_OnTrigger;
@@ -49,7 +51,9 @@ public class MusicSyncManager : MonoBehaviour
 
     private void TwoMeasureInterval_OnTrigger(object sender, EventArgs e)
     {
-        timeToNextHalfMeasure = halfMeasureSecondLength;
+        timeToNextHalfMeasure = HalfMeasureSecondLength;
+        firstTwoMeasureIntervalTriggered = true;
+        
         currentSubdivision = 0;
         OnCurrentSubdivisionChange?.Invoke(this, new OnCurrentSubdivisionChangeEventArgs
         {
@@ -61,6 +65,7 @@ public class MusicSyncManager : MonoBehaviour
     private void EighthMeasureInterval_OnTrigger(object sender, EventArgs e)
     {
         if (pCurrentSubdivision == 15) return;
+        
         currentSubdivision++;
         OnCurrentSubdivisionChange?.Invoke(this, new OnCurrentSubdivisionChangeEventArgs
         {
@@ -73,7 +78,7 @@ public class MusicSyncManager : MonoBehaviour
     {
         timeToNextHalfMeasure -= Time.deltaTime;
         
-        if (SecondsToBeats(timeToNextHalfMeasure) <= 0) timeToNextHalfMeasure = halfMeasureSecondLength;
+        if (SecondsToBeats(timeToNextHalfMeasure) <= 0) timeToNextHalfMeasure = HalfMeasureSecondLength;
         
         UpdateBeatInterval(eighthMeasureInterval);
         UpdateBeatInterval(twoMeasureInterval);
@@ -98,21 +103,23 @@ public class MusicSyncManager : MonoBehaviour
         return beats * (secondsInMinute / bpm);
     }
 
-    public float GetTimeToLastHalfMeasure() => halfMeasureSecondLength - timeToNextHalfMeasure;
+    public float GetTimeToLastHalfMeasure() => HalfMeasureSecondLength - timeToNextHalfMeasure;
 
     public float GetTimeToNextHalfMeasure() => timeToNextHalfMeasure;
 
     public int GetLastHalfMeasureSubdivision()
     { 
-        return currentSubdivision / halfMeasureSubdivisionLength * halfMeasureSubdivisionLength;
+        return currentSubdivision / HalfMeasureSubdivisionLength * HalfMeasureSubdivisionLength;
     }
 
     public int GetNextHalfMeasureSubdivision()
     {
-        return (currentSubdivision / halfMeasureSubdivisionLength * halfMeasureSubdivisionLength 
-                + halfMeasureSubdivisionLength) % 
-               (halfMeasureSubdivisionLength * 4);
+        return (currentSubdivision / HalfMeasureSubdivisionLength * HalfMeasureSubdivisionLength 
+                + HalfMeasureSubdivisionLength) % 
+               (HalfMeasureSubdivisionLength * 4);
     }
 
-    public int GetHalfMeasureSubdivisionLength() => halfMeasureSubdivisionLength;
+    public int GetHalfMeasureSubdivisionLength() => HalfMeasureSubdivisionLength;
+
+    public bool GetFirstTwoMeasureIntervalTriggered() => firstTwoMeasureIntervalTriggered;
 }

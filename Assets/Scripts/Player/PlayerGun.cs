@@ -62,6 +62,7 @@ public class PlayerGun : MonoBehaviour
 
     private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
     {
+        if (!MusicSyncManager.Instance.GetFirstTwoMeasureIntervalTriggered()) return;
         string debugChecker;
         
         int accuracyInMillis;
