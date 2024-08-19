@@ -22,26 +22,79 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] private Transform firePointTransform;
     [SerializeField] private Transform pivotTransform;
 
+    [SerializeField] private int timingWindowInMillis;
+
     private Vector2 pointerPositionInput;
-    private int noteIndex;
     // Order which subdivisions are played in
-    private static int[] _subdivisionTimingOrder = { 0, 12, 8, 4, 10, 6, 2, 11, 9, 7, 5, 3, 1 };
+    private static readonly int[] SubdivisionTimingOrder = { 0, 12, 8, 4, 10, 6, 2, 11, 9, 7, 5, 3, 1 };
     // Which subdivisions get played
     private List<int> subdivisionTiming;
+
+    private struct QueuedNote
+    {
+        public NoteSO NoteSO;
+        public int Subdivision;
+        public QueuedNote(NoteSO noteSO, int subdivision)
+        {
+            NoteSO = noteSO;
+            Subdivision = subdivision;
+        }
+    }
+    private List<QueuedNote> queuedNotes;
+    private int pSubdivisionOnShoot;
 
     private void Awake()
     {
         Instance = this;
 
-        noteIndex = 0;
+        queuedNotes = new List<QueuedNote>();
     }
 
     private void Start()
     {
+        GameInput.Instance.OnPlayerShootPerformed += GameInput_OnPlayerShootPerformed;
+
         PlayerMusicScaleManager.Instance.OnCurrentNotesChanged += PlayerMusicScaleManager_OnCurrentNotesChanged;
-        BeatManager.Instance.OnCurrentSubdivisionChange += BeatManager_OnCurrentSubdivisionChange;
+        MusicSyncManager.Instance.OnCurrentSubdivisionChange += MusicSyncManager_OnCurrentSubdivisionChange;
+        MusicSyncManager.Instance.OnTwoMeasureIntervalTriggered += MusicSyncManager_OnTwoMeasureIntervalTriggered;
 
         SetSubdivisionTiming();
+    }
+
+    private void MusicSyncManager_OnTwoMeasureIntervalTriggered(object sender, EventArgs e)
+    {
+        pSubdivisionOnShoot = -1;
+    }
+
+    private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
+    {
+        if (!MusicSyncManager.Instance.GetFirstTwoMeasureIntervalTriggered()) return;
+        string debugChecker;
+
+        int accuracyInMillis;
+        int subdivision;
+
+        float timeToLastHalfMeasure = MusicSyncManager.Instance.GetTimeToLastHalfMeasure();
+        float timeToNextHalfMeasure = MusicSyncManager.Instance.GetTimeToNextHalfMeasure();
+
+        if (timeToLastHalfMeasure < timeToNextHalfMeasure)
+        {
+            accuracyInMillis = (int)(timeToLastHalfMeasure * 1000);
+            subdivision = MusicSyncManager.Instance.GetLastHalfMeasureSubdivision();
+            debugChecker = "last";
+        }
+        else
+        {
+            accuracyInMillis = (int)(timeToNextHalfMeasure * 1000);
+            subdivision = MusicSyncManager.Instance.GetNextHalfMeasureSubdivision();
+            debugChecker = "next";
+        }
+
+        if (accuracyInMillis < timingWindowInMillis)
+        {
+            Debug.Log($"queueing on subdivision {subdivision} for {debugChecker}");
+            QueueNotes(subdivision);
+        }
     }
 
     private void PlayerMusicScaleManager_OnCurrentNotesChanged(object sender, EventArgs e)
@@ -49,10 +102,46 @@ public class PlayerGun : MonoBehaviour
         SetSubdivisionTiming();
     }
 
+    private void MusicSyncManager_OnCurrentSubdivisionChange(object sender, MusicSyncManager.OnCurrentSubdivisionChangeEventArgs e)
+    {
+        TryAttack(e.CurrentSubdivision);
+    }
+
+    private void QueueNotes(int subdivision)
+    {
+        if (subdivision % MusicSyncManager.Instance.GetHalfMeasureSubdivisionLength() != 0)
+        {
+            Debug.LogError("Subdivision does not correspond with a half measure!");
+        }
+
+        if (subdivision == pSubdivisionOnShoot) return;
+
+        var index = subdivisionTiming.IndexOf(subdivision);
+
+        if (index == -1) return;
+
+        do
+        {
+            var queuedNote = new QueuedNote(
+                PlayerMusicScaleManager.Instance.GetCurrentNoteSOList()[index],
+                subdivisionTiming[index]);
+
+            queuedNotes.Add(queuedNote);
+            index++;
+
+            if (index == subdivisionTiming.Count) break;
+        } while (subdivisionTiming[index] <
+                 subdivision + MusicSyncManager.Instance.GetHalfMeasureSubdivisionLength());
+
+        TryAttack(subdivision);
+
+        pSubdivisionOnShoot = subdivision;
+    }
+
     private void SetSubdivisionTiming()
     {
         var currentNoteSOListSize = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count;
-        subdivisionTiming = new List<int>(_subdivisionTimingOrder[..currentNoteSOListSize]);
+        subdivisionTiming = new List<int>(SubdivisionTimingOrder[..currentNoteSOListSize]);
 
         subdivisionTiming.Sort();
     }
@@ -80,34 +169,42 @@ public class PlayerGun : MonoBehaviour
         transform.rotation = pivotTransform.rotation;
     }
 
-    public void Attack()
+    private bool TryAttack(int currentSubdivision)
     {
-        var firedNoteSO = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList()[noteIndex];
-        // Debug.Log(firedNoteSO.name);
+        string debugPrint = queuedNotes.Aggregate("queuedNotes: ", (current, queuedNote) =>
+            current + (queuedNote.Subdivision + ", "));
+        debugPrint += $"; on subdivision {currentSubdivision}";
+        Debug.Log(debugPrint);
+
+        if (queuedNotes.Count == 0) return false;
+
+        var queuedNote = queuedNotes[0];
+
+        if (queuedNote.Subdivision != currentSubdivision) return false;
 
         OnAttack?.Invoke(this, new OnAttackEventArgs
         {
-            FiredNoteSO = firedNoteSO
+            FiredNoteSO = queuedNote.NoteSO
         });
+        Debug.Log($"subdivision {queuedNote.Subdivision} fired");
 
-        do // do/while exists so break; is usable
+        if (queuedNote.Subdivision == 12)
         {
-            if (noteIndex != PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count - 1 ||
-                PlayerMusicScaleManager.Instance.GetCreatedScaleSO() is null)
-            { // Fire normal projectile
-                Projectile.SpawnProjectile(firedNoteSO.prefab, firePointTransform, transform.rotation, out _);
-                PlayerGunAnimations.Instance.BasicAttackAnimation();
-                break;
+            if (PlayerMusicScaleManager.Instance.GetCreatedScaleSO() is not null)
+            {
+                // Fire special
+                StartCoroutine(DelaySpecialAttack());
+                PlayerGunAnimations.Instance.SpecialAttackAnimation(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().name);
+                queuedNotes.RemoveAt(0);
+                return true;
             }
+        }
 
-            // Fire special
-            Debug.Log(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().name); //DEBUG
-            StartCoroutine(DelaySpecialAttack());
-            PlayerGunAnimations.Instance.SpecialAttackAnimation(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().name);
-        } while (false);
-
-        noteIndex++;
-        if (noteIndex == PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count) noteIndex = 0;
+        // Fire normal projectile
+        Projectile.SpawnProjectile(queuedNote.NoteSO.prefab, firePointTransform, transform.rotation, out _);
+        PlayerGunAnimations.Instance.BasicAttackAnimation();
+        queuedNotes.RemoveAt(0);
+        return true;
     }
 
     private IEnumerator DelaySpecialAttack()
