@@ -27,15 +27,28 @@ public class PlayerGun : MonoBehaviour
     private Vector2 pointerPositionInput;
     private int noteIndex;
     // Order which subdivisions are played in
-    private static int[] _subdivisionTimingOrder = { 0, 12, 8, 4, 10, 6, 2, 11, 9, 7, 5, 3, 1 };
+    private static readonly int[] SubdivisionTimingOrder = { 0, 12, 8, 4, 10, 6, 2, 11, 9, 7, 5, 3, 1 };
     // Which subdivisions get played
     private List<int> subdivisionTiming;
+
+    private struct QueuedNote
+    {
+        public NoteSO NoteSO;
+        public int Subdivision;
+        public QueuedNote(NoteSO noteSO, int subdivision)
+        {
+            NoteSO = noteSO;
+            Subdivision = subdivision;
+        }
+    }
+    private List<QueuedNote> queuedNotes;
 
     private void Awake()
     {
         Instance = this;
         
         noteIndex = 0;
+        queuedNotes = new List<QueuedNote>();
     }
 
     private void Start()
@@ -74,9 +87,42 @@ public class PlayerGun : MonoBehaviour
 
     private void QueueNotes(int subdivision)
     {
-        if (subdivision % 4 != 0)
+        if (subdivision % MusicSyncManager.Instance.GetHalfMeasureSubdivisionLength() != 0)
         {
             Debug.LogError("Subdivision does not correspond with a half measure!");
+        }
+
+        if (queuedNotes.Count > 0)
+        {
+            if (queuedNotes[0].Subdivision >= subdivision &&
+                queuedNotes[0].Subdivision <
+                subdivision + MusicSyncManager.Instance.GetHalfMeasureSubdivisionLength())
+            {
+                return;
+            }
+        }
+
+        int index = subdivisionTiming.IndexOf(subdivision);
+
+        if (index == -1) return;
+
+        do
+        {
+            var queuedNote = new QueuedNote(
+                PlayerMusicScaleManager.Instance.GetCurrentNoteSOList()[index],
+                subdivisionTiming[index]);
+            
+            queuedNotes.Add(queuedNote);
+            index++;
+            
+            if (index == subdivisionTiming.Count) break;
+        } while (subdivisionTiming[index] < 
+                 subdivision + MusicSyncManager.Instance.GetHalfMeasureSubdivisionLength());
+
+        Debug.Log("queuedNotes");
+        foreach (var queuedNote in queuedNotes)
+        {
+            Debug.Log(queuedNote.Subdivision);
         }
     }
 
@@ -88,7 +134,7 @@ public class PlayerGun : MonoBehaviour
     private void SetSubdivisionTiming()
     {
         var currentNoteSOListSize = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count;
-        subdivisionTiming = new List<int>(_subdivisionTimingOrder[..currentNoteSOListSize]);
+        subdivisionTiming = new List<int>(SubdivisionTimingOrder[..currentNoteSOListSize]);
         
         subdivisionTiming.Sort();
     }

@@ -34,4 +34,6 @@ public class MeasureInterval
         pInterval = intervalInt;
         OnTrigger?.Invoke(this, EventArgs.Empty);
     }
+
+    public float GetSubdivision() => subdivision;
 }

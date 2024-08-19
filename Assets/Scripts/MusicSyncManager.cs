@@ -20,7 +20,8 @@ public class MusicSyncManager : MonoBehaviour
     [SerializeField] private float bpm;
     [SerializeField] private AudioSource audioSource;
     
-    private float halfMeasureLength;
+    private float halfMeasureSecondLength;
+    private int halfMeasureSubdivisionLength;
     
     private MeasureInterval eighthMeasureInterval;
     private MeasureInterval twoMeasureInterval;
@@ -32,13 +33,14 @@ public class MusicSyncManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
-        halfMeasureLength = BeatsToSeconds(2);
    
         eighthMeasureInterval = new MeasureInterval(2); // Set to trigger every eighth note
         twoMeasureInterval = new MeasureInterval(1.0f/8); // Set to trigger every 2 measures
         
-        timeToNextHalfMeasure = halfMeasureLength;
+        halfMeasureSecondLength = BeatsToSeconds(2); // Length of 2 beats
+        halfMeasureSubdivisionLength = 4;
+
+        timeToNextHalfMeasure = halfMeasureSecondLength;
         currentSubdivision = 0;
 
         eighthMeasureInterval.OnTrigger += EighthMeasureInterval_OnTrigger;
@@ -47,7 +49,7 @@ public class MusicSyncManager : MonoBehaviour
 
     private void TwoMeasureInterval_OnTrigger(object sender, EventArgs e)
     {
-        timeToNextHalfMeasure = halfMeasureLength;
+        timeToNextHalfMeasure = halfMeasureSecondLength;
         currentSubdivision = 0;
         OnCurrentSubdivisionChange?.Invoke(this, new OnCurrentSubdivisionChangeEventArgs
         {
@@ -71,7 +73,7 @@ public class MusicSyncManager : MonoBehaviour
     {
         timeToNextHalfMeasure -= Time.deltaTime;
         
-        if (SecondsToBeats(timeToNextHalfMeasure) <= 0) timeToNextHalfMeasure = halfMeasureLength;
+        if (SecondsToBeats(timeToNextHalfMeasure) <= 0) timeToNextHalfMeasure = halfMeasureSecondLength;
         
         UpdateBeatInterval(eighthMeasureInterval);
         UpdateBeatInterval(twoMeasureInterval);
@@ -96,17 +98,21 @@ public class MusicSyncManager : MonoBehaviour
         return beats * (secondsInMinute / bpm);
     }
 
-    public float GetTimeToLastHalfMeasure() => halfMeasureLength - timeToNextHalfMeasure;
+    public float GetTimeToLastHalfMeasure() => halfMeasureSecondLength - timeToNextHalfMeasure;
 
     public float GetTimeToNextHalfMeasure() => timeToNextHalfMeasure;
 
     public int GetLastHalfMeasureSubdivision()
     { 
-        return currentSubdivision / 4 * 4;
+        return currentSubdivision / halfMeasureSubdivisionLength * halfMeasureSubdivisionLength;
     }
 
     public int GetNextHalfMeasureSubdivision()
     {
-        return (currentSubdivision / 4 * 4 + 4) % 16;
+        return (currentSubdivision / halfMeasureSubdivisionLength * halfMeasureSubdivisionLength 
+                + halfMeasureSubdivisionLength) % 
+               (halfMeasureSubdivisionLength * 4);
     }
+
+    public int GetHalfMeasureSubdivisionLength() => halfMeasureSubdivisionLength;
 }
