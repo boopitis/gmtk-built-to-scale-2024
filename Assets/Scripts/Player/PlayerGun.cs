@@ -46,18 +46,18 @@ public class PlayerGun : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        
+
         queuedNotes = new List<QueuedNote>();
     }
 
     private void Start()
     {
         GameInput.Instance.OnPlayerShootPerformed += GameInput_OnPlayerShootPerformed;
-        
+
         PlayerMusicScaleManager.Instance.OnCurrentNotesChanged += PlayerMusicScaleManager_OnCurrentNotesChanged;
         MusicSyncManager.Instance.OnCurrentSubdivisionChange += MusicSyncManager_OnCurrentSubdivisionChange;
         MusicSyncManager.Instance.OnTwoMeasureIntervalTriggered += MusicSyncManager_OnTwoMeasureIntervalTriggered;
-        
+
         SetSubdivisionTiming();
     }
 
@@ -70,10 +70,10 @@ public class PlayerGun : MonoBehaviour
     {
         if (!MusicSyncManager.Instance.GetFirstTwoMeasureIntervalTriggered()) return;
         string debugChecker;
-        
+
         int accuracyInMillis;
         int subdivision;
-        
+
         float timeToLastHalfMeasure = MusicSyncManager.Instance.GetTimeToLastHalfMeasure();
         float timeToNextHalfMeasure = MusicSyncManager.Instance.GetTimeToNextHalfMeasure();
 
@@ -82,7 +82,8 @@ public class PlayerGun : MonoBehaviour
             accuracyInMillis = (int)(timeToLastHalfMeasure * 1000);
             subdivision = MusicSyncManager.Instance.GetLastHalfMeasureSubdivision();
             debugChecker = "last";
-        } else
+        }
+        else
         {
             accuracyInMillis = (int)(timeToNextHalfMeasure * 1000);
             subdivision = MusicSyncManager.Instance.GetNextHalfMeasureSubdivision();
@@ -100,12 +101,12 @@ public class PlayerGun : MonoBehaviour
     {
         SetSubdivisionTiming();
     }
-    
+
     private void MusicSyncManager_OnCurrentSubdivisionChange(object sender, MusicSyncManager.OnCurrentSubdivisionChangeEventArgs e)
     {
         TryAttack(e.CurrentSubdivision);
     }
-    
+
     private void QueueNotes(int subdivision)
     {
         if (subdivision % MusicSyncManager.Instance.GetHalfMeasureSubdivisionLength() != 0)
@@ -124,12 +125,12 @@ public class PlayerGun : MonoBehaviour
             var queuedNote = new QueuedNote(
                 PlayerMusicScaleManager.Instance.GetCurrentNoteSOList()[index],
                 subdivisionTiming[index]);
-            
+
             queuedNotes.Add(queuedNote);
             index++;
-            
+
             if (index == subdivisionTiming.Count) break;
-        } while (subdivisionTiming[index] < 
+        } while (subdivisionTiming[index] <
                  subdivision + MusicSyncManager.Instance.GetHalfMeasureSubdivisionLength());
 
         TryAttack(subdivision);
@@ -141,8 +142,17 @@ public class PlayerGun : MonoBehaviour
     {
         var currentNoteSOListSize = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList().Count;
         subdivisionTiming = new List<int>(SubdivisionTimingOrder[..currentNoteSOListSize]);
-        
+
         subdivisionTiming.Sort();
+    }
+
+    private void BeatManager_OnCurrentSubdivisionChange(object sender, BeatManager.OnCurrentSubdivisionChangeEventArgs e)
+    {
+        // Debug.Log(e.CurrentSubdivision);
+        if (subdivisionTiming[noteIndex] != e.CurrentSubdivision) return;
+
+        // Debug.Log("fired projectile!");
+        Attack();
     }
 
     private void Update()
@@ -155,19 +165,19 @@ public class PlayerGun : MonoBehaviour
         pointerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2InWorldSpace();
         Vector2 direction = (pointerPositionInput - (Vector2)pivotTransform.position).normalized;
         pivotTransform.right = direction;
-        transform.position = (Vector2)pivotTransform.position + (1.175f * direction);
+        transform.position = (Vector2)pivotTransform.position + (0.65f * direction);
         transform.rotation = pivotTransform.rotation;
     }
 
     private bool TryAttack(int currentSubdivision)
     {
-        string debugPrint = queuedNotes.Aggregate("queuedNotes: ", (current, queuedNote) => 
+        string debugPrint = queuedNotes.Aggregate("queuedNotes: ", (current, queuedNote) =>
             current + (queuedNote.Subdivision + ", "));
         debugPrint += $"; on subdivision {currentSubdivision}";
         Debug.Log(debugPrint);
-        
+
         if (queuedNotes.Count == 0) return false;
-        
+
         var queuedNote = queuedNotes[0];
 
         if (queuedNote.Subdivision != currentSubdivision) return false;
@@ -183,15 +193,23 @@ public class PlayerGun : MonoBehaviour
             if (PlayerMusicScaleManager.Instance.GetCreatedScaleSO() is not null)
             {
                 // Fire special
-                PlayerMusicScaleManager.Instance.GetCreatedScaleSO().special.Fire(firePointTransform, transform.rotation);
+                StartCoroutine(DelaySpecialAttack());
+                PlayerGunAnimations.Instance.SpecialAttackAnimation(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().name);
                 queuedNotes.RemoveAt(0);
                 return true;
             }
-        } 
-        
+        }
+
         // Fire normal projectile
         Projectile.SpawnProjectile(queuedNote.NoteSO.prefab, firePointTransform, transform.rotation, out _);
+        PlayerGunAnimations.Instance.BasicAttackAnimation();
         queuedNotes.RemoveAt(0);
         return true;
+    }
+
+    private IEnumerator DelaySpecialAttack()
+    {
+        yield return new WaitForSeconds(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().specialAnimationDelay);
+        PlayerMusicScaleManager.Instance.GetCreatedScaleSO().special.Fire(firePointTransform, transform.rotation);
     }
 }
