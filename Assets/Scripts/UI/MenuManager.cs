@@ -10,17 +10,20 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] private GameObject menuCanvasGO;
     [SerializeField] private GameObject MusicScaleMakerGO;
-    [SerializeField] private GameObject MusicScaleViewerGO;
+    [SerializeField] private GameObject MusicScaleSelectorGO;
 
     private bool isPaused = false;
 
     private void Start()
     {
         menuCanvasGO.SetActive(false);
-        MusicScaleMakerGO.SetActive(false);
-        MusicScaleViewerGO.SetActive(true);
 
         GameInput.Instance.OnPlayerMenuOpenClosePerformed += GameInput_OnPlayerMenuOpenClosePerformed;
+    }
+
+    private void Update()
+    {
+
     }
 
     private void GameInput_OnPlayerMenuOpenClosePerformed(object sender, EventArgs e)
@@ -30,8 +33,8 @@ public class MenuManager : MonoBehaviour
             Time.timeScale = 1f;
             isPaused = false;
             menuCanvasGO.SetActive(false);
-            MusicScaleMakerGO.SetActive(false);
-            MusicScaleViewerGO.SetActive(true);
+            MusicScaleMakerGO.SetActive(true);
+            MusicScaleSelectorGO.SetActive(false);
         }
         else
         {
