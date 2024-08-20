@@ -480,6 +480,10 @@ PrefabInstance:
       propertyPath: uiPanel
       value: 
       objectReference: {fileID: 7629148898400315945}
+    - target: {fileID: 1081852945229884885, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
+      propertyPath: panels.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1359569408296005738, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1152,6 +1156,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7123942900004048508, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7196735914927699370, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1301,7 +1309,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7759100795621658552, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
+    - {fileID: 7167698674131024519, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
+    - {fileID: 4395479870054370282, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
+    - {fileID: 7559049427584754220, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
+    - {fileID: 1993039303888234840, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
+    - {fileID: 1166555060561282402, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
+    - {fileID: 8717258082993372983, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
+    - {fileID: 6439541664468511170, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
+    - {fileID: 5848882768434389573, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9161fdc96f8b443469821af5f975cf0f, type: 3}
