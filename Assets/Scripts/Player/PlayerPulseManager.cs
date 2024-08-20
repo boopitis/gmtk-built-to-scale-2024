@@ -1,18 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerPulseManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Transform visual;
+    
+    private const float MaxScale = 3.1f;
+
+    private float currentRatio;
+
+    private void Awake()
     {
-        
+        currentRatio = MaxScale;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        MusicSyncManager.Instance.GetHalfMeasureSubdivisionLengthInBeats();
+        var timeToNextHalfMeasure = MusicSyncManager.Instance.GetTimeToNextHalfMeasure();
+
+        visual.localScale = Vector3.one * (MaxScale - (float)Math.Abs(MaxScale * Math.Sin(Math.PI *
+            timeToNextHalfMeasure /
+            (MusicSyncManager.Instance
+                .GetHalfMeasureSubdivisionLengthInSeconds() / 2))));
     }
 }
