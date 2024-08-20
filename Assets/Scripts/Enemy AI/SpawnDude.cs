@@ -25,7 +25,7 @@ public class SpawnDude : MonoBehaviour
     private int enemyNum = 0;
     private int AllEnemyNum = 0;
     private int DeadEnemies = 0;
-    private int WaveNum;
+    public int WaveNum {get; private set;}
     private bool stopspawn = false;
     private bool blockSpawn = false;
     private float rotateOffset;
@@ -36,12 +36,13 @@ public class SpawnDude : MonoBehaviour
     private void Start()
     {
         Health.OnEnemyDeath += EnemyTracker;
+        MusicScaleMaker.Instance.OnConfirmation += StartSpawn;
         OnWaveEnded += Reset_Enemies;
         OnWaveEnded += StopSpawn;
-        //OnConfirmation += ;
         //StopSpawnEnemies += StopSpawn;
-        WaveNum = 100;
-        MaxEnemiesAtATime = (int)(0.5 * WaveNum);
+        WaveNum = 30;
+        MaxEnemiesAtATime = WaveNum / 3;
+        stopspawn = false;
     }
 
     private void EnemyTracker(object sender, EventArgs e)
@@ -67,7 +68,8 @@ public class SpawnDude : MonoBehaviour
         {
             
             Debug.Log(i + "loop");
-            Debug.Log("E: " + enemyNum);
+            Debug.Log($"{AllEnemyNum} < {WaveNum} && {enemyNum} < {MaxEnemiesAtATime}?? (maybe)");
+            Debug.Log($"{AllEnemyNum} >= {WaveNum}?? (maybe)");
             SetOffset();
             Vector2 euler_vector = playerGO.position + (Quaternion.Euler(0, 0, 0 + (rotateOffset + (360 / enemies * i))) * new Vector3(distanceOffset + radius, 0, 0));
             if (AllEnemyNum < WaveNum && enemyNum < MaxEnemiesAtATime)
@@ -144,13 +146,18 @@ public class SpawnDude : MonoBehaviour
         AllEnemyNum = 0;
         DeadEnemies = 0;
         Wave++;
-        WaveNum = Wave * 100;
-        MaxEnemiesAtATime = (int)(0.5 * WaveNum);
+        WaveNum = Wave * 30;
+        MaxEnemiesAtATime = WaveNum / 3;
     }
 
     private void StopSpawn(object sender, EventArgs e)
     {
         stopspawn = true;
+    }
+
+    private void StartSpawn(object sender, EventArgs e)
+    {
+        stopspawn = false;
     }
 
 }

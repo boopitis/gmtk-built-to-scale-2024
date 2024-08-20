@@ -31,6 +31,23 @@ public class Player : MonoBehaviour
     {
         movementInput = GameInput.Instance.GetPlayerMovementVector2();
         movement.SetMovementInput(movementInput);
+
+        if (transform.position.x > 50)
+        {
+            transform.localPosition = new Vector2(50, transform.position.y);
+        }
+        else if (transform.position.x < -50)
+        {
+            transform.localPosition = new Vector2(-50, transform.position.y);
+        }
+        if (transform.position.y > 50)
+        {
+            transform.localPosition = new Vector2(transform.position.x, 50);
+        }
+        if (transform.position.y < -50)
+        {
+            transform.localPosition = new Vector2(transform.position.x, -50);
+        }
     }
 
     private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
@@ -43,4 +60,6 @@ public class Player : MonoBehaviour
         coords = transform.position;
         return coords;
     }
+
+    
 }

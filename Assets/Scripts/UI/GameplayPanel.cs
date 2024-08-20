@@ -53,8 +53,6 @@ public class GameplayPanel : MonoBehaviour
     {
         int health = playerHealth.GetHealth();
 
-        Debug.Log("Update Health");
-
         while (healthFlags.Count < health)
         {
             var flagTransform = Instantiate(healthFlagTemplate, healthFlagContainer);

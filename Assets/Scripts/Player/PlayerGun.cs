@@ -18,6 +18,8 @@ public class PlayerGun : MonoBehaviour
         public NoteSO FiredNoteSO;
     }
 
+    public event EventHandler OnNotesQueued;
+
     [SerializeField] private SpriteRenderer weaponRenderer;
 
     [SerializeField] private Transform firePointTransform;
@@ -30,6 +32,7 @@ public class PlayerGun : MonoBehaviour
     private static readonly int[] SubdivisionTimingOrder = { 0, 12, 8, 4, 10, 6, 2, 11, 9, 7, 5, 3, 1 };
     // Which subdivisions get played
     private List<int> subdivisionTiming;
+    private int scaleSuccessfulInputs;
 
     private struct QueuedNote
     {
@@ -49,6 +52,7 @@ public class PlayerGun : MonoBehaviour
         Instance = this;
 
         queuedNotes = new List<QueuedNote>();
+        scaleSuccessfulInputs = 0;
     }
 
     private void Start()
@@ -64,7 +68,9 @@ public class PlayerGun : MonoBehaviour
 
     private void MusicSyncManager_OnTwoMeasureIntervalTriggered(object sender, EventArgs e)
     {
-        pSubdivisionOnShoot = -1;
+        scaleSuccessfulInputs = 0;
+        if (pSubdivisionOnShoot == 0) scaleSuccessfulInputs++;
+        pSubdivisionOnShoot = pSubdivisionOnShoot == 0 ? 0 : -1;
     }
 
     private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
@@ -92,6 +98,8 @@ public class PlayerGun : MonoBehaviour
 
         if (accuracyInMillis >= timingWindowInMillis) return;
         
+        scaleSuccessfulInputs++;
+        
         QueueNotes(subdivision);
     }
 
@@ -118,6 +126,8 @@ public class PlayerGun : MonoBehaviour
 
         if (index == -1) return;
 
+        OnNotesQueued?.Invoke(this, EventArgs.Empty);
+        
         do
         {
             var queuedNote = new QueuedNote(
@@ -175,13 +185,17 @@ public class PlayerGun : MonoBehaviour
 
         if (queuedNote.Subdivision == 12)
         {
-            if (PlayerMusicScaleManager.Instance.GetCreatedScaleSO() is not null)
+            if (scaleSuccessfulInputs >= 4)
             {
-                // Fire special
-                StartCoroutine(DelaySpecialAttack());
-                PlayerGunAnimations.Instance.SpecialAttackAnimation(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().name);
-                queuedNotes.RemoveAt(0);
-                return true;
+                if (PlayerMusicScaleManager.Instance.GetCreatedScaleSO() is not null)
+                {
+                    // Fire special
+                    StartCoroutine(DelaySpecialAttack());
+                    PlayerGunAnimations.Instance.SpecialAttackAnimation(PlayerMusicScaleManager.Instance
+                        .GetCreatedScaleSO());
+                    queuedNotes.RemoveAt(0);
+                    return true;
+                }
             }
         }
 
@@ -197,4 +211,6 @@ public class PlayerGun : MonoBehaviour
         yield return new WaitForSeconds(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().specialAnimationDelay);
         PlayerMusicScaleManager.Instance.GetCreatedScaleSO().special.Fire(firePointTransform, transform.rotation);
     }
+
+    public int GetScaleSuccessfulInputs() => scaleSuccessfulInputs;
 }
