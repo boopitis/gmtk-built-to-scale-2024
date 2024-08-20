@@ -41,8 +41,7 @@ public class SpawnDude : MonoBehaviour
         OnWaveEnded += StopSpawn;
         //StopSpawnEnemies += StopSpawn;
         WaveNum = 30;
-        // WaveNum = 100;
-        MaxEnemiesAtATime = (int)(1/3 * WaveNum);
+        MaxEnemiesAtATime = WaveNum / 3;
         stopspawn = false;
     }
 
@@ -69,7 +68,8 @@ public class SpawnDude : MonoBehaviour
         {
             
             Debug.Log(i + "loop");
-            Debug.Log("E: " + enemyNum);
+            Debug.Log($"{AllEnemyNum} < {WaveNum} && {enemyNum} < {MaxEnemiesAtATime}?? (maybe)");
+            Debug.Log($"{AllEnemyNum} >= {WaveNum}?? (maybe)");
             SetOffset();
             Vector2 euler_vector = playerGO.position + (Quaternion.Euler(0, 0, 0 + (rotateOffset + (360 / enemies * i))) * new Vector3(distanceOffset + radius, 0, 0));
             if (AllEnemyNum < WaveNum && enemyNum < MaxEnemiesAtATime)
@@ -147,7 +147,7 @@ public class SpawnDude : MonoBehaviour
         DeadEnemies = 0;
         Wave++;
         WaveNum = Wave * 30;
-        MaxEnemiesAtATime = (int)(1/3 * WaveNum);
+        MaxEnemiesAtATime = WaveNum / 3;
     }
 
     private void StopSpawn(object sender, EventArgs e)
