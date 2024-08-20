@@ -8,16 +8,12 @@ using UnityEngine.UIElements;
 
 public class Health : MonoBehaviour
 {
-    public event EventHandler OnHit;
-    public event EventHandler OnHeal;
-    public event EventHandler OnDeath;
+    public static event EventHandler OnHit;
+    public static event EventHandler OnDeath;
     public static event EventHandler OnEnemyDeath;
-    public event EventHandler OnMaxHealthChange;
-
+    
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private int health;
-    [SerializeField] private int maxHealth;
-
+    [SerializeField] protected int health, maxHealth;
     [SerializeField] private float immunityDuration;
     private Collider2D collide;
 
@@ -95,32 +91,11 @@ public class Health : MonoBehaviour
     public void Heal(int amount)
     {
         if (health == maxHealth)
-        {
             return;
-        }
 
         health += amount;
-        if (health > maxHealth) health = maxHealth;
-        
-        OnHeal?.Invoke(this,EventArgs.Empty);
     }
 
-    public void ChangeMaxHealth(int amount)
-    {
-        if (maxHealth - amount <= 0)
-        {
-            Debug.LogError("Cannot change max health to below zero!");
-        }
-
-        maxHealth += amount;
-        OnMaxHealthChange?.Invoke(this, EventArgs.Empty);
-        
-        if (health >= maxHealth) return;
-        
-        health = maxHealth;
-        OnHit?.Invoke(this, EventArgs.Empty);
-    }
-    
     public int GetMaxHealth() => maxHealth;
     
     public int GetHealth() => health;

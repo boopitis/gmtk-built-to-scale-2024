@@ -138,7 +138,13 @@ public class PlayerMusicScaleManager : MonoBehaviour
         }
 
         if (newCreatedScaleSO == currentScaleSO) return;
-        if (newCreatedScaleSO == null) return;
+
+        // Creates an info panel of new found scales in the pause menu UI
+        if (!createdScaleSOList.Contains(newCreatedScaleSO))
+        {
+            ScaleViewer.Instance.CreateScalePanel(newCreatedScaleSO);
+            createdScaleSOList.Add(newCreatedScaleSO);
+        }
 
         currentScaleSO = newCreatedScaleSO;
         OnScaleChanged?.Invoke(this, new OnScaleCreatedEventArgs
