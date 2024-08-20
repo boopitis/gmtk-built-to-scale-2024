@@ -41,6 +41,7 @@ public class GameplayPanel : MonoBehaviour
     private void PlayerHealth_OnHeal(object sender, EventArgs e)
     {
         UpdateHealthToNewValue();
+        Debug.Log("Heal");
     }
 
     private void PlayerHealth_OnHit(object sender, EventArgs e)
@@ -51,6 +52,8 @@ public class GameplayPanel : MonoBehaviour
     private void UpdateHealthToNewValue()
     {
         int health = playerHealth.GetHealth();
+
+        Debug.Log("Update Health");
 
         while (healthFlags.Count < health)
         {

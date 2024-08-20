@@ -147,7 +147,9 @@ public class MusicSyncManager : MonoBehaviour
                (HalfMeasureSubdivisionLength * 4);
     }
 
-    public int GetHalfMeasureSubdivisionLength() => HalfMeasureSubdivisionLength;
+    public int GetHalfMeasureSubdivisionLengthInBeats() => HalfMeasureSubdivisionLength;
+
+    public float GetHalfMeasureSubdivisionLengthInSeconds() => BeatsToSeconds(HalfMeasureSubdivisionLength);
 
     public bool GetFirstTwoMeasureIntervalTriggered() => firstTwoMeasureIntervalTriggered;
 }
