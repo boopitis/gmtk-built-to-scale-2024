@@ -40,9 +40,9 @@ public class Health : MonoBehaviour
         health = maxHealth;
     }
 
-    public virtual void GetHit(int amount, GameObject sender)
+    public virtual void GetHit(int amount)
     {
-        if (immune || isDead || sender.layer == gameObject.layer)
+        if (immune || isDead)
             return;
 
         health -= amount;

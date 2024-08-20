@@ -226,11 +226,32 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 522556493}
+    - target: {fileID: 6674852103110178898, guid: 37b1512ef9d31c840be298fc081ac700, type: 3}
+      propertyPath: healthFlagTemplate
+      value: 
+      objectReference: {fileID: 2080337044}
+    - target: {fileID: 6674852103110178898, guid: 37b1512ef9d31c840be298fc081ac700, type: 3}
+      propertyPath: healthFlagContainer
+      value: 
+      objectReference: {fileID: 337326969}
+    - target: {fileID: 6674852103110178898, guid: 37b1512ef9d31c840be298fc081ac700, type: 3}
+      propertyPath: maxHealthFlagTemplate
+      value: 
+      objectReference: {fileID: 1258908685}
+    - target: {fileID: 6674852103110178898, guid: 37b1512ef9d31c840be298fc081ac700, type: 3}
+      propertyPath: maxHealthFlagContainer
+      value: 
+      objectReference: {fileID: 1759422768}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37b1512ef9d31c840be298fc081ac700, type: 3}
+--- !u!224 &337326969 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 835406380301917004, guid: 37b1512ef9d31c840be298fc081ac700, type: 3}
+  m_PrefabInstance: {fileID: 169092569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &522556491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -749,6 +770,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &1258908685 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8054362732703962468, guid: 37b1512ef9d31c840be298fc081ac700, type: 3}
+  m_PrefabInstance: {fileID: 169092569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1464241400
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -863,6 +889,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18fdf5d4136db9044b0d22c4c5ea1f97, type: 3}
+--- !u!224 &1759422768 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5294661872607804669, guid: 37b1512ef9d31c840be298fc081ac700, type: 3}
+  m_PrefabInstance: {fileID: 169092569}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2080337044 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6692519453245665256, guid: 37b1512ef9d31c840be298fc081ac700, type: 3}
+  m_PrefabInstance: {fileID: 169092569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1877311341107552750
 PrefabInstance:
   m_ObjectHideFlags: 0
