@@ -5,21 +5,12 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject MusicScaleMakerGO;
-    [SerializeField] private GameObject MusicScaleViewerGO;
+    public event EventHandler StartNextWave;
 
-    public static event EventHandler OnWaveEnded;
-
-    public void OpenMusicScaleMaker()
+    public void NextWave()
     {
-        MusicScaleMakerGO.SetActive(true);
-        MusicScaleViewerGO.SetActive(false);
-    }
-
-    public void OpenMusicScaleViewer()
-    {
-        MusicScaleMakerGO.SetActive(false);
-        MusicScaleViewerGO.SetActive(true);
+        MenuManager.Instance.ToggleScaleMaker(this, EventArgs.Empty);
+        StartNextWave?.Invoke(this, EventArgs.Empty);
     }
 
     public void QuitGame()

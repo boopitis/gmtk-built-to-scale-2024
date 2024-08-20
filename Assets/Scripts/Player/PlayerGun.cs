@@ -165,7 +165,7 @@ public class PlayerGun : MonoBehaviour
         string debugPrint = queuedNotes.Aggregate("queuedNotes: ", (current, queuedNote) =>
             current + (queuedNote.Subdivision + ", "));
         debugPrint += $"; on subdivision {currentSubdivision}";
-        Debug.Log(debugPrint);
+        // Debug.Log(debugPrint);
 
         if (queuedNotes.Count == 0) return false;
 
