@@ -14,7 +14,7 @@ TagManager:
   - Enemies
   - Projectiles
   - Background
-  - 
+  - Panel
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1020061473
+    locked: 0
+  - name: Panel
+    uniqueID: 3868742981
     locked: 0
