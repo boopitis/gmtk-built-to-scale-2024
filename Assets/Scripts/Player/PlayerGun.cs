@@ -107,7 +107,7 @@ public class PlayerGun : MonoBehaviour
 
     private void QueueNotes(int subdivision)
     {
-        if (subdivision % MusicSyncManager.Instance.GetHalfMeasureSubdivisionLength() != 0)
+        if (subdivision % MusicSyncManager.Instance.GetHalfMeasureSubdivisionLengthInBeats() != 0)
         {
             Debug.LogError("Subdivision does not correspond with a half measure!");
         }
@@ -129,7 +129,7 @@ public class PlayerGun : MonoBehaviour
 
             if (index == subdivisionTiming.Count) break;
         } while (subdivisionTiming[index] <
-                 subdivision + MusicSyncManager.Instance.GetHalfMeasureSubdivisionLength());
+                 subdivision + MusicSyncManager.Instance.GetHalfMeasureSubdivisionLengthInBeats());
 
         TryAttack(subdivision);
 
