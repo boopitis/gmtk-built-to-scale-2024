@@ -41,6 +41,7 @@ public class Health : MonoBehaviour
     private void Start()
     {
         collide = GetComponent<Collider2D>();
+        MusicScaleMaker.Instance.OnConfirmation += NewWaveHealth;
     }
 
 
@@ -124,6 +125,11 @@ public class Health : MonoBehaviour
     public int GetMaxHealth() => maxHealth;
     
     public int GetHealth() => health;
+
+    public void NewWaveHealth(object sender, EventArgs e)
+    {
+        ChangeMaxHealth( Mathf.Clamp(FindObjectOfType<SpawnDude>().WaveNum, 0, 10));
+    }
 
     // private void Update()
     // {

@@ -25,7 +25,7 @@ public class SpawnDude : MonoBehaviour
     private int enemyNum = 0;
     private int AllEnemyNum = 0;
     private int DeadEnemies = 0;
-    private int WaveNum;
+    public int WaveNum {get; private set;}
     private bool stopspawn = false;
     private bool blockSpawn = false;
     private float rotateOffset;
@@ -36,13 +36,13 @@ public class SpawnDude : MonoBehaviour
     private void Start()
     {
         Health.OnEnemyDeath += EnemyTracker;
+        MusicScaleMaker.Instance.OnConfirmation += StartSpawn;
         OnWaveEnded += Reset_Enemies;
         OnWaveEnded += StopSpawn;
-        MusicScaleMaker.Instance.OnConfirmation += StartSpawn;
         //StopSpawnEnemies += StopSpawn;
-        WaveNum = 100;
+        WaveNum = 30;
         // WaveNum = 100;
-        MaxEnemiesAtATime = (int)(0.25 * WaveNum);
+        MaxEnemiesAtATime = (int)(1/3 * WaveNum);
         stopspawn = false;
     }
 
@@ -146,8 +146,8 @@ public class SpawnDude : MonoBehaviour
         AllEnemyNum = 0;
         DeadEnemies = 0;
         Wave++;
-        WaveNum = Wave * 100;
-        MaxEnemiesAtATime = (int)(0.5 * WaveNum);
+        WaveNum = Wave * 30;
+        MaxEnemiesAtATime = (int)(1/3 * WaveNum);
     }
 
     private void StopSpawn(object sender, EventArgs e)
