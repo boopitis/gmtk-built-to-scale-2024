@@ -6,7 +6,7 @@ public class ContactDamage : EnemyDamage
 {
     private void FixedUpdate()
     {
-        if (phealth != null)
+        if (phealth is not null)
         {
             base.OnCollisionEnter2D(col);
         }
