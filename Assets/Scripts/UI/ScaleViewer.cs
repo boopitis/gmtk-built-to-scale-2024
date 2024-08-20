@@ -13,7 +13,7 @@ public class ScaleViewer : MonoBehaviour
 
     [SerializeField] private List<GameObject> panels;
 
-    [SerializeField] private List<ScaleSO> scaleSOList;
+    [SerializeField] private List<ScaleSO> createdScaleSOList;
     private int count = 0;
 
     private void Start()
@@ -30,7 +30,7 @@ public class ScaleViewer : MonoBehaviour
     public void CreateScalePanel(object sender, PlayerMusicScaleManager.OnScaleCreatedEventArgs e)
     {
         // Creates an info panel of new found scales in the pause menu UI
-        if (!scaleSOList.Contains(e.ScaleSO))
+        if (!createdScaleSOList.Contains(e.ScaleSO))
         {
             // foreach (NoteSO noteSOs in newCreatedScaleSO.noteSOList)
             // {
@@ -41,10 +41,10 @@ public class ScaleViewer : MonoBehaviour
             //     print(createdScaleSO.name);
             // }
             print("Create New Panel");
-            scaleSOList.Add(e.ScaleSO);
-            panels[count].transform.GetChild(0).GetComponent<TMP_Text>().text = scaleSOList[count].specialDescription;
-
-            panels[count].transform.GetChild(1).GetComponent<TMP_Text>().text = scaleSOList[count].passiveDescription;
+            createdScaleSOList.Add(e.ScaleSO);
+            panels[count].transform.GetChild(0).GetComponent<TMP_Text>().text = e.ScaleSO.name;
+            panels[count].transform.GetChild(1).GetComponent<TMP_Text>().text = e.ScaleSO.specialDescription;
+            panels[count].transform.GetChild(2).GetComponent<TMP_Text>().text = e.ScaleSO.passiveDescription;
 
             count++;
         }
