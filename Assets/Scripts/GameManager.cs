@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    
+
     public enum PauseCondition
     {
         EndOfWave,
@@ -20,9 +20,9 @@ public class GameManager : MonoBehaviour
     }
 
     private PauseCondition pauseCondition;
-    
+
     public event EventHandler OnResume;
-    
+
     private bool isPaused;
 
     private void Awake()
@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         if (!isPaused)
         {
             Pause(PauseCondition.InputActivation);
+            return;
         }
 
         if (pauseCondition != PauseCondition.InputActivation) return;
