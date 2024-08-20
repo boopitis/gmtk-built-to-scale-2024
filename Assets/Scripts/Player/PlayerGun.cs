@@ -191,7 +191,7 @@ public class PlayerGun : MonoBehaviour
                     // Fire special
                     StartCoroutine(DelaySpecialAttack());
                     PlayerGunAnimations.Instance.SpecialAttackAnimation(PlayerMusicScaleManager.Instance
-                        .GetCreatedScaleSO().name);
+                        .GetCreatedScaleSO());
                     queuedNotes.RemoveAt(0);
                     return true;
                 }

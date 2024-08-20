@@ -15,6 +15,7 @@ MonoBehaviour:
   prefab: {fileID: 9035312376651765115, guid: bea712d217a90f1449caacca30c3d3ba, type: 3}
   special: {fileID: 7728398649243898217, guid: bea712d217a90f1449caacca30c3d3ba, type: 3}
   specialAnimationDelay: 1
+  gunAnimation: 1
   noteSOList:
   - {fileID: 11400000, guid: bfa9899a6c271ee49ae8a370eec38dc3, type: 2}
   - {fileID: 11400000, guid: 6b40dceb088427447b448bf14e2e9fb1, type: 2}
