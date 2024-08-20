@@ -11,14 +11,12 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject MusicScaleMakerPanelGO;
     [SerializeField] private GameObject MusicScaleViewerPanelGO;
 
-    private bool isPaused;
     private bool scaleMakerOpen;
 
     public event EventHandler OnWaveEnded;
 
     private void Awake()
     {
-        isPaused = false;
         scaleMakerOpen = false;
     }
 
@@ -27,10 +25,23 @@ public class MenuManager : MonoBehaviour
         Instance = this;
 
         OnWaveEnded += ToggleScaleMaker;
-        GameInput.Instance.OnPlayerMenuOpenClosePerformed += ToggleScaleViewer;
+        GameManager.Instance.OnPause += GameManager_OnPause;
+        GameManager.Instance.OnResume += GameManager_OnResume;
 
         MusicScaleMakerPanelGO.SetActive(false);
         MusicScaleViewerPanelGO.SetActive(false);
+    }
+
+    private void GameManager_OnResume(object sender, EventArgs eventArgs)
+    {
+        MusicScaleViewerPanelGO.SetActive(false);
+    }
+
+    private void GameManager_OnPause(object sender, GameManager.OnPauseEventArgs e)
+    {
+        if (e.PauseCondition != GameManager.PauseCondition.InputActivation) return;
+        
+        MusicScaleViewerPanelGO.SetActive(true);
     }
 
     private void Update()
@@ -41,34 +52,16 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void ToggleScaleViewer(object sender, EventArgs e)
-    {
-        if (isPaused)
-        {
-            Time.timeScale = 1f;
-            isPaused = false;
-            MusicScaleViewerPanelGO.SetActive(false);
-        }
-        else
-        {
-            Time.timeScale = 0f;
-            isPaused = true;
-            MusicScaleViewerPanelGO.SetActive(true);
-        }
-    }
-
     public void ToggleScaleMaker(object sender, EventArgs e)
     {
         if (scaleMakerOpen)
         {
-            Time.timeScale = 1f;
-            scaleMakerOpen = false;
+            GameManager.Instance.Resume();
             MusicScaleMakerPanelGO.SetActive(false);
         }
         else
         {
-            Time.timeScale = 0f;
-            scaleMakerOpen = true;
+            GameManager.Instance.Pause(GameManager.PauseCondition.EndOfWave);
             MusicScaleMaker.Instance.ResetChanges();
             MusicScaleMakerPanelGO.SetActive(true);
         }
