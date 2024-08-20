@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 862004194481921550}
   - component: {fileID: 8355248410851847652}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 625867776993122488}
   - component: {fileID: 4013336691593511770}
   - component: {fileID: 7969536906164151012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background Notes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1165,7 +1165,7 @@ GameObject:
   - component: {fileID: 4032354536034517377}
   - component: {fileID: 8170583794888355711}
   - component: {fileID: 7234699275057351788}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background Paper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
