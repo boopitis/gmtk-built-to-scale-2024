@@ -16,6 +16,7 @@ public class MusicScaleMaker : MonoBehaviour
     [SerializeField] private NoteSO[] noteSOS;
     [SerializeField] private int allowedChanges = 3;
     [SerializeField] private GameObject changesLeftText;
+    [SerializeField] private GameObject closeToScaleText;
     private int changes;
     private List<int> storedChanges;
 
@@ -64,7 +65,7 @@ public class MusicScaleMaker : MonoBehaviour
             }
             storedChanges.Add(key);
             changes--;
-            UpdateChangesLeftText();
+            UpdateAll();
         }
     }
 
@@ -87,14 +88,14 @@ public class MusicScaleMaker : MonoBehaviour
         }
 
         changes++;
-        UpdateChangesLeftText();
+        UpdateAll();
     }
 
     public void GameManager_OnPause(object sender, GameManager.OnPauseEventArgs e)
     {
         if (e.PauseCondition != GameManager.PauseCondition.EndOfWave) return;
         changes = allowedChanges;
-        UpdateChangesLeftText();
+        UpdateAll();
         uiPanel.SetActive(true);
     }
 
@@ -107,6 +108,29 @@ public class MusicScaleMaker : MonoBehaviour
     public void UpdateChangesLeftText()
     {
         changesLeftText.GetComponent<TMP_Text>().text = new string("Changes Left: " + changes);
+    }
+
+    public void UpdateCloseToScaleText()
+    {
+        var minScaleDifference = PlayerMusicScaleManager.Instance.minScaleDifference;
+        if (minScaleDifference == 0)
+        {
+            closeToScaleText.GetComponent<TMP_Text>().text = new string(PlayerMusicScaleManager.Instance.GetCreatedScaleSO().name);
+        }
+        else
+        {
+            closeToScaleText.GetComponent<TMP_Text>().text = new string(
+                "You are " +
+                minScaleDifference +
+                " note(s) away from a scale!");
+        }
+    }
+
+    public void UpdateAll()
+    {
+        PlayerMusicScaleManager.Instance.CheckScaleMatch();
+        UpdateCloseToScaleText();
+        UpdateChangesLeftText();
     }
 
     public void QuitGame()
