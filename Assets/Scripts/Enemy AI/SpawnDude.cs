@@ -40,6 +40,7 @@ public class SpawnDude : MonoBehaviour
         //OnConfirmation += ;
         //StopSpawnEnemies += StopSpawn;
         WaveNum = 100;
+        MaxEnemiesAtATime = (int)(0.5 * WaveNum);
     }
 
     private void EnemyTracker(object sender, EventArgs e)
