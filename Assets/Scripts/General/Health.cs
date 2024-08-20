@@ -15,8 +15,8 @@ public class Health : MonoBehaviour
     public event EventHandler OnMaxHealthChange;
 
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] public int health {get; private set;}
-    [SerializeField] public int maxHealth {get; private set;}
+    [SerializeField] private int health;
+    [SerializeField] private int maxHealth;
 
     [SerializeField] private float immunityDuration;
 

@@ -231,6 +231,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5854861165230765406, guid: a337410d5f28ecc4ca32c5494aee8056, type: 3}
+      propertyPath: health
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5854861165230765406, guid: a337410d5f28ecc4ca32c5494aee8056, type: 3}
+      propertyPath: maxHealth
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -599,6 +607,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1574548292686472822, guid: 48181397be11d074fbc4fbb49ce78470, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271984897750380432, guid: 48181397be11d074fbc4fbb49ce78470, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271984897750380432, guid: 48181397be11d074fbc4fbb49ce78470, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271984897750380432, guid: 48181397be11d074fbc4fbb49ce78470, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271984897750380432, guid: 48181397be11d074fbc4fbb49ce78470, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3341797555298153840, guid: 48181397be11d074fbc4fbb49ce78470, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -677,6 +705,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3341797555298153840, guid: 48181397be11d074fbc4fbb49ce78470, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169883630645166981, guid: 48181397be11d074fbc4fbb49ce78470, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
