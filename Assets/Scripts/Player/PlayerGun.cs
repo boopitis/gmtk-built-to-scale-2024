@@ -44,6 +44,39 @@ public class PlayerGun : MonoBehaviour
         SetSubdivisionTiming();
     }
 
+    private void MusicSyncManager_OnTwoMeasureIntervalTriggered(object sender, EventArgs e)
+    {
+        pSubdivisionOnShoot = -1;
+    }
+
+    private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
+    {
+        if (GameManager.Instance.IsPaused()) return;
+        
+        if (!MusicSyncManager.Instance.GetFirstTwoMeasureIntervalTriggered()) return;
+
+        int accuracyInMillis;
+        int subdivision;
+
+        float timeToLastHalfMeasure = MusicSyncManager.Instance.GetTimeToLastHalfMeasure();
+        float timeToNextHalfMeasure = MusicSyncManager.Instance.GetTimeToNextHalfMeasure();
+
+        if (timeToLastHalfMeasure < timeToNextHalfMeasure)
+        {
+            accuracyInMillis = (int)(timeToLastHalfMeasure * 1000);
+            subdivision = MusicSyncManager.Instance.GetLastHalfMeasureSubdivision();
+        }
+        else
+        {
+            accuracyInMillis = (int)(timeToNextHalfMeasure * 1000);
+            subdivision = MusicSyncManager.Instance.GetNextHalfMeasureSubdivision();
+        }
+
+        if (accuracyInMillis >= timingWindowInMillis) return;
+        
+        QueueNotes(subdivision);
+    }
+
     private void PlayerMusicScaleManager_OnCurrentNotesChanged(object sender, EventArgs e)
     {
         SetSubdivisionTiming();
@@ -82,8 +115,11 @@ public class PlayerGun : MonoBehaviour
 
     public void Attack()
     {
-        var firedNoteSO = PlayerMusicScaleManager.Instance.GetCurrentNoteSOList()[noteIndex];
-        Debug.Log(firedNoteSO.name);
+        if (queuedNotes.Count == 0) return false;
+
+        var queuedNote = queuedNotes[0];
+
+        if (queuedNote.Subdivision != currentSubdivision) return false;
 
         OnAttack?.Invoke(this, new OnAttackEventArgs
         {
