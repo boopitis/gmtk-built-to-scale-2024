@@ -22,19 +22,23 @@ public class MusicScaleMaker : MonoBehaviour
 
     public event EventHandler OnConfirmation;
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
+        
+        changes = allowedChanges;
+        storedChanges = new List<int>();
 
+        UpdateChangesLeftText();
+    }
+
+    private void Start()
+    {
         uiPanel.SetActive(false);
 
         FindObjectOfType<SpawnDude>().OnWaveEnded += OpenScaleMaker;
         GameManager.Instance.OnPause += GameManager_OnPause;
         GameManager.Instance.OnResume += GameManager_OnResume;
-
-        changes = allowedChanges;
-        storedChanges = new List<int>();
-        UpdateChangesLeftText();
     }
 
     public void OpenScaleMaker(object sender, EventArgs e)
