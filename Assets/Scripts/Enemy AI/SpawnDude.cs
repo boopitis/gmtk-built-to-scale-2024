@@ -148,7 +148,7 @@ public class SpawnDude : MonoBehaviour
         AllEnemyNum = 0;
         DeadEnemies = 0;
         Wave++;
-        WaveNum = Wave * 30;
+        WaveNum = Wave * 6;
         MaxEnemiesAtATime = WaveNum / 3;
     }
 
