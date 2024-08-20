@@ -10,7 +10,7 @@ public class ContactDamage : MonoBehaviour
     {
         if (collision.collider.GetComponent<Health>())
         {
-            collision.collider.GetComponent<Health>().GetHit(damage, gameObject);
+            collision.collider.GetComponent<Health>().GetHit(damage);
         }
     }
 }

@@ -1,14 +1,37 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BluesSpecial : BaseSpecial
 {
     [SerializeField] private Collider2D projectileCollider;
+    [SerializeField] private Renderer renderer;
+    [SerializeField] private float timeToDisappear;
+    [SerializeField] private float positionOffset;
     
     private const int Raycasts = 4;
     private const int Spread = 11;
-    
+
+    private float currentTimeToDisappear;
+
+    private void Awake()
+    {
+        currentTimeToDisappear = timeToDisappear;
+    }
+
+    private void Update()
+    {
+        currentTimeToDisappear -= Time.deltaTime;
+        
+        Color matColor = renderer.material.color;
+        float alphaValue = currentTimeToDisappear / timeToDisappear;
+        renderer.material.color = new Color(matColor.r, matColor.g, matColor.b, alphaValue);
+        
+        if (alphaValue < 0) Destroy(gameObject);
+    }
+
     /** 
      * Laser attack
      */
@@ -22,12 +45,6 @@ public class BluesSpecial : BaseSpecial
                 Quaternion.Euler(0, 0, -Spread + (Spread * 2.0f / Raycasts * i)) * rotation * Vector2.right,
                 collisions,
                 5.5f);
-            Projectile.SpawnProjectile(
-                projectile.gameObject, 
-                position, 
-                Quaternion.Euler(0, 0, -Spread + (Spread * 2.0f / Raycasts * i)) * rotation,
-                Quaternion.Euler(0, 0, -Spread + (Spread * 2.0f / (Raycasts - 1) * i)),
-                out _);
             
             foreach (var raycastHit2D in collisions)
             {
@@ -39,7 +56,7 @@ public class BluesSpecial : BaseSpecial
             }
         }
             
-        string debugOut = "hit enemy points: ";
+        string debugOut = "hit enemy points: "; 
         foreach (var raycastHit2D in hitEnemies)
         {
             debugOut += raycastHit2D.point + ", ";
@@ -48,5 +65,10 @@ public class BluesSpecial : BaseSpecial
                 projectile.GetDamage());
         }
         Debug.Log(debugOut);
+
+        var instantiatedPrefab = Instantiate(gameObject.transform,
+            position.position + rotation * new Vector3(positionOffset, 0, 0),
+            rotation);
+        instantiatedPrefab.gameObject.SetActive(true);
     }
 }
