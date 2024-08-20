@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 9035312376651765115, guid: 206914ed22c919e49ae2a01de4254d1f, type: 3}
   special: {fileID: 489970639914246554, guid: 206914ed22c919e49ae2a01de4254d1f, type: 3}
+  specialAnimationDelay: 0.5
   noteSOList:
   - {fileID: 11400000, guid: bfa9899a6c271ee49ae8a370eec38dc3, type: 2}
   - {fileID: 11400000, guid: 6b40dceb088427447b448bf14e2e9fb1, type: 2}
@@ -24,3 +25,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e22b482930be0c845b982beb9a7a7850, type: 2}
   - {fileID: 11400000, guid: 16b22d5ec168128438f56f61d2f152b4, type: 2}
   scaleName: Melodic Minor Scale
+  specialDescription: Big Bullet
+  passiveDescription: More health or something

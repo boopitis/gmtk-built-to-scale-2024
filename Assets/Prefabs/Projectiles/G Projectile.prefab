@@ -22,11 +22,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 813789958821806722, guid: ae9034a741802984e85a9524664a6be4, type: 3}
       propertyPath: m_Color.g
-      value: 0.8030219
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 813789958821806722, guid: ae9034a741802984e85a9524664a6be4, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 813789958821806722, guid: ae9034a741802984e85a9524664a6be4, type: 3}
       propertyPath: m_SortingLayer

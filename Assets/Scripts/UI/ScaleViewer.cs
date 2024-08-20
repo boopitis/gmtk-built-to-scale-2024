@@ -8,7 +8,6 @@ public class ScaleViewer : MonoBehaviour
 {
     public static ScaleViewer Instance { get; private set; }
 
-    [SerializeField] private List<ScaleSO> musicScaleSOList;
     [SerializeField] private List<GameObject> panels;
     private int count = 0;
 
@@ -17,12 +16,11 @@ public class ScaleViewer : MonoBehaviour
         Instance = this;
     }
 
-    public void CreateScalePanel(int scaleIndex)
+    public void CreateScalePanel(ScaleSO scaleSO)
     {
-        print(scaleIndex);
-        panels[count].transform.GetChild(0).GetComponent<TMP_Text>().text = musicScaleSOList[scaleIndex].specialDescription;
+        panels[count].transform.GetChild(0).GetComponent<TMP_Text>().text = scaleSO.specialDescription;
 
-        panels[count].transform.GetChild(1).GetComponent<TMP_Text>().text = musicScaleSOList[scaleIndex].passiveDescription;
+        panels[count].transform.GetChild(1).GetComponent<TMP_Text>().text = scaleSO.passiveDescription;
 
         count++;
     }
