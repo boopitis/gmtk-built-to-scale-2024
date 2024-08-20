@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System;
 using UnityEngine;
+using static UnityEngine.InputSystem.InputControlExtensions;
 
 public class SpawnDude : MonoBehaviour
 {
@@ -14,17 +17,48 @@ public class SpawnDude : MonoBehaviour
     [SerializeField] private float maxdelay = 6f;
     [SerializeField] private float minOffset = 1f;
     [SerializeField] private float maxOffset = 5f;
+    //public event EventHandler IsMaxEnemies;
+    public event EventHandler StopSpawnEnemies;
+    public event EventHandler ResetEnemies;
+    //private GameObject[] Enemyarray = new GameObject[100];
+    private int Wave = 1;
+    private int MaxEnemiesAtATime = 10;
+    // Max enemies should probably be 100.
     private float delay;
-    private GameObject[] Enemyarray = new GameObject[100];
-    private int enemyNum = -1;
-    
+    private int enemyNum = 0;
+    private int AllEnemyNum = 0;
+    private int DeadEnemies = 0;
+    private int WaveNum;
+    private bool stopspawn = false;
     private bool blockSpawn = false;
-
     private float rotateOffset;
     private float distanceOffset;
 
+    
+    private void Start()
+    {
+        EnemyHealth.OnAnyDeath += EnemyTracker;
+        ResetEnemies += Restart_Enemies;
+        StopSpawnEnemies += StopSpawn;
+    }
+
+    private void EnemyTracker(object sender, EventArgs e)
+    {
+        DeadEnemies++;
+        if (DeadEnemies < WaveNum)
+        {
+            enemyNum--;
+        }
+        if (DeadEnemies >= WaveNum)
+        {
+            enemyNum--;
+            ResetEnemies?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
     private void SpawnDudes()
     {
+        
         for (int i = 0; i < enemies; i++)
         {
             
@@ -32,16 +66,18 @@ public class SpawnDude : MonoBehaviour
             SetOffset();
             Vector2 euler_vector = playerGO.position + (Quaternion.Euler(0, 0, 0 + (rotateOffset + (360 / enemies * i))) * new Vector3(distanceOffset + radius, 0, 0));
             //Debug.Log("euler is " + euler_vector);
-            if (enemyNum < 50)
+            if (AllEnemyNum < WaveNum && enemyNum < MaxEnemiesAtATime)
             {
-                GameObject Instantiated_enemy = Instantiate(enemyPrefab, euler_vector, Quaternion.identity, transform);
-                enemyNum = enemyNum + 1;
-                Enemyarray[enemyNum] = Instantiated_enemy;
-                Debug.Log(Enemyarray[enemyNum]);
+                Instantiate(enemyPrefab, euler_vector, Quaternion.identity, transform);
+                //GameObject Instantiated_enemy = Instantiate(enemyPrefab, euler_vector, Quaternion.identity, transform);
+                AllEnemyNum ++;
+                enemyNum++;
+                //Enemyarray[enemyNum] = Instantiated_enemy;
+                //Debug.Log(Enemyarray[1]);
                 //Debug.Log("spawned enemy " + i);
-                Debug.Log("There are " + Enemyarray.Length + " enemies.");
+                Debug.Log("There are " + enemyNum + " enemies.");
             }
-            if (enemyNum >= 50)
+            if (AllEnemyNum >= WaveNum)
             {
                 return;
             }
@@ -50,22 +86,26 @@ public class SpawnDude : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (blockSpawn) return;
+        if(!stopspawn)
+        {
+            if (blockSpawn) return;
 
-        blockSpawn = true;
-        SpawnDudes();
-        StartCoroutine(DelaySpawnDudes());
+            blockSpawn = true;
+            SpawnDudes();
+            StartCoroutine(DelaySpawnDudes());
+        }
+        else return;
     }
 
     private void SetTime()
     {
-        delay = Random.Range(mindelay, maxdelay);
+        delay = UnityEngine.Random.Range(mindelay, maxdelay);
     }
 
     private void SetOffset()
     {
-        rotateOffset = Random.Range(-maxOffset*3, maxOffset*3);
-        distanceOffset = Random.Range(minOffset, maxOffset);
+        rotateOffset = UnityEngine.Random.Range(-maxOffset*3, maxOffset*3);
+        distanceOffset = UnityEngine.Random.Range(minOffset, maxOffset);
     }
 
     private IEnumerator DelaySpawnDudes()
@@ -74,4 +114,48 @@ public class SpawnDude : MonoBehaviour
         yield return new WaitForSeconds(delay);
         blockSpawn = false;
     }
+
+    private void Refresh_EnemyArray()
+    {
+        //var apos = new List<int>();
+        //for (int i = 0; i < enemyNum; i++)
+        //{
+        //    if (Enemyarray[i].name == "null")
+        //    {
+        //        foreach (int x in Enumerable.Range(0, 99))
+        //        {
+        //            if (Enemyarray[x].name == "Enemy(Clone) (UnityEngine.GameObject)")
+        //            {
+        //                Enemyarray[i] = Enemyarray[x];
+        //                Enemyarray[x] = null;
+        //                return;
+        //            }
+        //        }
+        //    }
+        //}
+
+        //if (apos.ToArray().Length >= 1)
+        //    {
+        //    int[] EnemyNumsh1 = apos.ToArray();
+        //    foreach (int i in EnemyNumsh1)
+        //        {
+                    //Enemyarray[i].GetComponent().HeartApp("alive");
+        //        }
+        //    }
+    }
+
+    private void Restart_Enemies(object sender, EventArgs e)
+    {
+        enemyNum = 0;
+        AllEnemyNum = 0;
+        DeadEnemies = 0;
+        Wave++;
+        WaveNum = Wave * 100;
+    }
+
+    private void StopSpawn(object sender, EventArgs e)
+    {
+        stopspawn = true;
+    }
+
 }

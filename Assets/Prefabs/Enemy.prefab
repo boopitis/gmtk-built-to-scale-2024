@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 5694807914414982252}
   - component: {fileID: 1322918091131399259}
   - component: {fileID: 870176823031664984}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,7 +154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5618357582666136546}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Detectors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1716224587159109599}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: SeekBehaviour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7106635716715544786}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: TargetDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2076290654824690971}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: ContextSolver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 226602946852616788}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: ObstacleAvoidance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4132365368437905043}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: SteeringBehaviours
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 568846999020700616}
   - component: {fileID: 1517896022125346147}
   - component: {fileID: 8613406195809292613}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Effector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -463,7 +463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4800802589212540403}
   - component: {fileID: 2057481775768886740}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -546,7 +546,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6576674180328482936}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: ObstacleDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}

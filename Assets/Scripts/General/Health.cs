@@ -10,13 +10,15 @@ public class Health : MonoBehaviour
 {
     public event EventHandler OnHit;
     public event EventHandler OnDeath;
+    //public delegate void Death (string a, int b);
+    //public event Death NowDead; 
     
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private int health, maxHealth;
+    [SerializeField] protected int health, maxHealth;
     [SerializeField] private float immunityDuration;
 
-    private bool isDead;
-    private bool immune;
+    protected bool isDead;
+    protected bool immune;
     private const float ColorChangeDuration = 0.25f;
 
     public void InitializeHealth(int healthValue)
@@ -31,6 +33,7 @@ public class Health : MonoBehaviour
     {
         health = maxHealth;
     }
+
 
     public void GetHit(int amount, GameObject sender)
     {
@@ -83,4 +86,10 @@ public class Health : MonoBehaviour
     public int GetMaxHealth() => maxHealth;
     
     public int GetHealth() => health;
+
+    protected void InvokeOnHit()
+    {
+        OnHit?.Invoke(this, EventArgs.Empty);
+    }
+    
 }
