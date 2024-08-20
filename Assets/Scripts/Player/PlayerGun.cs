@@ -68,8 +68,9 @@ public class PlayerGun : MonoBehaviour
 
     private void MusicSyncManager_OnTwoMeasureIntervalTriggered(object sender, EventArgs e)
     {
-        pSubdivisionOnShoot = -1;
         scaleSuccessfulInputs = 0;
+        if (pSubdivisionOnShoot == 0) scaleSuccessfulInputs++;
+        pSubdivisionOnShoot = pSubdivisionOnShoot == 0 ? 0 : -1;
     }
 
     private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
@@ -96,8 +97,11 @@ public class PlayerGun : MonoBehaviour
         }
 
         if (accuracyInMillis >= timingWindowInMillis) return;
-
+        
         scaleSuccessfulInputs++;
+        
+        Debug.Log($"scaleSuccessfulInputs: {scaleSuccessfulInputs}, subdivision: {subdivision}");
+
         QueueNotes(subdivision);
     }
 
@@ -176,7 +180,6 @@ public class PlayerGun : MonoBehaviour
 
         if (queuedNote.Subdivision != currentSubdivision) return false;
 
-        Debug.Log(scaleSuccessfulInputs);
         OnAttack?.Invoke(this, new OnAttackEventArgs
         {
             FiredNoteSO = queuedNote.NoteSO
@@ -184,7 +187,7 @@ public class PlayerGun : MonoBehaviour
 
         if (queuedNote.Subdivision == 12)
         {
-            if (scaleSuccessfulInputs >= 3)
+            if (scaleSuccessfulInputs >= 4)
             {
                 if (PlayerMusicScaleManager.Instance.GetCreatedScaleSO() is not null)
                 {
