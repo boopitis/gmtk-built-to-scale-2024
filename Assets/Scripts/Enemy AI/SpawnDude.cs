@@ -4,6 +4,7 @@ using System.Linq;
 using System;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputControlExtensions;
+using Unity.VisualScripting;
 
 public class SpawnDude : MonoBehaviour
 {
@@ -18,14 +19,14 @@ public class SpawnDude : MonoBehaviour
     [SerializeField] private float minOffset = 1f;
     [SerializeField] private float maxOffset = 5f;
     public event EventHandler OnWaveEnded;
-    private int Wave = 1;
+    public int Wave {get; private set;}
     private int MaxEnemiesAtATime;
     // There might need to be an initial figure assigned to it.
     private float delay;
     private int enemyNum = 0;
     private int AllEnemyNum = 0;
     private int DeadEnemies = 0;
-    public int WaveNum {get; private set;}
+    private int WaveNum;
     private bool stopspawn = false;
     private bool blockSpawn = false;
     private float rotateOffset;
@@ -39,8 +40,9 @@ public class SpawnDude : MonoBehaviour
         MusicScaleMaker.Instance.OnConfirmation += StartSpawn;
         OnWaveEnded += Reset_Enemies;
         OnWaveEnded += StopSpawn;
-        //StopSpawnEnemies += StopSpawn;
-        WaveNum = 30;
+        //StopSpawnEnemies += StopSpawn
+        Wave = 1;
+        WaveNum = 3;
         MaxEnemiesAtATime = WaveNum / 3;
         stopspawn = false;
     }
