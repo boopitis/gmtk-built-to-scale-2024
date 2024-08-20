@@ -26,6 +26,7 @@ public class SpawnDude : MonoBehaviour
     private int enemyNum = 0;
     private int AllEnemyNum = 0;
     private int DeadEnemies = 0;
+    public int AllDeadEnemies {get; private set;}
     private int WaveNum;
     private bool stopspawn = false;
     private bool blockSpawn = false;
@@ -44,6 +45,7 @@ public class SpawnDude : MonoBehaviour
         Wave = 1;
         WaveNum = 3;
         MaxEnemiesAtATime = WaveNum / 3;
+        AllDeadEnemies = 0;
         stopspawn = false;
     }
 
@@ -51,6 +53,7 @@ public class SpawnDude : MonoBehaviour
     {
         Debug.Log("Dead enemies");
         DeadEnemies++;
+        AllDeadEnemies++;
         if (DeadEnemies < WaveNum)
         {
             enemyNum--;
@@ -76,25 +79,25 @@ public class SpawnDude : MonoBehaviour
             Vector2 euler_vector = playerGO.position + (Quaternion.Euler(0, 0, 0 + (rotateOffset + (360 / enemies * i))) * new Vector3(distanceOffset + radius, 0, 0));
             if (AllEnemyNum < WaveNum && enemyNum < MaxEnemiesAtATime)
             {
-                if (euler_vector.x < 50 && euler_vector.x > -50)
+                if (euler_vector.x < border && euler_vector.x > -border)
                 {
                 }
-                else if (euler_vector.x > 50 )
+                else if (euler_vector.x > border )
                 {
                     euler_vector.x  = -50;
                 }
-                else if (euler_vector.x < -50)
+                else if (euler_vector.x < -border)
                 {
                     euler_vector.x = 50;
                 }
-                if (euler_vector.y < 50 && euler_vector.y > -50)
+                if (euler_vector.y < border && euler_vector.y > -border)
                 {
                 }
-                else if (euler_vector.y > 50 )
+                else if (euler_vector.y > border )
                 {
                     euler_vector.y  = -50;
                 }
-                else if (euler_vector.y < -50)
+                else if (euler_vector.y < -border)
                 {
                     euler_vector.y = 50;
                 }

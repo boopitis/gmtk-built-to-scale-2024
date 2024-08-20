@@ -38,5 +38,21 @@ public class FindGuy : MonoBehaviour
         //playerp[0] = Mathf.Sign(playerp[0] - transform.position.x);
         //playerp[1] = Mathf.Sign(playerp[1] - transform.position.y);
         Follow();
+        if (transform.position.x > 50)
+        {
+            transform.localPosition = new Vector2(50, transform.position.y);
+        }
+        else if (transform.position.x < -50)
+        {
+            transform.localPosition = new Vector2(-50, transform.position.y);
+        }
+        if (transform.position.y > 50)
+        {
+            transform.localPosition = new Vector2(transform.position.x, 50);
+        }
+        if (transform.position.y < -50)
+        {
+            transform.localPosition = new Vector2(transform.position.x, -50);
+        }
     }
 }
