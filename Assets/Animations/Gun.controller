@@ -111,7 +111,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Melodic Minor Special
+    m_ConditionEvent: Red Special
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3383040576322389136}
@@ -136,7 +136,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Major Special
+    m_ConditionEvent: Purple Special
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8691836895095431964}
@@ -161,7 +161,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Blues Special
+    m_ConditionEvent: Yellow Special
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3294796360284029659}
@@ -322,10 +322,10 @@ AnimatorStateMachine:
     m_Position: {x: -180, y: 380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3940875965002828419}
-    m_Position: {x: 260, y: 270, z: 0}
+    m_Position: {x: 270, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6374401258958771325}
-    m_Position: {x: 260, y: 330, z: 0}
+    m_Position: {x: 270, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8691836895095431964}
     m_Position: {x: -180, y: 220, z: 0}
@@ -409,19 +409,19 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: Major Special
+  - m_Name: Purple Special
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: Melodic Minor Special
+  - m_Name: Red Special
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: Blues Special
+  - m_Name: Yellow Special
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
