@@ -7,30 +7,64 @@ using UnityEngine.InputSystem;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance { get; private set; }
-    
-    [SerializeField] private GameObject menuCanvasGO;
-    [SerializeField] private GameObject MusicScaleMakerGO;
-    [SerializeField] private GameObject MusicScaleViewerGO;
+
+    [SerializeField] private GameObject MusicScaleMakerPanelGO;
+    [SerializeField] private GameObject MusicScaleViewerPanelGO;
+
+    private bool isPaused = false;
+    private bool scaleMakerOpen = false;
+
+    public event EventHandler OnWaveEnded;
 
     private void Start()
     {
-        menuCanvasGO.SetActive(false);
-        MusicScaleMakerGO.SetActive(false);
-        MusicScaleViewerGO.SetActive(true);
+        Instance = this;
 
-        GameManager.Instance.OnPause += GameManager_OnPause;
-        GameManager.Instance.OnResume += GameManager_OnResume;
+        OnWaveEnded += ToggleScaleMaker;
+        GameInput.Instance.OnPlayerMenuOpenClosePerformed += ToggleScaleViewer;
+
+        MusicScaleMakerPanelGO.SetActive(false);
+        MusicScaleViewerPanelGO.SetActive(false);
     }
 
-    private void GameManager_OnResume(object sender, EventArgs e)
+    private void Update()
     {
-        menuCanvasGO.SetActive(false);
-        MusicScaleMakerGO.SetActive(false);
-        MusicScaleViewerGO.SetActive(true);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnWaveEnded?.Invoke(this, EventArgs.Empty);
+        }
     }
 
-    private void GameManager_OnPause(object sender, EventArgs e)
+    public void ToggleScaleViewer(object sender, EventArgs e)
     {
-        menuCanvasGO.SetActive(true);
+        if (isPaused)
+        {
+            Time.timeScale = 1f;
+            isPaused = false;
+            MusicScaleViewerPanelGO.SetActive(false);
+        }
+        else
+        {
+            Time.timeScale = 0f;
+            isPaused = true;
+            MusicScaleViewerPanelGO.SetActive(true);
+        }
+    }
+
+    public void ToggleScaleMaker(object sender, EventArgs e)
+    {
+        if (scaleMakerOpen)
+        {
+            Time.timeScale = 1f;
+            scaleMakerOpen = false;
+            MusicScaleMakerPanelGO.SetActive(false);
+        }
+        else
+        {
+            Time.timeScale = 0f;
+            scaleMakerOpen = true;
+            MusicScaleMaker.Instance.ResetChanges();
+            MusicScaleMakerPanelGO.SetActive(true);
+        }
     }
 }

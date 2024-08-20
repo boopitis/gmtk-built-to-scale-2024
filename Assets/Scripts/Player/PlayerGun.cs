@@ -161,7 +161,6 @@ public class PlayerGun : MonoBehaviour
 
     private bool TryAttack(int currentSubdivision)
     {
-
         if (queuedNotes.Count == 0) return false;
 
         var queuedNote = queuedNotes[0];
