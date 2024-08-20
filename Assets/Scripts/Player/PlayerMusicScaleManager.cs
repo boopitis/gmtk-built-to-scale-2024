@@ -27,9 +27,14 @@ public class PlayerMusicScaleManager : MonoBehaviour
     [FormerlySerializedAs("createdScaleSO")][SerializeField] private ScaleSO currentScaleSO; // TODO REMOVE SERIALIZEFIELD DEBUG
     [SerializeField] private List<ScaleSO> createdScaleSOList;
 
+    private int scaleDifference = 0;
+    public int minScaleDifference;
+
     private void Awake()
     {
         Instance = this;
+
+        minScaleDifference = 11;
     }
 
     [SerializeField] private NoteSO debug1;
@@ -119,7 +124,7 @@ public class PlayerMusicScaleManager : MonoBehaviour
     /**
      * Checks against all scales in scaleListSO to see if current notes match any scale in the scaleListSO.
      */
-    private void CheckScaleMatch()
+    public void CheckScaleMatch()
     {
         ScaleSO newCreatedScaleSO = null;
 
@@ -135,6 +140,30 @@ public class PlayerMusicScaleManager : MonoBehaviour
             newCreatedScaleSO = scaleSO;
 
             break;
+        }
+
+        minScaleDifference = 11;
+        foreach (ScaleSO possibleScaleSO in scaleListSO.scaleSOs)
+        {
+            scaleDifference = 0;
+            foreach (NoteSO currentScaleNoteSO in currentNoteSOList)
+            {
+                if (!possibleScaleSO.noteSOList.Contains(currentScaleNoteSO))
+                {
+                    scaleDifference += 1;
+                }
+            }
+
+            foreach (NoteSO possibleNoteSO in possibleScaleSO.noteSOList)
+            {
+                if (!currentNoteSOList.Contains(possibleNoteSO))
+                {
+                    scaleDifference += 1;
+                }
+            }
+
+            if (scaleDifference < minScaleDifference)
+                minScaleDifference = scaleDifference;
         }
 
         if (newCreatedScaleSO == currentScaleSO) return;
