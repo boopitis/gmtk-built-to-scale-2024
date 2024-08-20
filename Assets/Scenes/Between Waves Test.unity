@@ -977,7 +977,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Next Wave
+  m_text: 'Undo
 
 '
   m_isRightToLeft: 0
@@ -2528,9 +2528,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1250462273}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: NextWave
+      - m_Target: {fileID: 470980557}
+        m_TargetAssemblyTypeName: MusicScaleMaker, Assembly-CSharp
+        m_MethodName: Undo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
