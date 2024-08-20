@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -22,10 +21,13 @@ public class MusicScaleMaker : MonoBehaviour
 
     public event EventHandler OnConfirmation;
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
+    }
 
+    private void Start()
+    {
         uiPanel.SetActive(false);
 
         FindObjectOfType<SpawnDude>().OnWaveEnded += OpenScaleMaker;

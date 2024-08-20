@@ -8,7 +8,9 @@ using UnityEngine.UI;
 public class GameplayPanel : MonoBehaviour
 {
     [SerializeField] private Health playerHealth;
-    
+
+    [SerializeField] private GameObject healthBar;
+
     [SerializeField] private Transform healthFlagContainer;
     [SerializeField] private Transform healthFlagTemplate;
     [SerializeField] private Transform maxHealthFlagContainer;
@@ -28,9 +30,15 @@ public class GameplayPanel : MonoBehaviour
         playerHealth.OnHit += PlayerHealth_OnHit;
         playerHealth.OnHeal += PlayerHealth_OnHeal;
         playerHealth.OnMaxHealthChange += PlayerHealth_OnMaxHealthChange;
-        
+        playerHealth.OnDeath += PlayerHealth_OnDeath;
+
         UpdateHealthToNewValue();
         UpdateMaxHealthToNewValue();
+    }
+
+    private void PlayerHealth_OnDeath(object sender, EventArgs e)
+    {
+        healthBar.SetActive(false);
     }
 
     private void PlayerHealth_OnMaxHealthChange(object sender, EventArgs e)

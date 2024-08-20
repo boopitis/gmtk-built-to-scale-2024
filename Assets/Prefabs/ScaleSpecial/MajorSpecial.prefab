@@ -208,7 +208,7 @@ MonoBehaviour:
   prefab: {fileID: 4270783003175672712}
   damage: 1
   piercing: 0
-  hitEffect: {fileID: 4270783003175672712}
+  hitEffect: {fileID: 5842482299113312236, guid: e9150c60ab2a0c6439ce4f53b586ef09, type: 3}
 --- !u!114 &7728398649243898217
 MonoBehaviour:
   m_ObjectHideFlags: 0

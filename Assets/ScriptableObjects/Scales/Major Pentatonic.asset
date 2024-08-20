@@ -24,5 +24,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d31c9bb7bb9586a448ba703846f29b57, type: 2}
   - {fileID: 11400000, guid: 16b22d5ec168128438f56f61d2f152b4, type: 2}
   scaleName: Major Pentatonic Scale
-  specialDescription: Flank protection
-  passiveDescription: Blah blah blah
+  specialDescription: Flank Protection
+  passiveDescription: 
