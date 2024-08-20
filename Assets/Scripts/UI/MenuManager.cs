@@ -7,12 +7,10 @@ using UnityEngine.InputSystem;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance { get; private set; }
-
+    
     [SerializeField] private GameObject menuCanvasGO;
     [SerializeField] private GameObject MusicScaleMakerGO;
     [SerializeField] private GameObject MusicScaleViewerGO;
-
-    private bool isPaused = false;
 
     private void Start()
     {
@@ -20,24 +18,19 @@ public class MenuManager : MonoBehaviour
         MusicScaleMakerGO.SetActive(false);
         MusicScaleViewerGO.SetActive(true);
 
-        GameInput.Instance.OnPlayerMenuOpenClosePerformed += GameInput_OnPlayerMenuOpenClosePerformed;
+        GameManager.Instance.OnPause += GameManager_OnPause;
+        GameManager.Instance.OnResume += GameManager_OnResume;
     }
 
-    private void GameInput_OnPlayerMenuOpenClosePerformed(object sender, EventArgs e)
+    private void GameManager_OnResume(object sender, EventArgs e)
     {
-        if (isPaused)
-        {
-            Time.timeScale = 1f;
-            isPaused = false;
-            menuCanvasGO.SetActive(false);
-            MusicScaleMakerGO.SetActive(false);
-            MusicScaleViewerGO.SetActive(true);
-        }
-        else
-        {
-            Time.timeScale = 0f;
-            isPaused = true;
-            menuCanvasGO.SetActive(true);
-        }
+        menuCanvasGO.SetActive(false);
+        MusicScaleMakerGO.SetActive(false);
+        MusicScaleViewerGO.SetActive(true);
+    }
+
+    private void GameManager_OnPause(object sender, EventArgs e)
+    {
+        menuCanvasGO.SetActive(true);
     }
 }
