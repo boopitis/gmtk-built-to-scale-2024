@@ -13,8 +13,7 @@ public class Health : MonoBehaviour
     public event EventHandler OnDeath;
     public static event EventHandler OnEnemyDeath;
     public event EventHandler OnMaxHealthChange;
-
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    
     [SerializeField] private int health;
     [SerializeField] private int maxHealth;
 
@@ -51,7 +50,6 @@ public class Health : MonoBehaviour
             return;
 
         health -= amount;
-        StartCoroutine(ColorChange());
 
         if (health > 0)
         {
@@ -87,13 +85,6 @@ public class Health : MonoBehaviour
         gameObject.layer = tempLayer;
     }
 
-    private IEnumerator ColorChange()
-    {
-        spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(ColorChangeDuration);
-        spriteRenderer.color = Color.white;
-    }
-
     public void Heal(int amount)
     {
         if (health == maxHealth)
@@ -109,7 +100,7 @@ public class Health : MonoBehaviour
 
     public void ChangeMaxHealth(int amount)
     {
-        if (maxHealth - amount <= 0)
+        if (maxHealth + amount <= 0)
         {
             Debug.LogError("Cannot change max health to below zero!");
         }
@@ -131,14 +122,4 @@ public class Health : MonoBehaviour
     {
         ChangeMaxHealth(Mathf.Clamp(FindObjectOfType<SpawnDude>().Wave, 0, 10));
     }
-
-    // private void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.Backspace))
-    //     {
-    //         // Debug.Log("ABout to");
-    //         Heal(1);
-    //         // Debug.Log("Heal");
-    //     }
-    // }
 }
