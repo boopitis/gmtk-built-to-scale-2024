@@ -17,13 +17,10 @@ public class SpawnDude : MonoBehaviour
     [SerializeField] private float maxdelay = 6f;
     [SerializeField] private float minOffset = 1f;
     [SerializeField] private float maxOffset = 5f;
-    //public event EventHandler IsMaxEnemies;
-    public event EventHandler StopSpawnEnemies;
-    public event EventHandler ResetEnemies;
-    //private GameObject[] Enemyarray = new GameObject[100];
+    public event EventHandler OnWaveEnded;
     private int Wave = 1;
-    private int MaxEnemiesAtATime = 10;
-    // Max enemies should probably be 100.
+    private int MaxEnemiesAtATime;
+    // There might need to be an initial figure assigned to it.
     private float delay;
     private int enemyNum = 0;
     private int AllEnemyNum = 0;
@@ -37,22 +34,27 @@ public class SpawnDude : MonoBehaviour
     
     private void Start()
     {
-        EnemyHealth.OnAnyDeath += EnemyTracker;
-        ResetEnemies += Restart_Enemies;
-        StopSpawnEnemies += StopSpawn;
+        Health.OnEnemyDeath += EnemyTracker;
+        OnWaveEnded += Reset_Enemies;
+        OnWaveEnded += StopSpawn;
+        //OnConfirmation += ;
+        //StopSpawnEnemies += StopSpawn;
+        WaveNum = 100;
     }
 
     private void EnemyTracker(object sender, EventArgs e)
     {
+        Debug.Log("Dead enemies");
         DeadEnemies++;
         if (DeadEnemies < WaveNum)
         {
             enemyNum--;
+            Debug.Log("There are " + DeadEnemies + " dead enemies.");
         }
         if (DeadEnemies >= WaveNum)
         {
-            enemyNum--;
-            ResetEnemies?.Invoke(this, EventArgs.Empty);
+            Debug.Log("Good job putting them all to rest.");
+            OnWaveEnded?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -62,31 +64,28 @@ public class SpawnDude : MonoBehaviour
         for (int i = 0; i < enemies; i++)
         {
             
-            //Debug.Log(i + "loop");
+            Debug.Log(i + "loop");
+            Debug.Log("E: " + enemyNum);
             SetOffset();
             Vector2 euler_vector = playerGO.position + (Quaternion.Euler(0, 0, 0 + (rotateOffset + (360 / enemies * i))) * new Vector3(distanceOffset + radius, 0, 0));
-            //Debug.Log("euler is " + euler_vector);
             if (AllEnemyNum < WaveNum && enemyNum < MaxEnemiesAtATime)
             {
                 Instantiate(enemyPrefab, euler_vector, Quaternion.identity, transform);
-                //GameObject Instantiated_enemy = Instantiate(enemyPrefab, euler_vector, Quaternion.identity, transform);
                 AllEnemyNum ++;
                 enemyNum++;
-                //Enemyarray[enemyNum] = Instantiated_enemy;
-                //Debug.Log(Enemyarray[1]);
-                //Debug.Log("spawned enemy " + i);
-                Debug.Log("There are " + enemyNum + " enemies.");
+                Debug.Log("Enemy Number: " + enemyNum);
             }
-            if (AllEnemyNum >= WaveNum)
+            else if (AllEnemyNum >= WaveNum)
             {
                 return;
             }
+            else return;
         }
     }
 
     private void FixedUpdate()
     {
-        if(!stopspawn)
+        if(stopspawn == false)
         {
             if (blockSpawn) return;
 
@@ -115,42 +114,14 @@ public class SpawnDude : MonoBehaviour
         blockSpawn = false;
     }
 
-    private void Refresh_EnemyArray()
-    {
-        //var apos = new List<int>();
-        //for (int i = 0; i < enemyNum; i++)
-        //{
-        //    if (Enemyarray[i].name == "null")
-        //    {
-        //        foreach (int x in Enumerable.Range(0, 99))
-        //        {
-        //            if (Enemyarray[x].name == "Enemy(Clone) (UnityEngine.GameObject)")
-        //            {
-        //                Enemyarray[i] = Enemyarray[x];
-        //                Enemyarray[x] = null;
-        //                return;
-        //            }
-        //        }
-        //    }
-        //}
-
-        //if (apos.ToArray().Length >= 1)
-        //    {
-        //    int[] EnemyNumsh1 = apos.ToArray();
-        //    foreach (int i in EnemyNumsh1)
-        //        {
-                    //Enemyarray[i].GetComponent().HeartApp("alive");
-        //        }
-        //    }
-    }
-
-    private void Restart_Enemies(object sender, EventArgs e)
+    private void Reset_Enemies(object sender, EventArgs e)
     {
         enemyNum = 0;
         AllEnemyNum = 0;
         DeadEnemies = 0;
         Wave++;
         WaveNum = Wave * 100;
+        MaxEnemiesAtATime = (int)(0.5 * WaveNum);
     }
 
     private void StopSpawn(object sender, EventArgs e)

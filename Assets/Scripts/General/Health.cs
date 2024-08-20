@@ -8,14 +8,14 @@ using UnityEngine.UIElements;
 
 public class Health : MonoBehaviour
 {
-    public event EventHandler OnHit;
-    public event EventHandler OnDeath;
-    //public delegate void Death (string a, int b);
-    //public event Death NowDead; 
+    public static event EventHandler OnHit;
+    public static event EventHandler OnDeath;
+    public static event EventHandler OnEnemyDeath;
     
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] protected int health, maxHealth;
     [SerializeField] private float immunityDuration;
+    private Collider2D collide;
 
     protected bool isDead;
     protected bool immune;
@@ -34,8 +34,13 @@ public class Health : MonoBehaviour
         health = maxHealth;
     }
 
+    private void Start()
+    {
+        collide = GetComponent<Collider2D>();
+    }
 
-    public void GetHit(int amount, GameObject sender)
+
+    public virtual void GetHit(int amount, GameObject sender)
     {
         if (immune || isDead || sender.layer == gameObject.layer)
             return;
@@ -49,7 +54,15 @@ public class Health : MonoBehaviour
         }
         else
         {
-            OnDeath?.Invoke(this, EventArgs.Empty);
+            
+            if (collide.CompareTag("Enemy"))
+            {
+                OnEnemyDeath?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                OnDeath?.Invoke(this, EventArgs.Empty);
+            }
             isDead = true;
             Destroy(gameObject);
         }
@@ -86,10 +99,4 @@ public class Health : MonoBehaviour
     public int GetMaxHealth() => maxHealth;
     
     public int GetHealth() => health;
-
-    protected void InvokeOnHit()
-    {
-        OnHit?.Invoke(this, EventArgs.Empty);
-    }
-    
 }

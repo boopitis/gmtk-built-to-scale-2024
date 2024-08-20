@@ -59,10 +59,10 @@ public class PlayerGun : MonoBehaviour
 
     private void BeatManager_OnCurrentSubdivisionChange(object sender, BeatManager.OnCurrentSubdivisionChangeEventArgs e)
     {
-        Debug.Log(e.CurrentSubdivision);
+        //Debug.Log(e.CurrentSubdivision);
         if (subdivisionTiming[noteIndex] != e.CurrentSubdivision) return;
 
-        Debug.Log("fired projectile!");
+        //Debug.Log("fired projectile!");
         Attack();
     }
 
