@@ -8,8 +8,8 @@ public class FindGuy : MonoBehaviour
     private float minvelocity;
     private float maxvelocity;
     private float velocity;
-    float[] d_interest = new float[7];
-    float[] d_danger = new float[7];
+    //float[] d_interest = new float[7];
+    //float[] d_danger = new float[7];
     
     void Start()
     {
@@ -26,10 +26,10 @@ public class FindGuy : MonoBehaviour
         transform.Translate((playerp - (Vector2)transform.position).normalized * velocity * Time.deltaTime,Space.Self);
     }
 
-    private void Directional_Interest()
-    {
+    // private void Directional_Interest()
+    // {
         
-    }
+    // }
 
     // Update is called once per frame
     void Update()

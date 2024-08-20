@@ -128,7 +128,7 @@ public class Health : MonoBehaviour
 
     public void NewWaveHealth(object sender, EventArgs e)
     {
-        ChangeMaxHealth( Mathf.Clamp(FindObjectOfType<SpawnDude>().Wave, 0, 10));
+        ChangeMaxHealth( Mathf.Clamp(SpawnDude.Instance.Wave, 0, 10));
     }
 
     // private void Update()
