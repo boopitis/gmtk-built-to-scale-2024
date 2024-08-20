@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerGunSound : MonoBehaviour
 {
-    [SerializeField] private Transform playerTransform;
 
     private AudioSource audioSource;
 
