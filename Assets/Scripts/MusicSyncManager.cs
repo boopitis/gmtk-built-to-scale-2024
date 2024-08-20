@@ -54,6 +54,22 @@ public class MusicSyncManager : MonoBehaviour
         twoMeasureInterval.OnTrigger += TwoMeasureInterval_OnTrigger;
     }
 
+    private void Start()
+    {
+        GameManager.Instance.OnPause += GameManager_OnPause;
+        GameManager.Instance.OnResume += GameManager_OnResume;
+    }
+
+    private void GameManager_OnResume(object sender, EventArgs e)
+    {
+        audioSource.Play();
+    }
+
+    private void GameManager_OnPause(object sender, EventArgs e)
+    {
+        audioSource.Pause();
+    }
+
     private void TwoMeasureInterval_OnTrigger(object sender, EventArgs e)
     {
         firstTwoMeasureIntervalTriggered = true;
@@ -87,6 +103,8 @@ public class MusicSyncManager : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (GameManager.Instance.IsPaused()) return;
+        
         timeToNextHalfMeasure -= Time.deltaTime;
         
         UpdateBeatInterval(eighthMeasureInterval);
