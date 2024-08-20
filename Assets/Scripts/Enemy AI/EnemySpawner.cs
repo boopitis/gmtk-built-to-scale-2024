@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] GameObject _Enemy_prefab;
-    [SerializeField] float Min_timeSpawn;
-    [SerializeField] float Max_timeSpawn;
-    [SerializeField] float timeSpawn;
-    [SerializeField] float stepTimeSpawn;
+    [FormerlySerializedAs("_Enemy_prefab")] [SerializeField] GameObject enemyPrefab;
+    [FormerlySerializedAs("Min_timeSpawn")] [SerializeField] float minTimeSpawn;
+    [FormerlySerializedAs("Max_timeSpawn")] [SerializeField] float maxTimeSpawn;
+    [SerializeField] private float timeSpawn;
+    [SerializeField] private float stepTimeSpawn;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,20 +20,14 @@ public class EnemySpawner : MonoBehaviour
     private void FixedUpdate()
     {
         timeSpawn -= Time.deltaTime;
-        if (timeSpawn < 0)
-        {
-            Instantiate(_Enemy_prefab, transform.position, Quaternion.identity);
-            SetTime();
-        }
+        if (!(timeSpawn < 0)) return;
+        
+        Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        SetTime();
     }
-
-    //private void InStep_Spawn()
-    //{
-    //    if (stepTimeSpawn < 0)
-    //}
 
     private void SetTime()
     {
-        timeSpawn = Random.Range(Min_timeSpawn, Max_timeSpawn);
+        timeSpawn = Random.Range(minTimeSpawn, maxTimeSpawn);
     }
 }

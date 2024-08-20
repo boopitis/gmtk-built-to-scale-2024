@@ -5,6 +5,7 @@ using System;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputControlExtensions;
 using Unity.VisualScripting;
+using UnityEngine.Serialization;
 
 public class SpawnDude : MonoBehaviour
 {
@@ -16,21 +17,21 @@ public class SpawnDude : MonoBehaviour
     [SerializeField] private int enemies = 4;
     [SerializeField] private float radius = 10f;
 
-    [SerializeField] private float mindelay = 3f;
-    [SerializeField] private float maxdelay = 6f;
+    [FormerlySerializedAs("mindelay")] [SerializeField] private float minDelay = 3f;
+    [FormerlySerializedAs("maxdelay")] [SerializeField] private float maxDelay = 6f;
     [SerializeField] private float minOffset = 1f;
     [SerializeField] private float maxOffset = 5f;
     public event EventHandler OnWaveEnded;
     public int Wave {get; private set;}
-    private int MaxEnemiesAtATime;
+    private int maxEnemiesAtATime;
     // There might need to be an initial figure assigned to it.
     private float delay;
     private int enemyNum = 0;
-    private int AllEnemyNum = 0;
-    private int DeadEnemies = 0;
+    private int allEnemyNum = 0;
+    private int deadEnemies = 0;
     private int totalDeadEnemies = 0;
-    private int WaveNum;
-    private bool stopspawn = false;
+    private int waveNum;
+    private bool stopSpawn = false;
     private bool blockSpawn = false;
     private float rotateOffset;
     private float distanceOffset;
@@ -49,22 +50,22 @@ public class SpawnDude : MonoBehaviour
         OnWaveEnded += StopSpawn;
         //StopSpawnEnemies += StopSpawn
         Wave = 1;
-        WaveNum = 3;
-        MaxEnemiesAtATime = WaveNum / 3;
-        stopspawn = false;
+        waveNum = 3;
+        maxEnemiesAtATime = waveNum / 3;
+        stopSpawn = false;
     }
 
     private void EnemyTracker(object sender, EventArgs e)
     {
         Debug.Log("Dead enemies");
-        DeadEnemies++;
+        deadEnemies++;
         totalDeadEnemies++;
-        if (DeadEnemies < WaveNum)
+        if (deadEnemies < waveNum)
         {
             enemyNum--;
-            Debug.Log("There are " + DeadEnemies + " dead enemies.");
+            Debug.Log("There are " + deadEnemies + " dead enemies.");
         }
-        if (DeadEnemies >= WaveNum)
+        if (deadEnemies >= waveNum)
         {
             Debug.Log("Good job putting them all to rest.");
             OnWaveEnded?.Invoke(this, EventArgs.Empty);
@@ -78,40 +79,42 @@ public class SpawnDude : MonoBehaviour
         {
             
             Debug.Log(i + "loop");
-            Debug.Log($"{AllEnemyNum} < {WaveNum} && {enemyNum} < {MaxEnemiesAtATime}?? (maybe)");
-            Debug.Log($"{AllEnemyNum} >= {WaveNum}?? (maybe)");
+            Debug.Log($"{allEnemyNum} < {waveNum} && {enemyNum} < {maxEnemiesAtATime}?? (maybe)");
+            Debug.Log($"{allEnemyNum} >= {waveNum}?? (maybe)");
             SetOffset();
-            Vector2 euler_vector = playerGO.position + (Quaternion.Euler(0, 0, 0 + (rotateOffset + (360 / enemies * i))) * new Vector3(distanceOffset + radius, 0, 0));
-            if (AllEnemyNum < WaveNum && enemyNum < MaxEnemiesAtATime)
+            Vector2 euler_vector = playerGO.position +
+                                   (Quaternion.Euler(0, 0, 0 + (rotateOffset + (360.0f / enemies * i))) *
+                                    new Vector3(distanceOffset + radius, 0, 0));
+            if (allEnemyNum < waveNum && enemyNum < maxEnemiesAtATime)
             {
-                if (euler_vector.x < 50 && euler_vector.x > -50)
+                switch (euler_vector.x)
                 {
+                    case < 50 and > -50:
+                        break;
+                    case > 50:
+                        euler_vector.x  = -50;
+                        break;
+                    case < -50:
+                        euler_vector.x = 50;
+                        break;
                 }
-                else if (euler_vector.x > 50 )
+                switch (euler_vector.y)
                 {
-                    euler_vector.x  = -50;
-                }
-                else if (euler_vector.x < -50)
-                {
-                    euler_vector.x = 50;
-                }
-                if (euler_vector.y < 50 && euler_vector.y > -50)
-                {
-                }
-                else if (euler_vector.y > 50 )
-                {
-                    euler_vector.y  = -50;
-                }
-                else if (euler_vector.y < -50)
-                {
-                    euler_vector.y = 50;
+                    case < 50 and > -50:
+                        break;
+                    case > 50:
+                        euler_vector.y  = -50;
+                        break;
+                    case < -50:
+                        euler_vector.y = 50;
+                        break;
                 }
                 Instantiate(enemyPrefab, euler_vector, Quaternion.identity, transform);
-                AllEnemyNum ++;
+                allEnemyNum ++;
                 enemyNum++;
                 Debug.Log("Enemy Number: " + enemyNum);
             }
-            else if (AllEnemyNum >= WaveNum)
+            else if (allEnemyNum >= waveNum)
             {
                 return;
             }
@@ -121,20 +124,18 @@ public class SpawnDude : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(stopspawn == false)
-        {
-            if (blockSpawn) return;
+        if (stopSpawn) return;
+        
+        if (blockSpawn) return;
 
-            blockSpawn = true;
-            SpawnDudes();
-            StartCoroutine(DelaySpawnDudes());
-        }
-        else return;
+        blockSpawn = true;
+        SpawnDudes();
+        StartCoroutine(DelaySpawnDudes());
     }
 
     private void SetTime()
     {
-        delay = UnityEngine.Random.Range(mindelay, maxdelay);
+        delay = UnityEngine.Random.Range(minDelay, maxDelay);
     }
 
     private void SetOffset()
@@ -153,21 +154,20 @@ public class SpawnDude : MonoBehaviour
     private void Reset_Enemies(object sender, EventArgs e)
     {
         enemyNum = 0;
-        AllEnemyNum = 0;
-        DeadEnemies = 0;
+        allEnemyNum = 0;
+        deadEnemies = 0;
         Wave++;
-        WaveNum = Wave * 6;
-        MaxEnemiesAtATime = WaveNum / 3;
+        maxEnemiesAtATime = waveNum / 3;
     }
 
     private void StopSpawn(object sender, EventArgs e)
     {
-        stopspawn = true;
+        stopSpawn = true;
     }
 
     private void StartSpawn(object sender, EventArgs e)
     {
-        stopspawn = false;
+        stopSpawn = false;
     }
 
     public int GetTotalDeadEnemies() => totalDeadEnemies;
