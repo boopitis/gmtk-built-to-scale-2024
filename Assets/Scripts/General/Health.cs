@@ -12,6 +12,7 @@ public class Health : MonoBehaviour
     public event EventHandler OnHit;
     public event EventHandler OnHeal;
     public event EventHandler OnDeath;
+    public static event EventHandler OnEnemyDeath;
     public event EventHandler OnMaxHealthChange;
 
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -19,6 +20,9 @@ public class Health : MonoBehaviour
     [SerializeField] private int maxHealth;
 
     [SerializeField] private float immunityDuration;
+    private static Health Instance;
+
+    private static Collider2D collide;
 
     private bool isDead;
     private bool immune;
@@ -37,9 +41,9 @@ public class Health : MonoBehaviour
         health = maxHealth;
     }
 
-    public void GetHit(int amount, GameObject sender)
+    public virtual void GetHit(int amount)
     {
-        if (immune || isDead || sender.layer == gameObject.layer)
+        if (immune || isDead)
             return;
 
         health -= amount;
@@ -51,7 +55,16 @@ public class Health : MonoBehaviour
         }
         else
         {
-            OnDeath?.Invoke(this, EventArgs.Empty);
+            
+            Debug.Log(collide.tag);
+            if (collide.CompareTag("Enemy"))
+            {
+                OnEnemyDeath?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                OnDeath?.Invoke(this, EventArgs.Empty);
+            }
             isDead = true;
             Destroy(gameObject);
         }

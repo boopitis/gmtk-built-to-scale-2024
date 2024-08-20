@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour
 
         if (other.GetComponent<Health>())
         {
-            other.GetComponent<Health>().GetHit(damage, gameObject);
+            other.GetComponent<Health>().GetHit(damage);
             lastHit = other;
         }
 
