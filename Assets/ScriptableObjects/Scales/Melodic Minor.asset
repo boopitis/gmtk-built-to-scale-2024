@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 9035312376651765115, guid: 206914ed22c919e49ae2a01de4254d1f, type: 3}
   special: {fileID: 489970639914246554, guid: 206914ed22c919e49ae2a01de4254d1f, type: 3}
+  specialAnimationDelay: 0.5
   noteSOList:
   - {fileID: 11400000, guid: bfa9899a6c271ee49ae8a370eec38dc3, type: 2}
   - {fileID: 11400000, guid: 6b40dceb088427447b448bf14e2e9fb1, type: 2}
