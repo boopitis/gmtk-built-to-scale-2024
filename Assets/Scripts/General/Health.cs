@@ -37,9 +37,9 @@ public class Health : MonoBehaviour
         health = maxHealth;
     }
 
-    public void GetHit(int amount, GameObject sender)
+    public void GetHit(int amount)
     {
-        if (immune || isDead || sender.layer == gameObject.layer)
+        if (immune || isDead)
             return;
 
         health -= amount;

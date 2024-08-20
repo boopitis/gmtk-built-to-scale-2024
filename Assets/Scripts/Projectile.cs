@@ -52,5 +52,5 @@ public class Projectile : MonoBehaviour
         projectile_rb.AddForce(fireDirection * transform.right * projectile.speed, ForceMode2D.Impulse);
     }
 
-    public GameObject GetPrefab() => prefab;
+    public int GetDamage() => damage;
 }
