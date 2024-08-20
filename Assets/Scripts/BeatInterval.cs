@@ -7,15 +7,15 @@ using UnityEngine.Serialization;
 /**
  * https://youtu.be/gIjajeyjRfE?feature=shared
  */
-public class MeasureInterval
+public class BeatInterval
 {
     public event EventHandler OnTrigger;
 
     private readonly float subdivision;
     
-    private int pInterval;
+    private int lastInterval;
 
-    public MeasureInterval(float subdivision)
+    public BeatInterval(float subdivision)
     {
         this.subdivision = subdivision;
     }
@@ -29,11 +29,9 @@ public class MeasureInterval
     public void CheckForNewInterval(float interval)
     {
         var intervalInt = Mathf.FloorToInt(interval);
-        if (intervalInt == pInterval) return;
+        if (intervalInt == lastInterval) return;
         
-        pInterval = intervalInt;
+        lastInterval = intervalInt;
         OnTrigger?.Invoke(this, EventArgs.Empty);
     }
-
-    public float GetSubdivision() => subdivision;
 }

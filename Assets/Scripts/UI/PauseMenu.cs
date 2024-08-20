@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +6,6 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject MusicScaleMakerGO;
     [SerializeField] private GameObject MusicScaleViewerGO;
-
-    public static event EventHandler OnWaveEnded;
 
     public void OpenMusicScaleMaker()
     {
