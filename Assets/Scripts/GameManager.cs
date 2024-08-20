@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,7 +11,14 @@ public class GameManager : MonoBehaviour
     public enum PauseCondition
     {
         EndOfWave,
-        InputActivation
+        InputActivation,
+        PlayerDead
+    }
+
+    public enum Scene
+    {
+        TitleScreen,
+        Main
     }
 
     public event EventHandler<OnPauseEventArgs> OnPause;
@@ -70,5 +78,19 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
         OnResume?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void LoadScene(Scene scene)
+    {
+        switch (scene)
+        {
+            default:
+            case Scene.TitleScreen:
+                SceneManager.LoadScene(0);
+                break;
+            case Scene.Main:
+                SceneManager.LoadScene(1);
+                break;
+        }
     }
 }

@@ -446,8 +446,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 6656249204800257181}
-  health: 7
-  maxHealth: 13
+  health: 15
+  maxHealth: 15
   immunityDuration: 1
 --- !u!50 &6460075135439925387
 Rigidbody2D:
@@ -576,6 +576,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 16b22d5ec168128438f56f61d2f152b4, type: 2}
   currentScaleSO: {fileID: 0}
   createdScaleSOList: []
+  minScaleDifference: 0
   debug1: {fileID: 11400000, guid: 837ec9897ebf29c49974d58506d13e7b, type: 2}
   debug2: {fileID: 11400000, guid: 5c815867f2264fe4c80182c1b746cf5c, type: 2}
   debug3: {fileID: 11400000, guid: e22b482930be0c845b982beb9a7a7850, type: 2}

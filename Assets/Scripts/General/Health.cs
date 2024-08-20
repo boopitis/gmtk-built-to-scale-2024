@@ -59,7 +59,7 @@ public class Health : MonoBehaviour
         }
         else
         {
-            
+
             if (collide.CompareTag("Enemy"))
             {
                 OnEnemyDeath?.Invoke(this, EventArgs.Empty);
@@ -67,6 +67,7 @@ public class Health : MonoBehaviour
             else
             {
                 OnDeath?.Invoke(this, EventArgs.Empty);
+                Application.Quit();
             }
             isDead = true;
             Destroy(gameObject);
@@ -102,8 +103,8 @@ public class Health : MonoBehaviour
 
         health += amount;
         if (health > maxHealth) health = maxHealth;
-        
-        OnHeal?.Invoke(this,EventArgs.Empty);
+
+        OnHeal?.Invoke(this, EventArgs.Empty);
     }
 
     public void ChangeMaxHealth(int amount)
@@ -115,20 +116,20 @@ public class Health : MonoBehaviour
 
         maxHealth += amount;
         OnMaxHealthChange?.Invoke(this, EventArgs.Empty);
-        
+
         if (health >= maxHealth) return;
-        
+
         health = maxHealth;
         OnHit?.Invoke(this, EventArgs.Empty);
     }
-    
+
     public int GetMaxHealth() => maxHealth;
-    
+
     public int GetHealth() => health;
 
     public void NewWaveHealth(object sender, EventArgs e)
     {
-        ChangeMaxHealth( Mathf.Clamp(FindObjectOfType<SpawnDude>().Wave, 0, 10));
+        ChangeMaxHealth(Mathf.Clamp(FindObjectOfType<SpawnDude>().Wave, 0, 10));
     }
 
     // private void Update()
