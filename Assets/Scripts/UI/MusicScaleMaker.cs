@@ -10,24 +10,25 @@ public class MusicScaleMaker : MonoBehaviour
 {
     public static MusicScaleMaker Instance { get; private set; }
 
-
+    private bool scaleMakerOpen = false;
     [SerializeField] private GameObject[] keyImages;
     [SerializeField] private NoteSO[] noteSOS;
     [SerializeField] private int allowedChanges = 3;
     private int changes;
-
-    private List<int> storedChanges;
+    private List<int> storedChanges = new List<int>();
 
     private void Start()
     {
         Instance = this;
+
+        GameManager.Instance.OnPause += OpenScaleMaker;
+        GameManager.Instance.OnResume += CloseScaleMaker;
 
         ResetChanges();
     }
 
     public void ToggleKey(int key)
     {
-        storedChanges.Add(key);
         if (changes > 0)
         {
             if (keyImages[key].activeInHierarchy)
@@ -40,8 +41,7 @@ public class MusicScaleMaker : MonoBehaviour
                 keyImages[key].SetActive(true);
                 PlayerMusicScaleManager.Instance.TryAddNote(noteSOS[key]);
             }
-            print(storedChanges.Last());
-
+            storedChanges.Add(key);
             changes--;
         }
     }
@@ -52,7 +52,6 @@ public class MusicScaleMaker : MonoBehaviour
 
         int key = storedChanges.Last();
         storedChanges.RemoveAt(storedChanges.Count - 1);
-        print(storedChanges.Last());
 
         if (keyImages[key].activeInHierarchy)
         {
@@ -76,5 +75,18 @@ public class MusicScaleMaker : MonoBehaviour
     public void ResetStoredChanges()
     {
         storedChanges = null;
+    }
+
+    public void OpenScaleMaker(object sender, EventArgs e)
+    {
+        scaleMakerOpen = true;
+        ResetChanges();
+        gameObject.SetActive(true);
+    }
+
+    public void CloseScaleMaker(object sender, EventArgs e)
+    {
+        scaleMakerOpen = false;
+        gameObject.SetActive(false);
     }
 }
