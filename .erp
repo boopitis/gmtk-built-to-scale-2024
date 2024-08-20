@@ -5,12 +5,7 @@
   <resetOnSceneChange>false</resetOnSceneChange>
   <debugMode>false</debugMode>
   <EditorClosed>true</EditorClosed>
-<<<<<<< HEAD
-  <LastTimestamp>1724179389</LastTimestamp>
+  <LastTimestamp>1724185024</LastTimestamp>
   <LastSessionID>3384982628041341833</LastSessionID>
-=======
-  <LastTimestamp>1724155227</LastTimestamp>
-  <LastSessionID>5143229349124612670</LastSessionID>
->>>>>>> parent of 82c04d9 (Update canvas prefab)
   <Errored>false</Errored>
 </ERPSettings>
