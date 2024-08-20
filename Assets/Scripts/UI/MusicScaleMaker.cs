@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Unity.VisualStudio.Editor;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,10 +11,11 @@ public class MusicScaleMaker : MonoBehaviour
 {
     public static MusicScaleMaker Instance { get; private set; }
 
-    [SerializeField] private GameObject UIpanel;
+    [SerializeField] private GameObject uiPanel;
     [SerializeField] private GameObject[] keyImages;
     [SerializeField] private NoteSO[] noteSOS;
     [SerializeField] private int allowedChanges = 3;
+    [SerializeField] private GameObject changesLeftText;
     private int changes;
     private List<int> storedChanges;
 
@@ -27,7 +29,7 @@ public class MusicScaleMaker : MonoBehaviour
     {
         Instance = this;
 
-        UIpanel.SetActive(false);
+        uiPanel.SetActive(false);
 
         OnWaveEnded += OpenScaleMaker;
         StartNextWave += CloseScaleMaker;
@@ -36,6 +38,7 @@ public class MusicScaleMaker : MonoBehaviour
 
         changes = allowedChanges;
         storedChanges = new List<int>();
+        UpdateChangesLeftText();
     }
 
     // Debug Section
@@ -82,6 +85,7 @@ public class MusicScaleMaker : MonoBehaviour
             }
             storedChanges.Add(key);
             changes--;
+            UpdateChangesLeftText();
         }
     }
 
@@ -104,19 +108,25 @@ public class MusicScaleMaker : MonoBehaviour
         }
 
         changes++;
+        UpdateChangesLeftText();
     }
 
     public void GameManager_OnPause(object sender, GameManager.OnPauseEventArgs e)
     {
         if (e.PauseCondition != GameManager.PauseCondition.EndOfWave) return;
         changes = allowedChanges;
-        UIpanel.SetActive(true);
+        uiPanel.SetActive(true);
     }
 
     public void GameManager_OnResume(object sender, EventArgs e)
     {
         storedChanges = new List<int>();
-        UIpanel.SetActive(false);
+        uiPanel.SetActive(false);
+    }
+
+    public void UpdateChangesLeftText()
+    {
+        changesLeftText.GetComponent<TMP_Text>().text = new string("Changes Left: " + changes);
     }
 
     public void QuitGame()
