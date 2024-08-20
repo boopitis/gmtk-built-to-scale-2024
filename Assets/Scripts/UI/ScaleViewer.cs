@@ -32,15 +32,6 @@ public class ScaleViewer : MonoBehaviour
         // Creates an info panel of new found scales in the pause menu UI
         if (!createdScaleSOList.Contains(e.ScaleSO))
         {
-            // foreach (NoteSO noteSOs in newCreatedScaleSO.noteSOList)
-            // {
-            //     print(noteSOs.name);
-            // }
-            // foreach (ScaleSO createdScaleSO in createdScaleSOList)
-            // {
-            //     print(createdScaleSO.name);
-            // }
-            print("Create New Panel");
             createdScaleSOList.Add(e.ScaleSO);
             panels[count].transform.GetChild(0).GetComponent<TMP_Text>().text = e.ScaleSO.name;
             panels[count].transform.GetChild(1).GetComponent<TMP_Text>().text = e.ScaleSO.specialDescription;
