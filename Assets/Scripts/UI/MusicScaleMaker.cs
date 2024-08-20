@@ -115,6 +115,7 @@ public class MusicScaleMaker : MonoBehaviour
     {
         if (e.PauseCondition != GameManager.PauseCondition.EndOfWave) return;
         changes = allowedChanges;
+        UpdateChangesLeftText();
         uiPanel.SetActive(true);
     }
 
