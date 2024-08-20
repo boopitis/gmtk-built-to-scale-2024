@@ -907,6 +907,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Piano Rail1
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 623
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b92c1be19f467ef4d9cacb7bc858e382
+      internalID: 11645531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -955,7 +976,6 @@ TextureImporter:
       Piano Gun Special3_7: 1994390021
       Piano Gun Special3_8: 880012116
       Piano Gun_0: 1547474121
-      Piano Gun_1: 2012117239
       Piano Gun_18: 654102728
       Piano Gun_19: 1466216403
       Piano Gun_21: -1950708488
@@ -1016,6 +1036,7 @@ TextureImporter:
       Piano Gun_90: 1451027859
       Piano Gun_91: -1279720842
       Piano Rail: -1791643888
+      Piano Rail1: 2012117239
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
