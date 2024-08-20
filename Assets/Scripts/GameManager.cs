@@ -6,8 +6,21 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    
+    public enum PauseCondition
+    {
+        EndOfWave,
+        InputActivation
+    }
 
-    public event EventHandler OnPause;
+    public event EventHandler<OnPauseEventArgs> OnPause;
+    public class OnPauseEventArgs : EventArgs
+    {
+        public PauseCondition PauseCondition;
+    }
+
+    private PauseCondition pauseCondition;
+    
     public event EventHandler OnResume;
     
     private bool isPaused;
@@ -26,18 +39,35 @@ public class GameManager : MonoBehaviour
 
     private void GameInput_OnPlayerMenuOpenClosePerformed(object sender, EventArgs e)
     {
-        isPaused = !isPaused;
-        if (isPaused)
+        if (!isPaused)
         {
-            Time.timeScale = 0f;
-            OnPause?.Invoke(this, EventArgs.Empty);
+            Pause(PauseCondition.InputActivation);
         }
-        else
-        {
-            Time.timeScale = 1f;
-            OnResume?.Invoke(this, EventArgs.Empty);
-        }
+
+        if (pauseCondition != PauseCondition.InputActivation) return;
+
+        Resume();
     }
 
     public bool IsPaused() => isPaused;
+
+    public PauseCondition GetPauseCondition() => pauseCondition;
+
+    public void Pause(PauseCondition pauseCondition)
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+        this.pauseCondition = pauseCondition;
+        OnPause?.Invoke(this, new OnPauseEventArgs
+        {
+            PauseCondition = this.pauseCondition
+        });
+    }
+
+    public void Resume()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+        OnResume?.Invoke(this, EventArgs.Empty);
+    }
 }
