@@ -11,10 +11,16 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject MusicScaleMakerPanelGO;
     [SerializeField] private GameObject MusicScaleViewerPanelGO;
 
-    private bool isPaused = false;
-    private bool scaleMakerOpen = false;
+    private bool isPaused;
+    private bool scaleMakerOpen;
 
     public event EventHandler OnWaveEnded;
+
+    private void Awake()
+    {
+        isPaused = false;
+        scaleMakerOpen = false;
+    }
 
     private void Start()
     {
