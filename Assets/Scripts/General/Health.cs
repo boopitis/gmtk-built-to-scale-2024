@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -20,12 +19,10 @@ public class Health : MonoBehaviour
     [SerializeField] private int maxHealth;
 
     [SerializeField] private float immunityDuration;
-    private static Health Instance;
+    private Collider2D collide;
 
-    private static Collider2D collide;
-
-    private bool isDead;
-    private bool immune;
+    protected bool isDead;
+    protected bool immune;
     private const float ColorChangeDuration = 0.25f;
 
     public void InitializeHealth(int healthValue)
@@ -41,9 +38,15 @@ public class Health : MonoBehaviour
         health = maxHealth;
     }
 
-    public virtual void GetHit(int amount)
+    private void Start()
     {
-        if (immune || isDead)
+        collide = GetComponent<Collider2D>();
+    }
+
+
+    public void GetHit(int amount, GameObject sender)
+    {
+        if (immune || isDead || sender.layer == gameObject.layer)
             return;
 
         health -= amount;
@@ -56,7 +59,6 @@ public class Health : MonoBehaviour
         else
         {
             
-            Debug.Log(collide.tag);
             if (collide.CompareTag("Enemy"))
             {
                 OnEnemyDeath?.Invoke(this, EventArgs.Empty);
@@ -122,4 +124,14 @@ public class Health : MonoBehaviour
     public int GetMaxHealth() => maxHealth;
     
     public int GetHealth() => health;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            // Debug.Log("ABout to");
+            Heal(1);
+            // Debug.Log("Heal");
+        }
+    }
 }

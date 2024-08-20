@@ -30,6 +30,7 @@ public class SpawnDude : MonoBehaviour
     private bool blockSpawn = false;
     private float rotateOffset;
     private float distanceOffset;
+    private float border = 50;
 
     
     private void Start()
@@ -71,6 +72,28 @@ public class SpawnDude : MonoBehaviour
             Vector2 euler_vector = playerGO.position + (Quaternion.Euler(0, 0, 0 + (rotateOffset + (360 / enemies * i))) * new Vector3(distanceOffset + radius, 0, 0));
             if (AllEnemyNum < WaveNum && enemyNum < MaxEnemiesAtATime)
             {
+                if (euler_vector.x < 50 && euler_vector.x > -50)
+                {
+                }
+                else if (euler_vector.x > 50 )
+                {
+                    euler_vector.x  = -50;
+                }
+                else if (euler_vector.x < -50)
+                {
+                    euler_vector.x = 50;
+                }
+                if (euler_vector.y < 50 && euler_vector.y > -50)
+                {
+                }
+                else if (euler_vector.y > 50 )
+                {
+                    euler_vector.y  = -50;
+                }
+                else if (euler_vector.y < -50)
+                {
+                    euler_vector.y = 50;
+                }
                 Instantiate(enemyPrefab, euler_vector, Quaternion.identity, transform);
                 AllEnemyNum ++;
                 enemyNum++;

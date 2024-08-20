@@ -15,7 +15,7 @@ public class EnemyDamage : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             phealth = collision.collider.GetComponent<Health>();
-            phealth.GetHit(damage);
+            phealth.GetHit(damage, gameObject);
         }
             
     }
