@@ -9,13 +9,6 @@ public class PlayerPulseManager : MonoBehaviour
     
     private const float MaxScale = 3.1f;
 
-    private float currentRatio;
-
-    private void Awake()
-    {
-        currentRatio = MaxScale;
-    }
-
     private void Update()
     {
         MusicSyncManager.Instance.GetHalfMeasureSubdivisionLengthInBeats();

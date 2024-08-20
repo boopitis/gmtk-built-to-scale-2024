@@ -100,8 +100,6 @@ public class PlayerGun : MonoBehaviour
         
         scaleSuccessfulInputs++;
         
-        Debug.Log($"scaleSuccessfulInputs: {scaleSuccessfulInputs}, subdivision: {subdivision}");
-
         QueueNotes(subdivision);
     }
 
