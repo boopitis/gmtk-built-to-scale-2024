@@ -7,6 +7,8 @@ using static UnityEngine.InputSystem.InputControlExtensions;
 
 public class SpawnDude : MonoBehaviour
 {
+    public static SpawnDude Instance { get; private set; }
+    
     [SerializeField] private Transform playerGO;
     [SerializeField] private GameObject enemyPrefab;
 
@@ -25,6 +27,7 @@ public class SpawnDude : MonoBehaviour
     private int enemyNum = 0;
     private int AllEnemyNum = 0;
     private int DeadEnemies = 0;
+    private int totalDeadEnemies = 0;
     public int WaveNum {get; private set;}
     private bool stopspawn = false;
     private bool blockSpawn = false;
@@ -32,7 +35,11 @@ public class SpawnDude : MonoBehaviour
     private float distanceOffset;
     private float border = 50;
 
-    
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         Health.OnEnemyDeath += EnemyTracker;
@@ -49,6 +56,7 @@ public class SpawnDude : MonoBehaviour
     {
         Debug.Log("Dead enemies");
         DeadEnemies++;
+        totalDeadEnemies++;
         if (DeadEnemies < WaveNum)
         {
             enemyNum--;
@@ -160,4 +168,5 @@ public class SpawnDude : MonoBehaviour
         stopspawn = false;
     }
 
+    public int GetTotalDeadEnemies() => totalDeadEnemies;
 }

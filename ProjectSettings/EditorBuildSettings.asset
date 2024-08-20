@@ -8,7 +8,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Title Screen.unity
     guid: 3974496eca22f334ab2fc7a9e049f970
-  - enabled: 1
-    path: Assets/Scenes/UI Sprites and Tilemap.unity
-    guid: b0e6bb3f19aef9a40932f93f7d0286af
   m_configObjects: {}
