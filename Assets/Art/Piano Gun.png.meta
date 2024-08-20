@@ -509,15 +509,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Piano Gun_43
+      name: Piano Gun Special3_0
       rect:
         serializedVersion: 2
         x: 8
         y: 160
         width: 114
         height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -530,15 +530,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Piano Gun_45
+      name: Piano Gun Special3_1
       rect:
         serializedVersion: 2
         x: 139
-        y: 157
-        width: 113
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 154
+        width: 114
+        height: 70
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -551,36 +551,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Piano Gun_46
-      rect:
-        serializedVersion: 2
-        x: 238
-        y: 189
-        width: 5
-        height: 12
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f4f1ed902afee994e8e6cde986bbf008
-      internalID: -1107601233
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Piano Gun_47
+      name: Piano Gun Special3_2
       rect:
         serializedVersion: 2
         x: 269
-        y: 156
+        y: 152
         width: 116
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 72
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -593,36 +572,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Piano Gun_48
-      rect:
-        serializedVersion: 2
-        x: 355
-        y: 195
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3dcf724c2c9ca414892f8b1c374f0c73
-      internalID: -2064293466
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Piano Gun_49
+      name: Piano Gun Special3_3
       rect:
         serializedVersion: 2
         x: 401
         y: 160
-        width: 104
+        width: 118
         height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -635,36 +593,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Piano Gun_50
+      name: Piano Gun Special3_4
       rect:
         serializedVersion: 2
-        x: 491
-        y: 164
-        width: 46
-        height: 54
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a56ddf663afa64a478b8c8b8c2290521
-      internalID: 181728542
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Piano Gun_51
-      rect:
-        serializedVersion: 2
-        x: 556
-        y: 155
-        width: 132
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 535
+        y: 159
+        width: 130
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -677,15 +614,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Piano Gun_52
+      name: Piano Gun Special3_5
       rect:
         serializedVersion: 2
-        x: 689
-        y: 151
+        x: 683
+        y: 160
         width: 168
         height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -698,15 +635,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Piano Gun_53
+      name: Piano Gun Special3_6
       rect:
         serializedVersion: 2
-        x: 874
-        y: 128
-        width: 273
-        height: 89
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 867
+        y: 136
+        width: 277
+        height: 88
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -719,15 +656,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Piano Gun_54
+      name: Piano Gun Special3_7
       rect:
         serializedVersion: 2
-        x: 1170
-        y: 155
-        width: 168
+        x: 1160
+        y: 160
+        width: 169
         height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -740,15 +677,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Piano Gun_55
+      name: Piano Gun Special3_8
       rect:
         serializedVersion: 2
         x: 1346
         y: 160
-        width: 104
+        width: 141
         height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -761,7 +698,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Piano Gun_56
+      name: Piano Gun Special3 Projectile
       rect:
         serializedVersion: 2
         x: 1507
@@ -777,153 +714,6 @@ TextureImporter:
       bones: []
       spriteID: 620e77ceb2c71e647938a87369c85846
       internalID: -1722465656
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Piano Gun_58
-      rect:
-        serializedVersion: 2
-        x: 1465
-        y: 179
-        width: 6
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4a578ed7078fd8d4bbe521e41bd634eb
-      internalID: -656943726
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Piano Gun_59
-      rect:
-        serializedVersion: 2
-        x: 1478
-        y: 188
-        width: 5
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4b0d1ee236b352641a3ea1cc3e0f7cbe
-      internalID: 44234129
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Piano Gun_61
-      rect:
-        serializedVersion: 2
-        x: 1479
-        y: 174
-        width: 6
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df28e8a5e0089534ab06b933e13dcb67
-      internalID: -1870901629
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Piano Gun_64
-      rect:
-        serializedVersion: 2
-        x: 1411
-        y: 134
-        width: 8
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3b687c1b4c4c4ef46bbd5b0bb19af3c8
-      internalID: -859043690
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Piano Gun_65
-      rect:
-        serializedVersion: 2
-        x: 1430
-        y: 143
-        width: 4
-        height: 6
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a18dbafd4144a5346946791715a9cb12
-      internalID: 625288041
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Piano Gun_67
-      rect:
-        serializedVersion: 2
-        x: 239
-        y: 140
-        width: 6
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e0546ab2925be354ba79eaa7e8ead8c0
-      internalID: -1370302890
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Piano Gun_69
-      rect:
-        serializedVersion: 2
-        x: 353
-        y: 131
-        width: 10
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 188df7019c55b57489c2b25507fe2d67
-      internalID: 1537526796
       vertices: []
       indices: 
       edges: []
@@ -1117,6 +907,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Piano Rail1
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 408
+        width: 129
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2204132d63b6a34babc1dc7c2e04405
+      internalID: -1914817902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1155,7 +966,16 @@ TextureImporter:
       Piano Gun Special2_5: 705706239
       Piano Gun Special2_6: 1730496655
       Piano Gun Special2_7: -297834945
-      Piano Gun_0: 1547474121
+      Piano Gun Special3 Projectile: -1722465656
+      Piano Gun Special3_0: 277101728
+      Piano Gun Special3_1: 296705887
+      Piano Gun Special3_2: 1750603810
+      Piano Gun Special3_3: 1421909775
+      Piano Gun Special3_4: -70353493
+      Piano Gun Special3_5: 69002798
+      Piano Gun Special3_6: 434315972
+      Piano Gun Special3_7: 1660301184
+      Piano Gun Special3_8: -1667307443
       Piano Gun_18: 654102728
       Piano Gun_19: 1466216403
       Piano Gun_21: -1950708488
@@ -1180,20 +1000,10 @@ TextureImporter:
       Piano Gun_40: -1633069152
       Piano Gun_41: 272753388
       Piano Gun_42: 1724746114
-      Piano Gun_43: 277101728
       Piano Gun_44: 1228427056
-      Piano Gun_45: 296705887
       Piano Gun_46: -1107601233
-      Piano Gun_47: 1750603810
       Piano Gun_48: -2064293466
-      Piano Gun_49: 1421909775
       Piano Gun_50: 181728542
-      Piano Gun_51: -70353493
-      Piano Gun_52: 69002798
-      Piano Gun_53: 434315972
-      Piano Gun_54: 1660301184
-      Piano Gun_55: -1667307443
-      Piano Gun_56: -1722465656
       Piano Gun_57: -969002905
       Piano Gun_58: -656943726
       Piano Gun_59: 44234129
@@ -1221,6 +1031,7 @@ TextureImporter:
       Piano Gun_90: 1451027859
       Piano Gun_91: -1279720842
       Piano Rail: -1791643888
+      Piano Rail1: 1547474121
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

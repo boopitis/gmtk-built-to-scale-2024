@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6690216716505800615}
   - component: {fileID: 5717301686225412426}
-  - component: {fileID: 8867395236059141065}
+  - component: {fileID: 5694407459057518528}
   - component: {fileID: 1894440118413765170}
   - component: {fileID: 5704317715564448703}
   m_Layer: 7
@@ -114,7 +114,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7150558910219284427}
@@ -147,8 +147,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &8867395236059141065
-PolygonCollider2D:
+--- !u!61 &5694407459057518528
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -179,7 +179,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -1.22, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -189,12 +189,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -1.8704008, y: 0.002994299}
-      - {x: 1.3192248, y: -0.6068415}
-      - {x: 1.3200746, y: 0.6133344}
-  m_UseDelaunayMesh: 0
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.3}
+  m_EdgeRadius: 0
 --- !u!114 &1894440118413765170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,3 +222,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 1894440118413765170}
+  projectileCollider: {fileID: 182270942574096063, guid: a337410d5f28ecc4ca32c5494aee8056, type: 3}

@@ -15,3 +15,4 @@ MonoBehaviour:
   scaleSOs:
   - {fileID: 11400000, guid: 2a188254d8c9c094996741b2026c083f, type: 2}
   - {fileID: 11400000, guid: ba3da22f0fb052b4ab5762727c5a19fa, type: 2}
+  - {fileID: 11400000, guid: b3662ba572358bc418f1ac2a80dcf306, type: 2}

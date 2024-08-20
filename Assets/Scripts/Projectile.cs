@@ -52,5 +52,5 @@ public class Projectile : MonoBehaviour
         projectile_rb.AddForce(fireDirection * transform.right * projectile.speed, ForceMode2D.Impulse);
     }
 
-    public int SetPiercing(int piercing) => this.piercing = piercing;
+    public GameObject GetPrefab() => prefab;
 }
