@@ -239,10 +239,6 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 7929753988749435020, guid: a337410d5f28ecc4ca32c5494aee8056, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 1547474121, guid: 33ddf60e11194484cbc18e63b3c620e6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
