@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -12,7 +13,8 @@ public class Health : MonoBehaviour
     public event EventHandler OnDeath;
     
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private int health, maxHealth;
+    [SerializeField] public int health {get; private set;}
+    [SerializeField] public int maxHealth {get; private set;}
     [SerializeField] private float immunityDuration;
 
     private bool isDead;

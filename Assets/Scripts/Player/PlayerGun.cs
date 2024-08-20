@@ -68,6 +68,8 @@ public class PlayerGun : MonoBehaviour
 
     private void GameInput_OnPlayerShootPerformed(object sender, EventArgs e)
     {
+        if (GameManager.Instance.IsPaused()) return;
+        
         if (!MusicSyncManager.Instance.GetFirstTwoMeasureIntervalTriggered()) return;
         string debugChecker;
 
@@ -153,6 +155,8 @@ public class PlayerGun : MonoBehaviour
 
     private void UpdateFacingDirection()
     {
+        if (GameManager.Instance.IsPaused()) return;
+        
         pointerPositionInput = GameInput.Instance.GetPlayerPointerPositionVector2InWorldSpace();
         Vector2 direction = (pointerPositionInput - (Vector2)pivotTransform.position).normalized;
         pivotTransform.right = direction;
