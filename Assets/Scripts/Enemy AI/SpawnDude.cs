@@ -38,10 +38,12 @@ public class SpawnDude : MonoBehaviour
         Health.OnEnemyDeath += EnemyTracker;
         OnWaveEnded += Reset_Enemies;
         OnWaveEnded += StopSpawn;
-        //OnConfirmation += ;
+        MusicScaleMaker.Instance.OnConfirmation += StartSpawn;
         //StopSpawnEnemies += StopSpawn;
         WaveNum = 100;
-        MaxEnemiesAtATime = (int)(0.5 * WaveNum);
+        // WaveNum = 100;
+        MaxEnemiesAtATime = (int)(0.25 * WaveNum);
+        stopspawn = false;
     }
 
     private void EnemyTracker(object sender, EventArgs e)
@@ -151,6 +153,11 @@ public class SpawnDude : MonoBehaviour
     private void StopSpawn(object sender, EventArgs e)
     {
         stopspawn = true;
+    }
+
+    private void StartSpawn(object sender, EventArgs e)
+    {
+        stopspawn = false;
     }
 
 }

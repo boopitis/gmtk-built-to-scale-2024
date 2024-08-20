@@ -125,13 +125,13 @@ public class Health : MonoBehaviour
     
     public int GetHealth() => health;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            // Debug.Log("ABout to");
-            Heal(1);
-            // Debug.Log("Heal");
-        }
-    }
+    // private void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Backspace))
+    //     {
+    //         // Debug.Log("ABout to");
+    //         Heal(1);
+    //         // Debug.Log("Heal");
+    //     }
+    // }
 }

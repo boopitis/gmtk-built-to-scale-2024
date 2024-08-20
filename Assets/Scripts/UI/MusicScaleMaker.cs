@@ -19,10 +19,6 @@ public class MusicScaleMaker : MonoBehaviour
     private int changes;
     private List<int> storedChanges;
 
-    public event EventHandler OnWaveEnded;
-
-    public event EventHandler StartNextWave;
-
     public event EventHandler OnConfirmation;
 
     private void Start()
@@ -31,8 +27,7 @@ public class MusicScaleMaker : MonoBehaviour
 
         uiPanel.SetActive(false);
 
-        OnWaveEnded += OpenScaleMaker;
-        StartNextWave += CloseScaleMaker;
+        FindObjectOfType<SpawnDude>().OnWaveEnded += OpenScaleMaker;
         GameManager.Instance.OnPause += GameManager_OnPause;
         GameManager.Instance.OnResume += GameManager_OnResume;
 
@@ -41,30 +36,14 @@ public class MusicScaleMaker : MonoBehaviour
         UpdateChangesLeftText();
     }
 
-    // Debug Section
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            OnWaveEnded?.Invoke(this, EventArgs.Empty);
-        }
-    }
-
     public void OpenScaleMaker(object sender, EventArgs e)
     {
         GameManager.Instance.Pause(GameManager.PauseCondition.EndOfWave);
     }
 
-    public void CloseScaleMaker(object sender, EventArgs e)
-    {
-        GameManager.Instance.Resume();
-    }
-
     public void NextWave()
     {
-        // Debug
-        StartNextWave?.Invoke(this, EventArgs.Empty);
-
+        GameManager.Instance.Resume();
         OnConfirmation?.Invoke(this, EventArgs.Empty);
     }
     // End Debug Section
