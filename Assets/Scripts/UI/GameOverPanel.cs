@@ -25,22 +25,32 @@ public class GameOverPanel : MonoBehaviour
         });
         
         Player.Instance.gameObject.GetComponent<Health>().OnDeath += Player_OnDeath;
+        Player.Instance.gameObject.GetComponent<Health>().OnDeath += GameOver;
     }
 
-    private void Update()
+    private void GameOver(object sender, EventArgs e)
     {
+        
         timeBeforeShow -= Time.deltaTime;
 
         if (timeBeforeShow > 0) return;
         
         Time.timeScale = 0;
         Show();
+
+        // if (gameOverPanel.activeInHierarchy)
+        // {
+        //     GameManager.Instance.Pause(GameManager.PauseCondition.PlayerDead);
+        //     Time.timeScale = 1f;
+
+        //     scoreText.text = FindObjectOfType<SpawnDude>().shownScore.ToString();
+        //}
     }
 
     private void Player_OnDeath(object sender, EventArgs e)
     {
         GameManager.Instance.Pause(GameManager.PauseCondition.PlayerDead);
-        Time.timeScale = 1f;
+        Time.timeScale = 0f;
 
         scoreText.text = FindObjectOfType<SpawnDude>().shownScore.ToString();
         

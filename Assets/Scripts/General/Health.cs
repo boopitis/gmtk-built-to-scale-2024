@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
     [SerializeField] private float immunityDuration;
     private Collider2D collide;
 
-    protected bool isDead;
+    public bool isDead {get; private set;}
     protected bool immune;
     private const float ColorChangeDuration = 0.25f;
 
