@@ -30,6 +30,7 @@ public class GameOverPanel : MonoBehaviour
     {
         GameManager.Instance.Pause(GameManager.PauseCondition.PlayerDead);
         Time.timeScale = 1f;
+        Debug.Log("This is your score: " + FindObjectOfType<SpawnDude>().shownScore);
 
         Show();
     }

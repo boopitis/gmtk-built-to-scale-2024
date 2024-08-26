@@ -109,12 +109,13 @@ public class Health : MonoBehaviour
 
     public void ChangeMaxHealth(int amount)
     {
-        if (maxHealth - amount <= 0)
+        if (maxHealth + amount <= 0)
         {
             Debug.LogError("Cannot change max health to below zero!");
         }
 
-        maxHealth += amount;
+        maxHealth = Mathf.Clamp(maxHealth + amount, 0, 25);
+        // upper bounds of 25.
         OnMaxHealthChange?.Invoke(this, EventArgs.Empty);
 
         if (health >= maxHealth) return;
@@ -129,7 +130,7 @@ public class Health : MonoBehaviour
 
     public void NewWaveHealth(object sender, EventArgs e)
     {
-        ChangeMaxHealth(Mathf.Clamp(FindObjectOfType<SpawnDude>().Wave, 0, 10));
+        ChangeMaxHealth(FindObjectOfType<SpawnDude>().Wave);
     }
 
     // private void Update()
