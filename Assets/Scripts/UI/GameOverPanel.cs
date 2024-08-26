@@ -10,6 +10,7 @@ public class GameOverPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private float timeBeforeShow; // modify to allow for death animation
+    [SerializeField] private GameObject gameOverPanel;
 
     private void Awake()
     {
@@ -41,18 +42,18 @@ public class GameOverPanel : MonoBehaviour
         GameManager.Instance.Pause(GameManager.PauseCondition.PlayerDead);
         Time.timeScale = 1f;
 
-        scoreText.text = SpawnDude.Instance.GetTotalDeadEnemies().ToString();
+        scoreText.text = FindObjectOfType<SpawnDude>().shownScore.ToString();
         
         Show();
     }
 
     private void Show()
     {
-        gameObject.SetActive(true);
+        gameOverPanel.SetActive(true);
     }
 
     private void Hide()
     {
-        gameObject.SetActive(false);
+        gameOverPanel.SetActive(false);
     }
 }
