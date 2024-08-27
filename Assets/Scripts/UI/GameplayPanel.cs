@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class GameplayPanel : MonoBehaviour
 {
-    [SerializeField] private Health playerHealth;
 
     [SerializeField] private GameObject healthBar;
 
@@ -18,6 +17,7 @@ public class GameplayPanel : MonoBehaviour
 
     private List<Transform> healthFlags;
     private List<Transform> maxHealthFlags;
+    private Health playerHealth;
 
     private void Awake()
     {
@@ -27,6 +27,8 @@ public class GameplayPanel : MonoBehaviour
 
     private void Start()
     {
+        playerHealth = Player.Instance.gameObject.GetComponent<Health>();
+        
         playerHealth.OnHit += PlayerHealth_OnHit;
         playerHealth.OnHeal += PlayerHealth_OnHeal;
         playerHealth.OnMaxHealthChange += PlayerHealth_OnMaxHealthChange;
@@ -95,3 +97,4 @@ public class GameplayPanel : MonoBehaviour
         }
     }
 }
+
