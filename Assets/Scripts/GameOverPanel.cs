@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class GameOverPanel : MonoBehaviour
 {
     [SerializeField] private Button mainMenuButton;
-    [SerializeField] private float timeBeforeShow; // modify to allow for death animation
+    //[SerializeField] private float timeBeforeShow; // modify to allow for death animation
     [SerializeField] private GameObject gameOverPanel;
 
     private void Awake()
