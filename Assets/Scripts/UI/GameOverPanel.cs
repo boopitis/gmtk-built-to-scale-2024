@@ -50,7 +50,7 @@ public class GameOverPanel : MonoBehaviour
     private void Player_OnDeath(object sender, EventArgs e)
     {
         GameManager.Instance.Pause(GameManager.PauseCondition.PlayerDead);
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
 
         scoreText.text = FindObjectOfType<SpawnDude>().shownScore.ToString();
         
