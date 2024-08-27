@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,11 +24,6 @@ public class MusicScaleMaker : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        
-        changes = allowedChanges;
-        storedChanges = new List<int>();
-
-        UpdateChangesLeftText();
     }
 
     private void Start()
@@ -39,6 +33,10 @@ public class MusicScaleMaker : MonoBehaviour
         FindObjectOfType<SpawnDude>().OnWaveEnded += OpenScaleMaker;
         GameManager.Instance.OnPause += GameManager_OnPause;
         GameManager.Instance.OnResume += GameManager_OnResume;
+
+        changes = allowedChanges;
+        storedChanges = new List<int>();
+        UpdateChangesLeftText();
     }
 
     public void OpenScaleMaker(object sender, EventArgs e)
