@@ -7,8 +7,9 @@ using UnityEngine.UI;
 
 public class GameOverPanel : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private Button mainMenuButton;
-    //[SerializeField] private float timeBeforeShow; // modify to allow for death animation
+    [SerializeField] private float timeBeforeShow; // modify to allow for death animation
     [SerializeField] private GameObject gameOverPanel;
 
     private void Awake()
@@ -22,16 +23,37 @@ public class GameOverPanel : MonoBehaviour
         {
             GameManager.Instance.LoadScene(GameManager.Scene.TitleScreen);
         });
-
+        
         Player.Instance.gameObject.GetComponent<Health>().OnDeath += Player_OnDeath;
+        Player.Instance.gameObject.GetComponent<Health>().OnDeath += GameOver;
+    }
+
+    private void GameOver(object sender, EventArgs e)
+    {
+        
+        timeBeforeShow -= Time.deltaTime;
+
+        if (timeBeforeShow > 0) return;
+        
+        Time.timeScale = 0;
+        Show();
+
+        // if (gameOverPanel.activeInHierarchy)
+        // {
+        //     GameManager.Instance.Pause(GameManager.PauseCondition.PlayerDead);
+        //     Time.timeScale = 1f;
+
+        //     scoreText.text = FindObjectOfType<SpawnDude>().shownScore.ToString();
+        //}
     }
 
     private void Player_OnDeath(object sender, EventArgs e)
     {
         GameManager.Instance.Pause(GameManager.PauseCondition.PlayerDead);
         Time.timeScale = 1f;
-        Debug.Log("This is your score: " + FindObjectOfType<SpawnDude>().shownScore);
 
+        scoreText.text = FindObjectOfType<SpawnDude>().shownScore.ToString();
+        
         Show();
     }
 

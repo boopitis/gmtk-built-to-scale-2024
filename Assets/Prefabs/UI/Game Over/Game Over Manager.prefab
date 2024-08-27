@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e0298a0f593054581339e7fb90afc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 2018130253211308281}
   mainMenuButton: {fileID: 4027537790594925806}
   timeBeforeShow: 0
   gameOverPanel: {fileID: 3563937301195532328}
@@ -152,6 +153,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 257b28c3df21c1b4f82879f1cb8a9473, type: 3}
+--- !u!114 &2018130253211308281 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1956071598038862592, guid: 257b28c3df21c1b4f82879f1cb8a9473, type: 3}
+  m_PrefabInstance: {fileID: 514688010994277369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3338406435194286756 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2986147085475473757, guid: 257b28c3df21c1b4f82879f1cb8a9473, type: 3}
