@@ -22,6 +22,8 @@ public class GameOverPanel : MonoBehaviour
         mainMenuButton?.onClick.AddListener(() =>
         {
             GameManager.Instance.LoadScene(GameManager.Scene.TitleScreen);
+            //FindObjectOfType<SpawnDude>().OnStart();
+            // tryna get the play button in the title screen to restart the spawning mechanism in SpawnDude.
         });
         
         Player.Instance.gameObject.GetComponent<Health>().OnDeath += Player_OnDeath;

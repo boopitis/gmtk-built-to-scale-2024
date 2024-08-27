@@ -38,6 +38,11 @@ public class SpawnDude : MonoBehaviour
     
     private void Start()
     {
+        OnStart();
+    }
+    
+    public void OnStart()
+    {
         Health.OnEnemyDeath += EnemyTracker;
         MusicScaleMaker.Instance.OnConfirmation += StartSpawn;
         OnWaveEnded += Reset_Enemies;
