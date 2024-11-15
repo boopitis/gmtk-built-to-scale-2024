@@ -48,7 +48,7 @@ public class SpawnHold : MonoBehaviour
                     //
                     //Debug.Log(Array.IndexOf(spawnNumsD1, i) + 1);
                     //Debug.Log(spawnNumsD1.Length);
-                    float pi_angles = (2 * angles * Mathf.PI)/ 360;
+                    float pi_angles = 2 * angles * Mathf.PI/ 360;
                     
                     coords = new Vector2 (playerp[0] + Mathf.Cos(pi_angles) * distanceMag, playerp[1] + Mathf.Sin(pi_angles) * distanceMag);
                     // This would position the spawners at equidistant places around the player in a circle.

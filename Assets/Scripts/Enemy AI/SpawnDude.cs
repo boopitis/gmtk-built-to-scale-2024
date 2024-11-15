@@ -33,7 +33,7 @@ public class SpawnDude : MonoBehaviour
     private bool blockSpawn = false;
     private float rotateOffset;
     private float distanceOffset;
-    private float border = 50;
+    private readonly float border = 50;
 
     
     private void Start()
@@ -83,24 +83,25 @@ public class SpawnDude : MonoBehaviour
             //Debug.Log($"{AllEnemyNum} < {WaveNum} && {enemyNum} < {MaxEnemiesAtATime}?? (maybe)");
             //Debug.Log($"{AllEnemyNum} >= {WaveNum}?? (maybe)");
             SetOffset();
-            Vector2 euler_vector = playerGO.position + (Quaternion.Euler(0, 0, 0 + (rotateOffset + (360 / enemies * i))) * new Vector3(distanceOffset + radius, 0, 0));
+            Vector2 euler_vector = playerGO.position + (Quaternion.Euler(0, 0, 0 + (rotateOffset + (360 / enemies * i + 1))) * new Vector3(distanceOffset + radius, 0, 0));
             if (AllEnemyNum < WaveNum && enemyNum < MaxEnemiesAtATime)
             {
-                if (euler_vector.x > 50 )
+                //If they are meant to spawn outside the border, they spawn on the opposite border wall
+                if (euler_vector.x > border )
                 {
-                    euler_vector.x  = -50;
+                    euler_vector.x  = -border;
                 }
-                else if (euler_vector.x < -50)
+                else if (euler_vector.x < -border)
                 {
-                    euler_vector.x = 50;
+                    euler_vector.x = border;
                 }
-                if (euler_vector.y > 50 )
+                if (euler_vector.y > border )
                 {
-                    euler_vector.y  = -50;
+                    euler_vector.y  = -border;
                 }
-                else if (euler_vector.y < -50)
+                else if (euler_vector.y < -border)
                 {
-                    euler_vector.y = 50;
+                    euler_vector.y = border;
                 }
                 Instantiate(enemyPrefab, euler_vector, Quaternion.identity, transform);
                 AllEnemyNum ++;
